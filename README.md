@@ -1,4 +1,4 @@
-->Topics 	Topics 	Topics 	Topics
+
 ->React 	UI Mock 	Shimmer UI 	TailwindCSS
 ->React Element 	React Props 	Map & Filter 	Higher Order Components
 ->JSX 	Config Driven UI 	React-Router-Dom 	Uncontrolled / Controlled Component
