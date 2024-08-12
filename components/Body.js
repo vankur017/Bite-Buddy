@@ -8,20 +8,20 @@ const Body = ()=>{
 
 
     const [restaurantList, setrestaurantList] =useState([]);
-    const [allRestaurants, setAllRestaurants] = useState([]);
+  
     const [searchTxt, setSearch] = useState("");
   
 
     useEffect(()=>{
 
-       fetchData();
+       fetchData(); 
        
     }, [])
     
         const fetchData =async ()=>{
        
         const data = await fetch(
-            "https://www.swiggy.com/dapi/restaurants/list/v5?lat=17.486463086305346&lng=78.3657343313098&is-seo-homepage-enabled=true&page_type=https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.7040592&lng=77.10249019999999&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+            "https://corsproxy-la3g.onrender.com/full/?url=https://www.swiggy.com/dapi/restaurants/list/v5?lat=23.02760&lng=72.58710&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
         )
       
         const json = await data.json()

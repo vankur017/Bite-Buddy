@@ -1,54 +1,96 @@
-const About = ()=>{
-    return (
+import User from "./User"
+import { useEffect, useState } from "react"
+import Shimmer from "./Shimmer"
+import UserClass from "./UserClass"
+import React from "react";
+// Class Based Aboutn Component
+
+//LIFFECYCLE
+
+/* 
+    --MOUNTING--
+
+    => Parent Consturctor(dummy)
+    => Parent Render(dummy)
+       <HTML dummy>
+    => In parent render we have child class =>(1) Child Constructor, (2) child render, (3)child componentDidMount 
+    
+    --Updating--
+    render(API Data), this.setState()
+
+
+    => After child componentDidMount, setState, New Props, forceUpdate are being replaced by the dummy data. In updaing first we have rendering of new props, setState, forceUpdate. Then In commit Phase we got to know where in the DOM these changes will be get applied.
+    => After the above step componentDidUpdate method will be called to actually update the UI
+
+    --UnMounting--
+
+
+
+*/
+
+// class About extends React.Component {
+
+//     constructor(props){
+//         super(props);
+//         console.log("Parent Contructor");
+
+//     }
+
+//     componentDidMount(){
+//         console.log('Parent component mounted');
         
-            
-                <div className="about-us-container">
-                      <h1>About</h1>
-                    <h2>This is food app Bite Buddy</h2>
-                    <p>
-                Here's a detailed text template for an "About Us" page, which you can customize to fit your business or organization:
-                <br/><br/>
-                <strong>About Us</strong>
-                <h3>Who We Are</h3>
-                Welcome to [Your Company Name], where innovation meets excellence. Since our inception in [Year Founded], we have been dedicated to delivering top-notch services and products to our valued customers. Our journey began with a vision to [brief description of your company’s mission or vision], and we have grown to become a trusted name in the industry.
-                <h3>Our Mission</h3>
-                Our mission is to [state your mission]. We strive to [expand on how you plan to achieve your mission], ensuring that our clients receive the best possible solutions tailored to their needs. Our commitment to quality and customer satisfaction is at the core of everything we do.
-                <h3>Our Values</h3>
-                <ul>
-                    <li><strong>Customer Focus:</strong> We prioritize our customers' needs and work tirelessly to meet their expectations.</li>
-                    <li><strong>Integrity:</strong> We conduct our business with honesty and transparency.</li>
-                    <li><strong>Innovation:</strong> We continuously seek new and better ways to serve our customers.</li>
-                    <li><strong>Excellence:</strong> We strive for excellence in every aspect of our business.</li>
-                </ul>
-                <h3>Our Team</h3>
-                Our team is our greatest asset. Comprising passionate professionals from diverse backgrounds, our team brings together a wealth of experience and expertise. We believe in fostering a collaborative and inclusive work environment where everyone is encouraged to contribute and grow.
-                <h3>Our Journey</h3>
-                [Your Company Name] started as a small initiative with big dreams. Over the years, we have expanded our horizons and embraced challenges that have shaped us into the robust organization we are today. Here are some milestones from our journey:
-                <ul>
-                    <li><strong>2022:</strong> Served 1 million users</li>
-                    <li><strong>2023:</strong> 2 crore orders</li>
-                    <li><strong>2024:</strong> Innovating and integrating the Air Delivery in the app</li>
-                </ul>
-                <h3>What We Do</h3>
-                At [Your Company Name], we specialize in [brief description of products/services]. Our offerings include:
-                <ul>
-                    <li><strong>Product/Service 1:</strong> Take Away</li>
-                    <li><strong>Product/Service 2:</strong> Dine In</li>
-                    <li><strong>Product/Service 3:</strong> Delivery to your Bed</li>
-                </ul>
-                We are dedicated to providing solutions that are not only effective but also sustainable and forward-thinking.
-                <h3>Community Engagement</h3>
-                We believe in giving back to the community that supports us. Through various initiatives and partnerships, we aim to make a positive impact on society. Whether it's through [mention any CSR activities, volunteer work, or donations], we are committed to making a difference.
-                <h3>Looking Ahead</h3>
-                The future holds exciting possibilities for [Your Company Name]. As we continue to grow and evolve, we remain focused on our mission and values. We are committed to pushing the boundaries of what's possible and setting new standards in our industry.
-                <h3>Contact Us</h3>
-                We would love to hear from you! Whether you have a question, feedback, or simply want to connect, feel free to reach out to us at [contact information]. Let's build a brighter future together.
-                <br/><br/>
-                Feel free to customize each section with specific details about your company, its history, mission, values, team, products, and any other relevant information.
-                    </p>
-                </div>
-            
-       
+//     }
+
+//     render() {
+//         console.log("Parent render");
+        
+//         return  (
+        
+//             <div className="About">
+//                 <h1>This is Our team who work behind the scenese to provide you services </h1>
+//                 <div>
+//                     <UserClass name={"First Child"} Location={"Raebareli"} Contact={"+91-6386942812"}/>
+//                     <UserClass name={"Second Child"} Location={"LKO"} Contact={"+91-638dad6942812"}/>
+//                 </div>
+//             </div>
+//         )
+//     }
+// }
+
+
+
+const About = () => {
+     const [user, setUser] = useState([])
+     async function apidata() {
+        const data = await fetch('https://randomuser.me/api/?results=25')
+        const res = await data.json()
+        console.log(res);
+        
+        const userdata = res.results
+        
+        setUser( userdata )
+        //Accessing results key
+    }
+    console.log(user);
+    
+    useEffect(() => {
+        apidata()
+    }, []) 
+
+    
+    return user.length==0? (<Shimmer/>) : (
+        
+        <div className="About">
+            <p>dasdas</p>
+            <h1>This is Our team who work behind the scenese to provide you services </h1>
+          
+            <div className="team-members">
+               {user.map((profile, index) => (
+                   <User key={index} peopleData={profile} />
+               ))}
+            </div>
+        </div>
     )
 }
+
 export default About

@@ -15,10 +15,9 @@ export const Footer = ()=>(
         <div className="foot-content"> 
 
             <ul>
-                <h3>Serivces</h3>
-                <li>Food Delivery</li>
-                <li>Take Away from Restaurants</li>
-                <li>Scheduled Order</li>
+                <h3>Made By</h3>
+                <h4>Ankur Verma</h4>
+              
               
             </ul>
 
