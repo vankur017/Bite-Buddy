@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import {lazy} from "react"; 
-import useGroceryData from "/utils/useGRoceryData";
+import useGroceryData from "../../utils/useGroceryData";
 import Shimmer from "./Shimmer";
 
 
