@@ -18,3 +18,4 @@ Reactjs
 || JSX
 || Swiggy API
 || React Router Dom
+|| Redux
