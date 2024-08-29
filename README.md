@@ -12,9 +12,9 @@
 
 Tech Stack :
 Reactjs
-ReactDOM
-Parcel
-React Hooks
-JSX
-Swiggy API
-React Router Dom
+|| ReactDOM
+|| Parcel
+|| React Hooks
+|| JSX
+|| Swiggy API
+|| React Router Dom
