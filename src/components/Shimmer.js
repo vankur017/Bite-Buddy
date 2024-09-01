@@ -1,24 +1,25 @@
 const Shimmer = ()=>{
-    return <div className="shimmer-container bg-slate-500">
-        <div className="shimmer-card"></div>
-        <div className="shimmer-card"></div>
-        <div className="shimmer-card"></div>
-        <div className="shimmer-card"></div>
-        <div className="shimmer-card"></div>
-        <div className="shimmer-card"></div>
-        <div className="shimmer-card"></div>
-        <div className="shimmer-card"></div>
-        <div className="shimmer-card"></div>
-        <div className="shimmer-card"></div>
-        <div className="shimmer-card"></div>
-        <div className="shimmer-card"></div>
-        <div className="shimmer-card"></div>
-        <div className="shimmer-card"></div>
-        <div className="shimmer-card"></div>
-        <div className="shimmer-card"></div>
-        <div className="shimmer-card"></div>
-        <div className="shimmer-card"></div>
+    return (
+    <div >
+        <div className="bg-slate-500"></div>
+        <div className="bg-slate-500"></div>
+        <div className="bg-slate-500"></div>
+        <div className="bg-slate-500"></div>
+        <div className="bg-slate-500"></div>
+        <div className="bg-slate-500"></div>
+        <div className="bg-slate-500"></div>
+        <div className="bg-slate-500"></div>
+        <div className="bg-slate-500"></div>
+        <div className="bg-slate-500"></div>
+        <div className="bg-slate-500"></div>
+        <div className="bg-slate-500"></div>
+        <div className="bg-slate-500"></div>
+        <div className="bg-slate-500"></div>
+        <div className="bg-slate-500"></div>
+        <div className="bg-slate-500"></div>
+        <div className="bg-slate-500"></div>
+        <div className="bg-slate-500"></div>
 
-    </div>
+    </div>)
 }
 export default Shimmer
