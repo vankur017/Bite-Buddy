@@ -1,13 +1,18 @@
 import { useDispatch } from "react-redux";
 import {  CDN_URL } from "/utils/constants";
-import { addItem } from "../../utils/cartSlice";
+import { addItem,removeItem } from "../../utils/cartSlice";
 import useRestaurantMenu from "../../utils/useRestaurantMenu";
 
 const ItemList = (props)=>{
     const {items} = props;
-
+    console.log(items);
+    
     const dispatch = useDispatch()
    
+    const handleRemoveItem = (item)=>{
+        
+        dispatch(removeItem(item.card.info.id))
+    }
     
     const handleAddItem =(item)=>{
         //Dispatch an action
@@ -19,8 +24,9 @@ const ItemList = (props)=>{
                     {items.map((item)=> 
                     
                             <div
-                            className="p-2 m-2  border-gray-300 border-b-2 text-left flex"
                             key={item.card.info.id} 
+                            className="p-2 m-2  border-gray-300 border-b-2 text-left flex"
+                           
                             > 
                                     
                                
@@ -39,13 +45,18 @@ const ItemList = (props)=>{
                                         
                                     </div>
                                     <div className="w-4/12 p-4 inline-block relative">
-    <button className="absolute bottom-4 right-4 px-5 py-1 rounded bg-black text-white shadow-lg"
-        onClick={() => handleAddItem(item)}
-    >
-        Add +
-    </button>
-    <img src={CDN_URL + item.card.info.imageId} alt="🍲" className="block w-full rounded-xl" />
-</div>
+                                        <button className="absolute bottom-4 right-4 px-3 py-1 rounded bg-black text-white shadow-lg"
+                                             onClick={() => handleAddItem(item)}
+                                        >
+                                            Add +
+                                        </button>
+                                        <button className="absolute bottom-4  px-1 py-1 rounded bg-black text-white shadow-lg"
+                                             onClick={() => handleRemoveItem(item)}
+                                        >
+                                           Remove
+                                        </button>
+                                        <img src={CDN_URL + item.card.info.imageId} alt="🍲" className="block w-full rounded-xl" />
+                                    </div>
                             
                                
                             </div>

@@ -23,7 +23,7 @@ const Body = ()=>{
         const fetchData =async ()=>{
        
         const data = await fetch(
-            "https://corsproxy-la3g.onrender.com/full/?url=https://www.swiggy.com/dapi/restaurants/list/v5?lat=26.87560&lng=80.91150&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+            "https://www.swiggy.com/dapi/restaurants/list/v5?lat=26.87560&lng=80.91150&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
         )
       
         const json = await data.json()
@@ -40,8 +40,8 @@ const Body = ()=>{
     if(onlineStatus === false)
         return (  <h1>Looks Like u are offline</h1>)
 
-    return  restaurantList.length===0? <Shimmer/>:
-    (
+    return restaurantList.length===0? <Shimmer/> :
+     (
         <div className="body">
         <div className="filter flex items-center">
             <div className="search m-2 p-2">

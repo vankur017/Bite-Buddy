@@ -10,11 +10,10 @@ import UserContext from './utils/UserContext.js';
 import { Provider } from 'react-redux';
 import appStore from "./utils/appStore.js"
 import Cart from './src/components/Cart.js';
+import LoginPage from './src/components/LoginPage.js';
 
 const Body = lazy(() => import("./src/components/Body.js"))
 
-const MobileStore = lazy(()=> import("./src/components/MobileStore.js")) // Code Splitting into Chunks , assume Grocery have a lot
- 
 const About = lazy(()=> import("./src/components/About.js"))
 
 const RestaurantMenu = lazy(()=> import("./src/components/RestautrantMenu.js"))
@@ -38,20 +37,21 @@ const AppLayout = ()=>{
     return (
 <Provider store={appStore}>
     <UserContext.Provider value={{loggedInUser: userName, setUserName}}>
-        <div className="app">
+        <div className="">
     
     
             <UserContext.Provider value={{loggedInUser:userName}}>
                 <Header/>
             </UserContext.Provider>
-                <Outlet/>
-           <UserContext.Provider value={{loggedInUser: "Bite Buddy"}}>
-               <Footer/>
-            </UserContext.Provider>
+                <div className='flex-wrap'><Outlet/></div>
+          
     
     
         </div>
     </UserContext.Provider>
+   
+             
+  
 </Provider>
        
     
@@ -63,16 +63,15 @@ const AppLayout = ()=>{
     {
         path: "/",
         element: <AppLayout/>,
+        errorElement: <Error/>,
         children: [ 
         {
-            path: "/",
-            element: <Suspense fallback={<div><Shimmer/></div>}><Body/></Suspense>
+            path: "/browse",
+            element: <Suspense fallback={<div><Shimmer/></div>}>
+                        <Body/>
+                        <Footer/>
+                    </Suspense>
         },
-        {
-            path: "/MobileStore",
-            element:<Suspense fallback={<h1>Loading...</h1>}> <MobileStore/></Suspense>,
-        },
-        
         {
             path: "/about",
             element:<Suspense fallback={<h1>Loading...</h1>}>
@@ -90,10 +89,17 @@ const AppLayout = ()=>{
         {
             path:"/cart",
             element:<Cart/>
+        }, 
+        {
+            path: "/",
+            element: <LoginPage/>
         }
+        
     ],
-        errorElement: <Error/>
-    },
+   
+       
+    }
+   
    
    
  ]);

@@ -11,7 +11,7 @@ const useRestaurantMenu = (resId)=>{
     const fetchData = async()=>{
 
         const response = await fetch(
-                        `https://corsproxy-la3g.onrender.com/full/?url=${MENU_API_URL}`+
+                        `${MENU_API_URL}`+
                             resId
                         );
         const json = await response.json();
