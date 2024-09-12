@@ -1,16 +1,19 @@
 import { LOGO_URL } from "/utils/constants";
 import { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useOnlineStatus from "/utils/useOnlineStatus";
 import UserContext from "../../utils/UserContext";
 import { useSelector } from "react-redux";
 
 const Header = () => {
 
-  const [btnName, setBtnName] = useState("login");
-
   const onlinestatus = useOnlineStatus();
-  
+
+  const navigate = useNavigate('/')
+  const handleClick = ()=>{
+     navigate('/')
+  }
+   
   const {loggedInUser} = useContext(UserContext);
 
   // console.log(loggedInUser);
@@ -71,13 +74,9 @@ const Header = () => {
           </ul>
           <button 
               className="bg-red-400 p-3 rounded-lg"
-              onClick={() => {
-                setBtnName((prevBtnName) =>
-                  prevBtnName === "login" ? "logout" : "login"
-                );
-              }}
+              onClick={handleClick}
             >
-              {btnName}
+              Logout
             </button>
         </div>
       

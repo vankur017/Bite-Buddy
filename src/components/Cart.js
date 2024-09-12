@@ -26,7 +26,7 @@ const Cart = ()=>{
           >
             clearItem
           </button>
-          
+          {cartItems.length ===0 ? 'Cart Is Empty': ''}
           <ItemList items={cartItems}/>
             
           </div>

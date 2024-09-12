@@ -2,8 +2,13 @@ import RestaurantCard, { withOpenedLabel } from "./RestaurantCard"
 import {useState, useEffect, createContext, useContext} from "react"
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom"; 
+import {onAuthStateChanged} from 'firebase/auth'
+import { auth } from "../../utils/firebase";
 import useOnlineStatus from "/utils/useOnlineStatus";
 import UserContext from "../../utils/UserContext";
+import { useDispatch } from "react-redux";
+import { addUser, removeUser } from '../../utils/userSlice';
+
 const Body = ()=>{
 
   
@@ -14,12 +19,32 @@ const Body = ()=>{
    
     const RestaurnatCardOpened = withOpenedLabel(RestaurantCard)
 
+    const dispatch = useDispatch()
+
     useEffect(()=>{
 
        fetchData(); 
        
     }, [])
-    
+
+    useEffect(()=>{
+        onAuthStateChanged(auth, (user) => {
+          if (user) {
+           
+            const {uid, email, displayName} = user;
+            
+            dispatch(addUser({uid:uid, email:email, displayName: displayName}))
+            
+            // ...
+          } else {
+            // User is signed out
+            // ...
+            dispatch(removeUser());
+        
+          }
+        });
+      
+      }, [])
         const fetchData =async ()=>{
        
         const data = await fetch(
