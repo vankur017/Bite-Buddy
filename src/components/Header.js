@@ -3,22 +3,60 @@ import { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import useOnlineStatus from "/utils/useOnlineStatus";
 import UserContext from "../../utils/UserContext";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { addUser, removeUser } from "../../utils/userSlice";
+import { auth } from "../../utils/firebase";
 
 const Header = () => {
 
   const onlinestatus = useOnlineStatus();
 
-  const navigate = useNavigate('/')
-  const handleClick = ()=>{
-     navigate('/')
-  }
+  const dispatch = useDispatch()
+  const user = useSelector((userstore)=>userstore.user)
+  const navigate = useNavigate()
+ 
+  
+  const handleSignout = ()=>{
+    signOut(auth)
+    .then(() => {
+      dispatch(removeUser());
+      navigate('/')
+    })
+    .catch((error) => {
+      // An error happened.
+      navigate("/error")
+    });
+}
    
   const {loggedInUser} = useContext(UserContext);
 
   // console.log(loggedInUser);
   
   //Subscribing to the redux Store (appStore) Selector
+useEffect(()=>{
+  const unsubscribe = onAuthStateChanged(auth, (user)=>{
+    if(user){
+      const {uid, email, displayName} = user;
+        dispatch(addUser({
+          uid : uid,
+          email : email,
+          displayName : displayName
+        }))
+
+        navigate("/browse")
+    }
+    else {
+      // User is signed out
+      // ...
+      dispatch(removeUser());
+      navigate('/')
+  
+    }
+  });
+
+  return ()=> unsubscribe()
+}, [])
 
 
   const cartItems = useSelector((store)=>store.mycart.items)
@@ -74,7 +112,7 @@ const Header = () => {
           </ul>
           <button 
               className="bg-red-400 p-3 rounded-lg"
-              onClick={handleClick}
+              onClick={handleSignout}
             >
               Logout
             </button>

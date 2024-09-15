@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import {  CDN_URL } from "/utils/constants";
 import { addItem,removeItem } from "../../utils/cartSlice";
-import useRestaurantMenu from "../../utils/useRestaurantMenu";
+import { REMOVE_ITEM_SVG } from "../../utils/constants";
 
 const ItemList = (props)=>{
     const {items} = props;
@@ -29,7 +29,13 @@ const ItemList = (props)=>{
                            
                             > 
                                     
-                               
+                                    <div> 
+                                    <button className="p-3 m-4 w-20"
+                                             onClick={() => handleRemoveItem(item)}
+                                        >
+                                           <img src={REMOVE_ITEM_SVG} />
+                                        </button>
+                                    </div>
                                     <div className="w-9/12">
                                         <div className="py-2">
                                             <span>{item.card.info.name} </span>  
@@ -45,17 +51,14 @@ const ItemList = (props)=>{
                                         
                                     </div>
                                     <div className="w-4/12 p-4 inline-block relative">
+                                   
                                         <button className="absolute bottom-4 right-4 px-3 py-1 rounded bg-black text-white shadow-lg"
                                              onClick={() => handleAddItem(item)}
                                         >
                                             Add +
                                         </button>
-                                        <button className="absolute bottom-4  px-1 py-1 rounded bg-black text-white shadow-lg"
-                                             onClick={() => handleRemoveItem(item)}
-                                        >
-                                           Remove
-                                        </button>
-                                        <img src={CDN_URL + item.card.info.imageId} alt="🍲" className="block w-full rounded-xl" />
+                                        
+                                        <img src={CDN_URL + item.card.info.imageId} alt="🍲" className="block w-[200px] h-[100px] rounded-xl" />
                                     </div>
                             
                                
