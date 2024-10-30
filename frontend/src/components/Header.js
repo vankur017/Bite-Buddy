@@ -15,6 +15,8 @@ const Header = () => {
 
   const dispatch = useDispatch()
   const user = useSelector((userstore)=>userstore.user)
+  console.log(user);
+  
   const navigate = useNavigate()
  
   
@@ -69,7 +71,11 @@ useEffect(()=>{
   
   const cartItems = useSelector((store)=>store.mycart.items)
   console.log(cartItems);
-
+  for(let i=0; i<cartItems.length; i++){
+    console.log(cartItems[i].card.info.name);
+    
+  }
+  
 
   return (
   !signIn &&
@@ -116,10 +122,11 @@ useEffect(()=>{
                cartItems.length} items) 
             
             </li>
-        
+        { user &&
             <li className="bg-green-50 hover:bg-slate-100">
-               {loggedInUser}
+               {user.displayName }
             </li>
+            }
 
           </ul>
           <button 

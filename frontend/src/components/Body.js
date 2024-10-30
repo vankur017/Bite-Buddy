@@ -68,66 +68,64 @@ const Body = ()=>{
 
     return restaurantList.length===0? <Shimmer/> :
      (
-        <div className="body bg-gradient-to-r from-yellow-200 via-red-250 to-red-300">
-        <div className="filter flex items-center">
-            <div className="search m-2 p-2">
-                <input 
-                type="text" 
-                className="p-2 border border-black focus:outline-none focus:border-black hover:border-black rounded-lg h-10" 
-                placeholder="Search restaurant"
-                value= {searchTxt} 
-                onChange={(evt)=>
-                     setSearch(evt.target.value)
-                    }
-                />
-             
-                <button 
-                className="px-4 py-2  bg-lime-300 m-4 rounded-lg"
-                onClick={()=>{
-                    
-                    const filterRes= restaurantList.filter((res)=>
-                    res.info.name.toLowerCase().includes(searchTxt.toLowerCase()))
-                    setrestaurantList(filterRes)
-                }}>
-                    Search
-                </button>
+        <div className="body pl-4 sm:pl-6 md:pl-8 lg:pl-11 bg-gradient-to-r from-yellow-200 via-red-250 to-red-300">
+        <div className="filter flex flex-col md:flex-row items-center">
+          <div className="search m-2 p-2">
+            <input 
+              type="text" 
+              className="p-2 border border-black focus:outline-none focus:border-black hover:border-black rounded-lg h-10 w-full sm:w-auto"
+              placeholder="Search restaurant"
+              value={searchTxt} 
+              onChange={(evt) => setSearch(evt.target.value)}
+            />
+            <button 
+              className="px-4 py-2 bg-black m-4 text-white rounded-lg w-full sm:w-auto"
+              onClick={() => {
+                const filterRes = restaurantList.filter((res) => 
+                  res.info.name.toLowerCase().includes(searchTxt.toLowerCase())
+                );
+                setrestaurantList(filterRes);
+              }}
+            >
+              Search
+            </button>
+          </div>
+          <div className="m-2 p-2 flex flex-col md:flex-row items-center">
+            <button 
+              className="px-4 py-2 bg-black text-gray-200 m-4 rounded-lg w-full sm:w-auto"
+              onClick={() => {
+                const filterList = restaurantList.filter((res) => res.info.avgRating > 4.2);
+                setrestaurantList(filterList);
+              }}
+            >
+              Top Rated
+            </button>
+            <div className="flex flex-col sm:flex-row items-center">
+              {/* <label className="sm:mr-2">User Name</label>
+              <input 
+                placeholder="Enter User Name" 
+                className="p-2 border border-black focus:outline-none focus:border-black hover:border-black rounded-lg h-10 w-full sm:w-auto"
+                value={loggedInUser}
+                onChange={(e) => setUserName(e.target.value)}
+              /> */}
             </div>
-
-            <div className="m-2 p-2">
-                <button className="px-4 py-2  bg-gray-100 m-4 rounded-lg" onClick={()=>{
-                    const filterList = restaurantList.filter((res)=> res.info.avgRating>4.2 )
-                    setrestaurantList(filterList)
-                }}
-                >
-                    Top Rated
-                </button>
-                <label>User Name</label>
-                <input placeholder="Enter User Name" className="p-2 border border-black focus:outline-none focus:border-black hover:border-black rounded-lg h-10"
-                    value={loggedInUser}
-                    onChange={(e)=>setUserName(e.target.value)}
-                />
-
-            </div>
+          </div>
         </div>
-        <div className="restaurant-container flex flex-wrap ">
-          
-           { restaurantList.map(
-                    (restaurant) =>    
-                    <Link key={restaurant.info.id} to={"/restaurant/"+restaurant.info.id}  style={{ textDecoration: 'none', color: 'inherit' }}>
-                        {
-                           restaurant.info.availability.opened? (
-                            <RestaurnatCardOpened resData={restaurant}/>
-                        ):
-                        ( <RestaurantCard  resData={restaurant} />)
-                        }
-                        
-                    </Link>)
-           }
-                  { /* //NOTE:- NEVER USE INDEX AS KEY!!! Used Index Here because we have duplicated the data in api which will return in lot of warnings, */}
+        <div className="restaurant-container flex flex-wrap justify-center">
+          {restaurantList.map((restaurant) => (
+            <Link key={restaurant.info.id} to={`/restaurant/${restaurant.info.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+              {restaurant.info.availability.opened ? (
+                <RestaurnatCardOpened resData={restaurant} />
+              ) : (
+                <RestaurantCard resData={restaurant} />
+              )}
+            </Link>
+          ))}
         </div>
-
-    </div>
+      </div>
+      
     )
 }
 
 export default Body;
+

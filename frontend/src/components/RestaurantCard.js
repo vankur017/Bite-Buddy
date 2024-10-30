@@ -16,11 +16,11 @@ const RestaurantCard = (props)=>{
     
 
     return( 
-        <div className="m-4 p-4  w-[320px] h-[530px] rounded-xl bg-gray-100 hover:bg-orange-200" >
+        <div className="m-4 p-4  w-[320px] h-[530px] rounded-xl bg-gray-100 hover:bg-orange-200 border shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300" >
 
             <Suspense>
                 <img 
-                        className="res-logo h-[310px] w-[320px] rounded-lg"
+                        className="res-logo rounded-lg w-full h-48 object-cover sm:h-64"
                         alt="res-logo" 
                         loading={lazy}
                         src= {CDN_URL

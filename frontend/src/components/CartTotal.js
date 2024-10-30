@@ -13,7 +13,7 @@ const CartTotal = ()=>{
         for (let i = 0; i < cartItems.length; i++) {
           cost +=cartItems[i].card.info.price/100 || cartItems[i].card.info.defaultPrice / 100;  // Calculate total in number
         }
-        return cost.toFixed(2) + '$';  // Format total to 2 decimal places and append '$'
+        return cost.toFixed(2) + 'Rs';  // Format total to 2 decimal places and append '$'
       }
       const amount =  total()
       console.log(amount);
@@ -28,13 +28,9 @@ const CartTotal = ()=>{
     
       }
     return (
-        <div className="p-2 m-2 border border-black">
-          <div>
-            <CartItems cartData={cartItems}/>
-          </div>
-           {amount}
-            <button className="bg-green-400 p-4 rounded-lg" type="button" onClick={()=>checkoutHandler(amount)}>Pay Now</button>
-        </div>
+       <div>
+
+       </div>
     )
 }
 

@@ -38,7 +38,7 @@ const About = () => {
       Checkout my some Personal Projects:
       <ul className="list-disc list-inside mt-2 text-left mx-auto max-w-xs flex space-x-24">
         <li><a href="https://github.com/vankur017" className="text-blue-500 hover:underline transition-transform transform hover:scale-105 duration-300 ease-in-out">GitHub</a></li>
-        <li><a href="https://bitebuddyfood.netlify.app" className="text-blue-500 hover:underline transition-transform transform hover:scale-105 duration-300 ease-in-out">Bite Buddy</a></li>
+        <li><a href="https://bite-buddy-food.netlify.app/" className="text-blue-500 hover:underline transition-transform transform hover:scale-105 duration-300 ease-in-out">Bite Buddy</a></li>
       </ul>
     </p>
   </div>
