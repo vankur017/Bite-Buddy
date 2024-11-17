@@ -15,7 +15,7 @@ const Header = () => {
 
   const dispatch = useDispatch()
   const user = useSelector((userstore)=>userstore.user)
-  console.log(user);
+  //console.log(user);
   
   const navigate = useNavigate()
  
@@ -70,11 +70,11 @@ useEffect(()=>{
   // console.log(myuser.displayName);
   
   const cartItems = useSelector((store)=>store.mycart.items)
-  console.log(cartItems);
-  for(let i=0; i<cartItems.length; i++){
-    console.log(cartItems[i].card.info.name);
+  //console.log(cartItems);
+  // for(let i=0; i<cartItems.length; i++){
+  //   console.log(cartItems[i].card.info.name);
     
-  }
+  // }
   
 
   return (

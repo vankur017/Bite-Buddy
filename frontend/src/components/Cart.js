@@ -70,13 +70,16 @@ const Cart = () => {
 
       const data = await response.json();
       console.log("Payment successful:", data);
-      const { status } = data;
+      let { status } = data;
       console.log("STATUS", status);
     } catch (err) {
       console.error("Payment failed:", err);
     }
   };
 
+  const onPaymentClick = ()=>{
+    navigate("/cart/payment")
+  }
   return (
     <div className="flex container mx-auto px-4 lg:px-10 py-6">
       <div className="bg-neutral-100 rounded-xl md:w-8/12 lg:w-6/12 w-full m-auto p-6 shadow-lg">
@@ -96,17 +99,21 @@ const Cart = () => {
             >
               Order Some Delicious Food
             </button>
+            
+             
+             
+             
+          </div>
+        ) : (
+          <div>
+            <ItemList items={cartItems} />
             <div className="mt-6">
               <img
                 src={CLEAR_CART_SVG}
                 alt="Empty Cart"
                 className="mx-auto w-32 opacity-75"
               />
-            </div>
-          </div>
-        ) : (
-          <div>
-            <ItemList items={cartItems} />
+            </div> 
 
             {/* Display the amount and Pay Now button here */}
             <div className="flex flex-col items-center mt-4">
@@ -117,14 +124,20 @@ const Cart = () => {
                 name="BuyProduct"
                 amount={amount * 100}
               >
-                <button className="px-4 py-2 rounded-lg bg-green-600 text-white">
-                  Pay Now Rs
+                <button
+                className="px-4 py-2 rounded-lg bg-green-600 text-white"
+                onClick={onPaymentClick}
+                >
+                
+                  Pay Now ${amount}
                 </button>
               </StripeCheckout>
             </div>
           </div>
         )}
-
+        
+      {
+        cartItems.length!==0 &&
         <div className="mx-auto ">
           <button
             className="p-3 m-2 mx-auto bg-black text-white rounded-xl"
@@ -133,11 +146,15 @@ const Cart = () => {
             Clear Cart
           </button>
         </div>
+      }
+
+        
       </div>
 
       <div className="mx-auto">
         <CartTotal />
       </div>
+
     </div>
   );
 };

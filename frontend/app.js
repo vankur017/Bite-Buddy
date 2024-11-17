@@ -11,6 +11,8 @@ import { Provider } from 'react-redux';
 import appStore from "./utils/appStore.js"
 import Cart from './src/components/Cart.js';
 import LoginPage from './src/components/LoginPage.js';
+import Payment from './src/components/Payment.js';
+
 
 const Body = lazy(() => import("./src/components/Body.js"))
 
@@ -88,8 +90,13 @@ const AppLayout = ()=>{
         },
         {
             path:"/cart",
-            element:<Cart/>
+            element:<Cart/>,
+            
         }, 
+        {
+            path:"/cart/payment",
+            element:<Payment/>
+        },
         {
             path: "/",
             element: <LoginPage/>

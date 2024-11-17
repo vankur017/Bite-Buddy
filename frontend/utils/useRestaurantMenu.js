@@ -8,17 +8,21 @@ const useRestaurantMenu = (resId)=>{
         fetchData()
     }, []) 
 
-    const fetchData = async()=>{
-
-        const response = await fetch(
-                        `${MENU_API_URL}`+
-                            resId
-                        );
-        const json = await response.json();
-        setResInfo(json.data);
-        
-    }
-
+    const fetchData = async () => {
+        try {
+            const response = await fetch(`${MENU_API_URL}${resId}`);
+            
+            if (!response.ok) {
+                throw new Error('Network response was not ok.');
+            }
+            
+            const json = await response.json();
+            setResInfo(json.data);
+        } catch (error) {
+            console.error('Fetch error:', error);
+        }
+    };
+    
 
     return resInfo;
 

@@ -4,6 +4,7 @@ import CartItems from "./CartItems";
 import { useSelector } from "react-redux";
 import axios from "axios"
 
+
 const CartTotal = ()=>{
 
    const cartItems = useSelector((store)=>store.mycart.items)
@@ -27,11 +28,7 @@ const CartTotal = ()=>{
         
     
       }
-    return (
-       <div>
-
-       </div>
-    )
+  
 }
 
 export default CartTotal
