@@ -1,15 +1,30 @@
-TO Start Backend server :-
+# Instructions to Start Backend Server
 
-    1) We need to clone the reposiory and navigate to the backend folder using "cd backend" on terminal and run "npm install"(this will install all the required node_modules in the working directory of folder "backend"
-    2)Once we have backend running at port 4200, now our Backend is ready to accept the payments from Strip Dummy Card 
+1. Clone the repository and navigate to the `backend` folder using the command:
+   ```bash
+       cd backend
+2. Run the following command to install the required node_modules:
+    
+        npm install => npm start(after running npm install)
 
-DUMMY Credit Card Details:-
-    Card No => "4242 4242 4242 4242"
-    Expiry => "Any future date in MM/YY"
-    CVV   =>  "Any four digits"
 
+Dummy Credit Card Details:
+        
+        Card Number: 4242 4242 4242 4242
+        Expiry: Any future date in MM/YY format
+        CVV: Any three digits
 
-TO Start frontend server :-
+# Instructions to Start Frontend Server
 
-    1) navigate to fronend directory and do npm install
-    2) navigate to link "localhost:1234"
+1) Navigate to the frontend directory:
+
+        cd frontend
+2) Install the required node_modules:
+
+        npm install
+3) Start the frontend server:
+
+        npm start
+4) Open the application in your browser at:
+
+        http://localhost:1234
