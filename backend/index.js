@@ -95,7 +95,7 @@ app.post("/payment", async (req, res) => {
 });
 
 // Start Server
-const port = process.env.PORT || 4200;
+const port = 4200;//process.env.PORT
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
