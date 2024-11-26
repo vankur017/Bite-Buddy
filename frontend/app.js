@@ -12,7 +12,7 @@ import appStore from "./utils/appStore.js"
 import Cart from './src/components/Cart.js';
 import LoginPage from './src/components/LoginPage.js';
 import Payment from './src/components/Payment.js';
-
+import PaymentSuccess from './src/components/PaymentSuccess.js';
 
 const Body = lazy(() => import("./src/components/Body.js"))
 
@@ -96,6 +96,10 @@ const AppLayout = ()=>{
         {
             path:"/cart/payment",
             element:<Payment/>
+        },
+        {
+            path:"/cart/payment/payment-success",
+            element: <PaymentSuccess/>
         },
         {
             path: "/",

@@ -11,7 +11,7 @@ import { auth } from "../../utils/firebase"; // Ensure you have Firebase correct
 const Cart = () => {
   const cartItems = useSelector((store) => store.mycart.items);
   const user = useSelector((store) => store.user);
-
+  const [allSucceeded, setAllSucceeded] = useState(false)
   const [productList, setProductList] = useState([]);
 
   useEffect(() => {
@@ -49,37 +49,57 @@ const Cart = () => {
   
   const makePayment = async (token) => {
     try {
-      const userAuth = auth.currentUser; 
-      const idToken = await userAuth.getIdToken(); 
-
+      const userAuth = auth.currentUser;
+      const idToken = await userAuth.getIdToken();
+  
       const body = {
         token,
         productList,
-        auth: idToken, 
+        auth: idToken,
       };
-
+  
       const headers = {
         "Content-Type": "application/json",
       };
-
+  
       const response = await fetch("http://localhost:4200/payment", {
         method: "POST",
         headers,
         body: JSON.stringify(body),
       });
-
+  
       const data = await response.json();
       console.log("Payment successful:", data);
-      let { status } = data;
-      console.log("STATUS", status);
+  
+      const statuses = data.charges.map((charge) => charge.status);
+      console.log("STATUS", statuses);
+  
+      const isAllSucceeded = data.charges.every(
+        (charge) => charge.status === "succeeded"
+      );
+      console.log(isAllSucceeded);
+  
+      // Update the state after the value is computed
+      setAllSucceeded(isAllSucceeded);
     } catch (err) {
       console.error("Payment failed:", err);
     }
   };
+  
 
+  
   const onPaymentClick = ()=>{
     navigate("/cart/payment")
   }
+
+  const paymentSuccess = ()=>{
+    if(allSucceeded){
+      navigate("/cart/payment/payment-success")
+    }
+  }
+  useEffect(() => {
+    paymentSuccess()
+  }, [allSucceeded]);
   return (
     <div className="flex container mx-auto px-4 lg:px-10 py-6">
       <div className="bg-neutral-100 rounded-xl md:w-8/12 lg:w-6/12 w-full m-auto p-6 shadow-lg">
@@ -119,19 +139,16 @@ const Cart = () => {
             <div className="flex flex-col items-center mt-4">
               <div className="text-xl font-bold mb-2">{amount} Rs</div>
               <StripeCheckout
-                stripeKey="pk_test_51Q8mrRP3DZ7NtKUPhU91q8ebF2zISE30BLSp6v0xWsaDQVGWly9nD9oVx3kKUVcnMrHkp9iaeQw5u9iJuaDDuxb200vvMkhKT5"
-                token={makePayment}
-                name="BuyProduct"
-                amount={amount * 100}
-              >
-                <button
-                className="px-4 py-2 rounded-lg bg-green-600 text-white"
-                onClick={onPaymentClick}
-                >
-                
-                  Pay Now ${amount}
-                </button>
-              </StripeCheckout>
+                   stripeKey="pk_test_51Q8mrRP3DZ7NtKUPhU91q8ebF2zISE30BLSp6v0xWsaDQVGWly9nD9oVx3kKUVcnMrHkp9iaeQw5u9iJuaDDuxb200vvMkhKT5"
+                    token={(token) => makePayment(token)}
+                     name="BuyProduct"
+                 amount={amount * 100}
+>
+  <button className="px-4 py-2 rounded-lg bg-green-600 text-white">
+    Pay Now ${amount}
+  </button>
+</StripeCheckout>
+
             </div>
           </div>
         )}

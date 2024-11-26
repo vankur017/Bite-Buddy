@@ -7,12 +7,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { addUser, removeUser } from "../../utils/userSlice";
 import { auth } from "../../utils/firebase";
+import { clearAllItem } from "../../utils/cartSlice";
 
 const Header = () => {
 
   const onlinestatus = useOnlineStatus();
   const [signIn, setSignIn] = useState(true)
-
+  
   const dispatch = useDispatch()
   const user = useSelector((userstore)=>userstore.user)
   //console.log(user);
@@ -23,6 +24,7 @@ const Header = () => {
   const handleSignout = ()=>{
     signOut(auth)
     .then(() => {
+      dispatch(clearAllItem())
       dispatch(removeUser());
       navigate('/')
       setSignIn(true)
