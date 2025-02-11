@@ -81,7 +81,7 @@ useEffect(()=>{
 
   return (
   !signIn &&
-      <div className="p-0 m-0 flex justify-between bg-pink-100 shadow-lg sm:bg-yellow-50 lg:bg-green-50">
+      <div className="p-0 mb-[-20px] flex justify-between bg-pink-100 shadow-lg sm:bg-yellow-50 lg:bg-green-50">
         <div className="justify-center">
         
             <Link to="/"><img className="w-40 p-10" src={LOGO_URL} /></Link>
@@ -99,6 +99,9 @@ useEffect(()=>{
             </li>
             <li className="bg-green-50 hover:bg-slate-100">
               <Link to="/contact">Contact Us</Link>
+            </li>
+            <li className="bg-green-50 hover:bg-slate-100">
+              <Link to="/store">Store</Link>
             </li>
             <li id="cart-logo" className="cursor-pointer flex">
 

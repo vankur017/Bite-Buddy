@@ -13,6 +13,7 @@ import Cart from './src/components/Cart.js';
 import LoginPage from './src/components/LoginPage.js';
 import Payment from './src/components/Payment.js';
 import PaymentSuccess from './src/components/PaymentSuccess.js';
+import Store from './src/components/Store.js';
 
 const Body = lazy(() => import("./src/components/Body.js"))
 
@@ -79,6 +80,10 @@ const AppLayout = ()=>{
             element:<Suspense fallback={<h1>Loading...</h1>}>
                         <About/>
                     </Suspense>
+        },
+        {
+            path: "/store",
+            element: <Store/>
         },
         {
             path: "/contact",

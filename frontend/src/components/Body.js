@@ -8,11 +8,14 @@ import useOnlineStatus from "/utils/useOnlineStatus";
 import UserContext from "../../utils/UserContext";
 import { useDispatch } from "react-redux";
 import { addUser, removeUser } from '../../utils/userSlice';
-import mockData from "../../utils/mockData.json"
+import mockData from "../../utils/mockData.json"  
+import axios from "axios";
+
+const PAGE_SIZE = 8
 
 const Body = ()=>{
 
-  
+    const [currentPage, setCurrentpage] = useState(0)
 
     const [restaurantList, setrestaurantList] =useState([]);
   
@@ -27,6 +30,8 @@ const Body = ()=>{
        fetchData(); 
        
     }, [])
+ 
+    
 
     useEffect(()=>{
         onAuthStateChanged(auth, (user) => {
@@ -48,18 +53,35 @@ const Body = ()=>{
       }, [])
         const fetchData =async ()=>{
        
-        // const data = await fetch(
-        //     "https://www.swiggy.com/dapi/restaurants/list/v5?lat=26.87560&lng=80.91150&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
-        // )
+        const data = await fetch(
+            "https://www.swiggy.com/dapi/restaurants/list/v5?lat=26.87560&lng=80.91150&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+        )
       
+        const json = await data.json()
+        console.log();
         
-        console.log(mockData.data);
+        // console.log(mockData.data);
+        // console.log(data.data.record)
         
-        setrestaurantList(mockData?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants || [])
+         setrestaurantList(json.data.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants|| [])
+        //  console.log(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants )
         
-        console.log(restaurantList);
+     
         
     }
+    
+    const handleNextPageLoad = (n)=>{
+      setCurrentpage(n)
+    }
+
+    const noOfPages = Math.ceil(restaurantList.length/PAGE_SIZE)
+    const start = currentPage*PAGE_SIZE
+    const end = (currentPage+1) *PAGE_SIZE
+    console.log(noOfPages);
+    
+
+    console.log(restaurantList);
+    
 
     const onlineStatus = useOnlineStatus();
     const {loggedInUser,setUserName} = useContext(UserContext)
@@ -68,7 +90,7 @@ const Body = ()=>{
 
     return restaurantList.length===0? <Shimmer/> :
      (
-        <div className="body pl-4 sm:pl-6 md:pl-8 lg:pl-11 bg-gradient-to-r from-yellow-200 via-red-250 to-red-300">
+        <div className="body mt-4 pl-4 sm:pl-6 md:pl-8 lg:pl-11 bg-gradient-to-r from-yellow-200 via-red-250 to-red-300">
         <div className="filter flex flex-col md:flex-row items-center">
           <div className="search m-2 p-2">
             <input 
@@ -112,7 +134,7 @@ const Body = ()=>{
           </div>
         </div>
         <div className="restaurant-container flex flex-wrap justify-center">
-          {restaurantList.map((restaurant) => (
+          {restaurantList.slice(start, end).map((restaurant) => (
             <Link key={restaurant.info.id} to={`/restaurant/${restaurant.info.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
               {restaurant.info.availability.opened ? (
                 <RestaurnatCardOpened resData={restaurant} />
@@ -121,6 +143,18 @@ const Body = ()=>{
               )}
             </Link>
           ))}
+        </div>
+        <div className="justify-center px-[50%] ">
+          {[...Array(noOfPages).keys().map((n)=>(
+            <span 
+              key={n}
+              className="mx-1 px-3 border border-orange-700 rounded bg-[#eeeeee]"
+              onClick={()=> handleNextPageLoad(n)}
+
+            >
+              {n}
+            </span>
+          ))]}
         </div>
       </div>
       
