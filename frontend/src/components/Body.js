@@ -23,6 +23,19 @@ const Body = ()=>{
    
     const RestaurnatCardOpened = vegNonVeg(RestaurantCard)
 
+    
+    useEffect(() => {
+      const handlePopState = () => {
+        window.location.reload();
+      };
+    
+      window.addEventListener("popstate", handlePopState);
+    
+      return () => {
+        window.removeEventListener("popstate", handlePopState);
+      };
+    }, []);
+
     const dispatch = useDispatch()
 
     useEffect(()=>{
@@ -51,19 +64,20 @@ const Body = ()=>{
         });
       
       }, [])
+
         const fetchData =async ()=>{
        
-        const data = await fetch(
-            "https://www.swiggy.com/dapi/restaurants/list/v5?lat=26.87560&lng=80.91150&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
-        )
+        // const data = await fetch(
+        //     "https://www.swiggy.com/dapi/restaurants/list/v5?lat=26.87560&lng=80.91150&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+        // )
       
-        const json = await data.json()
-        console.log();
+        // const json = await data.json()
+        // console.log();
         
-        // console.log(mockData.data);
+         console.log(mockData.data);
         // console.log(data.data.record)
         
-         setrestaurantList(json.data.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants|| [])
+         setrestaurantList(mockData.data.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants|| [])
         //  console.log(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants )
         
      

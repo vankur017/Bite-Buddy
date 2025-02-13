@@ -40,31 +40,28 @@ const Header = () => {
   // console.log(loggedInUser);
   
   //Subscribing to the redux Store (appStore) Selector
-useEffect(()=>{
-  const unsubscribe = onAuthStateChanged(auth, (user)=>{
-    if(user){
-      const {uid, email, displayName} = user;
-        dispatch(addUser({
-          uid : uid,
-          email : email,
-          displayName : displayName
-          
-        }))
-
-        navigate("/browse")
-        setSignIn(false)
-    }
-    else {
-      // User is signed out
-      // ...
-      dispatch(removeUser());
-      navigate('/')
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const { uid, email, displayName } = user;
+        dispatch(addUser({ uid, email, displayName }));
+        
+        // Only navigate if not already on browse
+        if (window.location.pathname === "/") {
+          navigate("/browse");
+          setSignIn(false)
+        }
+        
+        setSignIn(false);
+      } else {
+        dispatch(removeUser());
+        navigate('/');
+      }
+    });
   
-    }
-  });
-
-  return ()=> unsubscribe()
-}, [])
+    return () => unsubscribe();
+  }, []);
+  
 
   // const userLoggedIn = useSelector((userLogin)=>userLogin.user)
   // console.log(userLoggedIn);
@@ -80,11 +77,11 @@ useEffect(()=>{
   
 
   return (
-  !signIn &&
+  signIn===false &&
       <div className="p-0 mb-[-20px] flex justify-between bg-pink-100 shadow-lg sm:bg-yellow-50 lg:bg-green-50">
         <div className="justify-center">
         
-            <Link to="/"><img className="w-40 p-10" src={LOGO_URL} /></Link>
+            <Link to="/browse"><img className="w-40 p-10" src={LOGO_URL} /></Link>
             <li className="list-none">BiteBuddy.com</li>
         </div>
         <div className="flex items-center justify-center">

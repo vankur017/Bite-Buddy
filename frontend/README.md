@@ -1,102 +1,53 @@
-#IMPORTANT NOTE !! :- to the user =>
+## Important Chrome Extension Needed :
 
 1) Please use attached CORS Bypass extension as i have used the Swiggy Live API which was giving me a CORS error :-
     "https://chromewebstore.google.com/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf?hl=en"
 2) Add above extension on your chrome browser and turn it on so that it will not throw CORS error 
 
+## Tech Stack :
 
-->React
+*   Reactjs
+*   ReactDOM
+*   Parcel
+*   React Hooks
+*   JSX
+*   Swiggy API
+*   React Router Dom
+*   Redux
 
-->Shimmer UI 
+## Dockerizing the App
 
-->TailwindCSS
+To run this app using Docker, follow these steps:
 
-->React Element 	
+1.  **Build the Docker image:**
 
-->React Props
+    ```bash
+    docker build -t bite-buddy-frontend .
+    ```
+2.  **Run the Docker container:**
 
-->Map & Filter
+    ```bash
+    docker run -p 3000:3000 bite-buddy-frontend
+    ```
 
-->Higher Order Components
+    This will start the app and make it accessible at `http://localhost:1234` in your browser.
 
-->JSX 	
+**Note:** Ensure you have Docker installed on your system before running these commands. Also, create a `Dockerfile` in the root directory of your project with the necessary instructions to build the image.  A basic example `Dockerfile` might look like this:
 
-->Config Driven UI
+```dockerfile
+FROM node:16
 
-->React-Router-Dom 	
+WORKDIR /app
 
-->Uncontrolled / Controlled Component
+COPY package*.json ./
 
-->Transpile by Babel.js 	
+RUN npm install
 
-->Swiggy API 	
+COPY . .
 
-->Children Routing 	
+EXPOSE 3000
 
-->Lifting Up the State
+CMD ["npm", "start"]
+```
 
-->Parcel / Bundler 	
-
-->Optional Chaining 	
-
-->useRouterError 	
-
-->Props Drilling
-
-
-->HMR (Hot Module Replacement) 	
-
-->React Hooks 	
-
-->SPA (Single Page Application) 	
-
-->React Context
-
-->BrowserList 	
-
-->React Conciliation Algorithm 	
-
-->useParams 	
-
-->Redux Toolkit
-
-->React DOM 	
-
-->Virtual DOM 	
-
-->React Life Cycle Methods 	
-
-->React-Redux Library
-
-->Functional Components 
-
-->Monolith vs Microservices 
-
-->Custom Hooks
-
-->Class Based Components 	
-
-->CORS 	
-
-->Lazing Loading / Dynamic 
-
-->Bundling 	
-
-
-Tech Stack :
-
-||Reactjs
-
-|| ReactDOM
-
-|| Parcel
-
-|| React Hooks
-
-|| JSX
-
-|| Swiggy API
-
-|| React Router Dom
-
-|| Redux
+Remember to adjust the `Dockerfile` according to your project's specific needs.
