@@ -104,7 +104,7 @@ const Body = ()=>{
 
     return restaurantList.length===0? <Shimmer/> :
      (
-        <div className="body mt-4 pl-4 sm:pl-6 md:pl-8 lg:pl-11 bg-gradient-to-r from-yellow-200 via-red-250 to-red-300">
+        <div className="body mt-24 pl-4 sm:pl-6 md:pl-8 lg:pl-11 bg-gradient-to-r from-yellow-200 via-red-250 to-red-300">
         <div className="filter flex flex-col md:flex-row items-center">
           <div className="search m-2 p-2">
             <input 

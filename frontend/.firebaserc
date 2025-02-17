@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "bitebuddy-39ffc"
-  }
+    "default": "bitebuddy-743a4",
+    "staging": "bitebuddy-743a4"
+  },
+  "targets": {},
+  "etags": {}
 }

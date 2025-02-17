@@ -9,10 +9,8 @@ const About = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1 }}
     >
-      <div>
-       
-      </div>
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-500 to-teal-500 text-white p-8">
+  
+      <div className="min-h-screen mt-[100px] flex items-center justify-center bg-gradient-to-r from-blue-500 to-teal-500 text-white p-8">
   <div className="max-w-4xl w-full bg-white text-gray-800 p-8 rounded-lg shadow-lg transition-opacity duration-1000 ease-out opacity-1 animate-fade-in">
     <h1 className="text-3xl font-bold mb-6 text-center text-blue-600 transition-transform transform hover:scale-105 duration-300 ease-in-out">Hi, I’m Ankur Verma</h1>
     <p className="mb-4 text-lg">
