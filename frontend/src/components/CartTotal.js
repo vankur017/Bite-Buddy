@@ -1,34 +1,51 @@
 import Cart from "./Cart";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import CartItems from "./CartItems";
 import { useSelector } from "react-redux";
-import axios from "axios"
+import axios from "axios";
 
+const CartTotal = () => {
+  const cartItems = useSelector((store) => store.mycart.items);
 
-const CartTotal = ()=>{
+  function total() {
+    let cost = 0;
 
-   const cartItems = useSelector((store)=>store.mycart.items)
-   
-    function total() {
-        let cost = 0;
-        for (let i = 0; i < cartItems.length; i++) {
-          cost +=cartItems[i].card.info.price/100 || cartItems[i].card.info.defaultPrice / 100;  // Calculate total in number
-        }
-        return cost.toFixed(2) + 'Rs';  // Format total to 2 decimal places and append '$'
-      }
-      const amount =  total()
-      console.log(amount);
-      
-      const checkoutHandler = async(amount)=>{
+    for (let i = 0; i < cartItems.length; i++) {
+      const info = cartItems[i]?.card?.info;
 
-        const {data} = await axios.post("http://localhost:4000/api/checkout", {
-          amount
-        })
-        console.log(data);
-        
-    
-      }
-  
-}
+      if (!info) continue; // Skip if item is malformed
 
-export default CartTotal
+      const price = info.price ?? info.defaultPrice ?? 0; // handle undefined
+      cost += price / 100;
+    }
+
+    return cost.toFixed(2) + " Rs";
+  }
+
+  const amount = total();
+  console.log("Cart Total:", amount);
+
+  const checkoutHandler = async (amount) => {
+    try {
+      const { data } = await axios.post("http://localhost:4000/api/checkout", {
+        amount,
+      });
+      console.log("Checkout response:", data);
+    } catch (error) {
+      console.error("Checkout error:", error);
+    }
+  };
+
+  return (
+    <div className="p-4 bg-white shadow rounded">
+      <h2 className="text-xl font-bold mb-4">Cart Summary</h2>
+      <p className="text-lg mb-2">Total: {amount}</p>
+      <button
+        onClick={() => checkoutHandler(amount)}
+        className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
+      >
+        Proceed to Checkout
+      </button>
+    </div>
+  );
+};
+
+export default CartTotal;

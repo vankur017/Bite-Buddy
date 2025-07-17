@@ -8,7 +8,7 @@ const Store = () => {
 
   const fetchProducts = async()=>{
     try{
-      const data = await fetch('https://dummyjson.com/products')
+    const data = await fetch('https://dummyjson.com/products')
     const json = await data.json()
     console.log(json);
 
