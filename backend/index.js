@@ -5,6 +5,8 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const { v4: uuidv4 } = require("uuid");
 const firebaseAdmin = require("firebase-admin");
 const nodemailer = require("nodemailer");
+const fs = require("fs");
+const path = require("path");
 
 // Initialize Firebase Admin
 firebaseAdmin.initializeApp({
@@ -16,11 +18,12 @@ const app = express();
 app.use(express.json());
 
 // Configure CORS
-app.use(cors({
-  origin: "https://your-frontend.vercel.app", // Replace with your Vercel frontend URL
-  methods: ["GET", "POST"],
-  credentials: true,
-}));
+// app.use(cors({
+//   origin: "https://your-frontend.vercel.app", // Replace with your Vercel frontend URL
+//   methods: ["GET", "POST"],
+//   credentials: true,
+// }));
+
 
 // Nodemailer Setup
 const transporter = nodemailer.createTransport({
@@ -93,6 +96,23 @@ app.post("/payment", async (req, res) => {
     res.status(500).json({ error: "Payment processing failed!" });
   }
 });
+
+
+app.get("/api/menu", (req, res) => {
+  const restaurantId = req.query.restaurantId;
+  if (!restaurantId) {
+    return res.status(400).json({ error: "Missing restaurantId" });
+  }
+
+  const filePath = path.join(__dirname, "mock-menus", `${restaurantId}.json`);
+  if (!fs.existsSync(filePath)) {
+    return res.status(404).json({ error: "Menu not found for this restaurant" });
+  }
+
+  const menuData = JSON.parse(fs.readFileSync(filePath, "utf8"));
+  res.json(menuData);
+});
+
 
 // Start Server
 const port = 4200;//process.env.PORT
