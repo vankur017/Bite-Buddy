@@ -22,7 +22,7 @@ const About = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
           >
-            I’m a <span className="text-yellow-300 font-semibold">Frontend Developer</span> with a passion for
+            I’m a <span className="text-yellow-300 font-semibold">Associate Software Developer</span> with a passion for
             crafting seamless user experiences.
           </motion.p>
 
