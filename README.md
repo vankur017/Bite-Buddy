@@ -1,30 +1,101 @@
-# Instructions to Start Backend Server
+# 🧠 Getting Started – BiteBuddy Fullstack Setup
 
-1. Clone the repository and navigate to the `backend` folder using the command:
-   ```bash
-       cd backend
-2. Run the following command to install the required node_modules:
-    
-        npm install => npm start(after running npm install)
+## 📦 Backend Server (Express + Stripe + Firebase)
 
+### 1. Navigate to the backend directory:
 
-Dummy Credit Card Details:
-        
-        Card Number: 4242 4242 4242 4242
-        Expiry: Any future date in MM/YY format
-        CVV: Any three digits
+```bash
+cd backend
+```
 
-# Instructions to Start Frontend Server
+### 2. Install dependencies:
 
-1) Navigate to the frontend directory:
+```bash
+npm install
+```
 
-        cd frontend
-2) Install the required node_modules:
+### 3. Start the backend server:
 
-        npm install
-3) Start the frontend server:
+```bash
+npm start
+```
 
-        npm start
-4) Open the application in your browser at:
+> This will start your backend server at:
 
-        http://localhost:1234
+```
+http://localhost:4200
+```
+
+### 📂 Folder Structure Notes:
+
+- The backend should contain:
+  - `server.js` or `index.js`
+  - `serviceAccountKey.json` (Firebase admin SDK key)
+  - `.env` with:
+    ```env
+    STRIPE_SECRET_KEY=your_stripe_secret
+    EMAIL_USER=your_email@gmail.com
+    EMAIL_PASS=your_app_password
+    ```
+
+---
+
+## 💳 Dummy Payment Details (Stripe Testing)
+
+Use the following **test card** for Stripe payments:
+
+- **Card Number**: `4242 4242 4242 4242`
+- **Expiry Date**: Any **future** date (MM/YY)
+- **CVV**: Any 3 digits (e.g., `123`)
+
+---
+
+## 🌐 Frontend Server (React + Parcel)
+
+### 1. Navigate to the frontend directory:
+
+```bash
+cd frontend
+```
+
+### 2. Install dependencies:
+
+```bash
+npm install
+```
+
+### 3. Start the frontend server:
+
+```bash
+npm start
+```
+
+> The app will be available at:
+
+```
+http://localhost:1234
+```
+
+### 📁 Folder Structure Notes:
+
+- Frontend should contain:
+  - `src/components/` for UI components
+  - `utils/` for constants, Redux slices, and Firebase config
+  - Use Parcel or Vite as bundler
+
+---
+
+## 📌 Additional Notes:
+
+- Ensure backend and frontend are running in **parallel**.
+- Keep your `menus/*.json` files inside `frontend/public/menus/`.
+- Do **not** prefix fetch calls with `/public`.
+
+Example fetch from React:
+
+```js
+fetch(`/menus/8614.json`)
+```
+
+---
+
