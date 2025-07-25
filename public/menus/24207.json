@@ -1,0 +1,349 @@
+{
+  "restaurantId": "24207",
+  "name": "Domino's Pizza",
+  "cuisines": [
+    "Pizzas",
+    "Italian",
+    "Pastas",
+    "Desserts"
+  ],
+  "menu": [
+    {
+      "category": "Recommended",
+      "items": [
+        {
+          "id": "b5a1271a-91f2-4c42-b098-37911fe01526",
+          "name": "Classic Mojito",
+          "price": 172,
+          "description": "Level choose produce company production site show over wonder turn.",
+          "isVeg": true
+        },
+        {
+          "id": "26de5b76-e42c-4049-a73d-ab05ed8d7f2b",
+          "name": "Paneer Wrap",
+          "price": 399,
+          "description": "Process over huge west data none run.",
+          "isVeg": true
+        },
+        {
+          "id": "4e786323-a628-43ee-bec0-8e4187f01c97",
+          "name": "Zinger Burger",
+          "price": 334,
+          "description": "Strategy majority ten whole whose letter standard spring owner what specific.",
+          "isVeg": false
+        },
+        {
+          "id": "5d72b9f1-a300-4d76-bceb-0dfcd624f408",
+          "name": "Manchurian Balls",
+          "price": 164,
+          "description": "Than total consider teacher do memory style expect.",
+          "isVeg": true
+        },
+        {
+          "id": "290d8176-0309-4256-84fa-5e6379a524bc",
+          "name": "Gulab Jamun",
+          "price": 376,
+          "description": "Fact although particular that level dark.",
+          "isVeg": true
+        },
+        {
+          "id": "ba5221a5-1b17-45ba-a3ac-9d006a545382",
+          "name": "Peri Peri Fries",
+          "price": 398,
+          "description": "Role similar read official know far.",
+          "isVeg": true
+        },
+        {
+          "id": "692f6ed2-d7c6-4683-887d-a6142382ff15",
+          "name": "Butter Chicken Biryani",
+          "price": 385,
+          "description": "Team short write say look under.",
+          "isVeg": false
+        },
+        {
+          "id": "4fc8649c-a56a-474f-8b21-463c4859ec34",
+          "name": "Chicken Popcorn",
+          "price": 341,
+          "description": "Avoid consider before own very should money management play choice.",
+          "isVeg": false
+        },
+        {
+          "id": "ca4fe6bc-f903-4c4e-af09-d17b5761c93a",
+          "name": "Double Cheese Pizza",
+          "price": 274,
+          "description": "Play all always suffer since worker.",
+          "isVeg": true
+        },
+        {
+          "id": "82b6abb0-e5f6-4462-9685-c9d1e37b253b",
+          "name": "Idli Sambar",
+          "price": 188,
+          "description": "Response among ago statement once politics skin eat at change body worry artist.",
+          "isVeg": true
+        },
+        {
+          "id": "4ba10659-4da1-42c0-ac6c-f43e592210d6",
+          "name": "Masala Dosa",
+          "price": 381,
+          "description": "Member fund nothing nearly land career notice heavy report.",
+          "isVeg": true
+        },
+        {
+          "id": "01106e67-9da8-432c-839d-d7f64b4f8e09",
+          "name": "Veg Zinger",
+          "price": 147,
+          "description": "In son change military education very Republican something.",
+          "isVeg": true
+        },
+        {
+          "id": "44bc683e-9be9-4311-8366-bd6f3710b983",
+          "name": "Spicy Chicken Pizza",
+          "price": 371,
+          "description": "Husband federal customer town dream soon author later issue public increase response issue.",
+          "isVeg": false
+        }
+      ]
+    },
+    {
+      "category": "Mains",
+      "items": [
+        {
+          "id": "44393476-c4b4-4c65-a92c-2d9a88498c6b",
+          "name": "Falooda",
+          "price": 203,
+          "description": "I north development night total quality range certain third alone save.",
+          "isVeg": true
+        },
+        {
+          "id": "c42a22fd-ffd2-4d9c-af63-d0f7636ae358",
+          "name": "Gulab Jamun",
+          "price": 122,
+          "description": "Certainly end day training term tree begin pattern finally account himself word run.",
+          "isVeg": true
+        },
+        {
+          "id": "4ab797c9-0a0d-45af-a56c-b97ebd517f66",
+          "name": "Paneer Wrap",
+          "price": 339,
+          "description": "Public however century value tax simple institution ago.",
+          "isVeg": true
+        },
+        {
+          "id": "b9017d1a-9280-4131-98e3-29fec0fa7821",
+          "name": "Chocolate Brownie",
+          "price": 329,
+          "description": "Area friend decide plan item work catch commercial citizen attack season really also.",
+          "isVeg": true
+        },
+        {
+          "id": "c4a4c3c4-194a-4f36-a92a-1c7f8c8c4233",
+          "name": "Idli Sambar",
+          "price": 259,
+          "description": "Type attention season political attack none study window brother guess.",
+          "isVeg": true
+        },
+        {
+          "id": "94ada6c3-9dd7-4b0d-a043-b9ea0f29beb5",
+          "name": "Zinger Burger",
+          "price": 109,
+          "description": "Off pay space edge spring describe thought tell very stuff simply state.",
+          "isVeg": false
+        },
+        {
+          "id": "c1ced4f0-35a4-4ee9-bf2a-16312a1bf620",
+          "name": "Double Cheese Pizza",
+          "price": 286,
+          "description": "Weight meet Mr soldier admit none change cup participant challenge unit affect.",
+          "isVeg": true
+        },
+        {
+          "id": "742a5699-d528-4ef6-8839-6bcd0ebf4957",
+          "name": "Chicken Popcorn",
+          "price": 210,
+          "description": "Fight measure explain player between see push billion new thank.",
+          "isVeg": false
+        },
+        {
+          "id": "81dcd22c-3a5b-4e72-9bd1-798f7619ef99",
+          "name": "Peri Peri Fries",
+          "price": 273,
+          "description": "Hard of soldier upon near send adult beyond.",
+          "isVeg": true
+        },
+        {
+          "id": "1a6c3d7c-6848-4017-af23-08a76d8b6f31",
+          "name": "Spicy Chicken Pizza",
+          "price": 314,
+          "description": "Claim particular moment entire while true.",
+          "isVeg": false
+        },
+        {
+          "id": "902fd1e3-7ff2-4a5a-bf42-4aa06148e7e7",
+          "name": "Chilli Chicken",
+          "price": 107,
+          "description": "Also staff away again break direction.",
+          "isVeg": false
+        },
+        {
+          "id": "6853bbf9-6958-4e1e-820e-ccb0bf2bf22f",
+          "name": "Vanilla Ice Cream",
+          "price": 206,
+          "description": "Much computer article form middle experience beyond top anything.",
+          "isVeg": true
+        },
+        {
+          "id": "d848b599-ca05-4667-8890-3be88f406681",
+          "name": "Butter Chicken Biryani",
+          "price": 263,
+          "description": "Respond nor carry performance cut write manager between religious family.",
+          "isVeg": false
+        },
+        {
+          "id": "1206d1eb-e670-4c6c-a122-dafcfafa1edb",
+          "name": "Classic Mojito",
+          "price": 325,
+          "description": "Lay herself purpose suffer board impact interesting glass language many.",
+          "isVeg": true
+        }
+      ]
+    },
+    {
+      "category": "Starters",
+      "items": [
+        {
+          "id": "eaaa09a4-5f3b-4514-aeb6-765061d8245c",
+          "name": "Paneer Wrap",
+          "price": 384,
+          "description": "Set spring sound onto of stock expert guess hour when daughter maybe fund.",
+          "isVeg": true
+        },
+        {
+          "id": "2a49c012-6e60-4746-bcd7-535e2b163078",
+          "name": "Butter Chicken Biryani",
+          "price": 231,
+          "description": "Data television never paper hard past discuss hospital trouble bring reveal.",
+          "isVeg": false
+        },
+        {
+          "id": "53395313-64dc-49be-b059-473698d154d0",
+          "name": "Kebabs Platter",
+          "price": 313,
+          "description": "Something team some probably including society write.",
+          "isVeg": false
+        },
+        {
+          "id": "045d7f75-3be7-455a-b9a7-35d10fa68e11",
+          "name": "Spring Rolls",
+          "price": 241,
+          "description": "Maybe stand body front still message.",
+          "isVeg": true
+        },
+        {
+          "id": "696c6070-ec15-4924-ac8d-52e21cfd03ab",
+          "name": "Gulab Jamun",
+          "price": 341,
+          "description": "Prepare us appear night particularly include goal we eye.",
+          "isVeg": true
+        },
+        {
+          "id": "b2c13b78-2907-49f3-9929-3ec1c0a077e2",
+          "name": "Vanilla Ice Cream",
+          "price": 199,
+          "description": "Campaign summer control degree house any including sense themselves.",
+          "isVeg": true
+        },
+        {
+          "id": "8b8035df-000c-40dc-b08f-9feda94106a1",
+          "name": "Chilli Chicken",
+          "price": 320,
+          "description": "Agency group already first someone in item arm while avoid many ok.",
+          "isVeg": false
+        },
+        {
+          "id": "34149f51-3db3-41e8-ab94-54b28276ce0e",
+          "name": "Chocolate Brownie",
+          "price": 130,
+          "description": "Mouth exactly down writer daughter remain push interest animal.",
+          "isVeg": true
+        },
+        {
+          "id": "5f97d18a-de07-482d-9bb5-861641e3a342",
+          "name": "Masala Dosa",
+          "price": 251,
+          "description": "Single resource same mean small decision wish beyond administration carry.",
+          "isVeg": true
+        },
+        {
+          "id": "20c0b9aa-93b8-47d3-b094-c64349abd00b",
+          "name": "Zinger Burger",
+          "price": 283,
+          "description": "Itself coach research gas nor strategy remain establish dream other box.",
+          "isVeg": false
+        },
+        {
+          "id": "301fb7d6-3017-47b1-aeb5-7767db107eb2",
+          "name": "Chicken Popcorn",
+          "price": 357,
+          "description": "Shoulder likely sport through region it treatment security world.",
+          "isVeg": false
+        },
+        {
+          "id": "47d1bd83-5fba-4664-870c-baaa0e02e5df",
+          "name": "Double Cheese Pizza",
+          "price": 294,
+          "description": "Often month base computer state door voice.",
+          "isVeg": true
+        },
+        {
+          "id": "a26e7174-bad5-42c3-9205-af40f14ff805",
+          "name": "Idli Sambar",
+          "price": 300,
+          "description": "Guy inside blood five skill discussion office rise play.",
+          "isVeg": true
+        },
+        {
+          "id": "a08ad72f-04f4-408f-aa92-ee255c4da5a6",
+          "name": "Peri Peri Fries",
+          "price": 333,
+          "description": "During someone official still recognize against air street give soon describe radio interview.",
+          "isVeg": true
+        },
+        {
+          "id": "6a6c5f68-0cda-46bc-9931-6e84a30d4225",
+          "name": "Falooda",
+          "price": 286,
+          "description": "Expert personal arm enough investment her imagine police heavy choose.",
+          "isVeg": true
+        },
+        {
+          "id": "79738838-64cb-4042-a38a-80b521662abd",
+          "name": "Tandoori Paneer Tikka",
+          "price": 249,
+          "description": "Notice responsibility might professional eat huge speech.",
+          "isVeg": true
+        },
+        {
+          "id": "e5fba100-8663-41ac-8400-481df5310668",
+          "name": "Manchurian Balls",
+          "price": 341,
+          "description": "Against view five rock generation woman subject remember oil.",
+          "isVeg": true
+        },
+        {
+          "id": "a15452b4-174b-445f-95e4-21c893722cc3",
+          "name": "Veg Zinger",
+          "price": 308,
+          "description": "Attorney food box list couple example true themselves visit season situation address.",
+          "isVeg": true
+        },
+        {
+          "id": "78dcd560-03aa-473b-9aaf-38ab2b8f63d2",
+          "name": "Classic Mojito",
+          "price": 145,
+          "description": "Close reach any our ground find scientist.",
+          "isVeg": true
+        }
+      ]
+    }
+  ]
+}

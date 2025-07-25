@@ -1,4 +1,4 @@
-require("dotenv").config(); // Load environment variables
+require("dotenv").config();
 const cors = require("cors");
 const express = require("express");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
@@ -10,20 +10,20 @@ const path = require("path");
 
 // Initialize Firebase Admin
 firebaseAdmin.initializeApp({
-  credential: firebaseAdmin.credential.cert(require("./serviceAccountKey.json")), // Use absolute path or env for security
+  credential: firebaseAdmin.credential.cert(require("./serviceAccountKey.json")),
 });
 
 // Initialize Express App
 const app = express();
 app.use(express.json());
 
-// Configure CORS
-// app.use(cors({
-//   origin: "https://your-frontend.vercel.app", // Replace with your Vercel frontend URL
-//   methods: ["GET", "POST"],
-//   credentials: true,
-// }));
-
+// ✅ Allow CORS from frontend (Parcel default port 1234)
+app.use(
+  cors({
+    origin: "http://localhost:1234",
+    credentials: true,
+  })
+);
 
 // Nodemailer Setup
 const transporter = nodemailer.createTransport({
@@ -39,7 +39,23 @@ app.get("/", (req, res) => {
   res.send("It works at learncodeonline");
 });
 
-// Payment Route
+// ✅ Serve Menu JSON Files
+app.get("/api/menu", (req, res) => {
+  const restaurantId = req.query.restaurantId;
+  if (!restaurantId) {
+    return res.status(400).json({ error: "Missing restaurantId" });
+  }
+
+  const filePath = path.join(__dirname, "mock-menus", `${restaurantId}.json`);
+  if (!fs.existsSync(filePath)) {
+    return res.status(404).json({ error: "Menu not found for this restaurant" });
+  }
+
+  const menuData = JSON.parse(fs.readFileSync(filePath, "utf8"));
+  res.json(menuData);
+});
+
+// Payment Route (unchanged from your original)
 app.post("/payment", async (req, res) => {
   const { productList, token, auth } = req.body;
 
@@ -97,25 +113,8 @@ app.post("/payment", async (req, res) => {
   }
 });
 
-
-app.get("/api/menu", (req, res) => {
-  const restaurantId = req.query.restaurantId;
-  if (!restaurantId) {
-    return res.status(400).json({ error: "Missing restaurantId" });
-  }
-
-  const filePath = path.join(__dirname, "mock-menus", `${restaurantId}.json`);
-  if (!fs.existsSync(filePath)) {
-    return res.status(404).json({ error: "Menu not found for this restaurant" });
-  }
-
-  const menuData = JSON.parse(fs.readFileSync(filePath, "utf8"));
-  res.json(menuData);
-});
-
-
 // Start Server
-const port = 4200;//process.env.PORT
+const port = 4200;
 app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+  console.log(`Backend server running on http://localhost:${port}`);
 });

@@ -15,13 +15,13 @@ const ItemList = ({ items }) => {
   };
 
   return (
-    <div className="">
+    <div>
       {items.map((item, idx) => {
-        const info = item.card?.info || item; // Support both structures
+        const info = item.card?.info || item;
 
         return (
           <div
-            key={info.id || idx}
+            key={`${info.id}-${idx}`} // ✅ unique key
             className="p-2 m-2 mt-4 border-b border-gray-300 flex"
           >
             {pathname === "/cart" && (
