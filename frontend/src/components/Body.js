@@ -3,12 +3,13 @@ import { useState, useEffect, useContext } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from "../../utils/firebase";
+import {auth}  from "../../utils/firebase";
 import useOnlineStatus from "/utils/useOnlineStatus";
 import UserContext from "../../utils/UserContext";
 import { useDispatch } from "react-redux";
 import { addUser, removeUser } from '../../utils/userSlice';
 import mockData from "../../utils/mockData.json";
+import { Footer } from "./Footer";
 
 const PAGE_SIZE = 10;
 
@@ -61,6 +62,7 @@ const Body = () => {
   return restaurantList.length === 0 ? (
     <Shimmer />
   ) : (
+    <>
     <div className="body mt-[88px] px-4 sm:px-6 md:px-10 bg-gradient-to-r from-yellow-200 via-red-250 to-red-300 min-h-screen">
       
       {/* Filter Section */}
@@ -132,7 +134,10 @@ const Body = () => {
           </button>
         ))}
       </div>
+       
     </div>
+    
+    </>
   );
 };
 

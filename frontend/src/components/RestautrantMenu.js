@@ -8,10 +8,12 @@ const RestaurantMenu = () => {
   const [showIndex, setShowIndex] = useState(null);
   const { resId } = useParams();
   const resInfo = useRestaurantMenu(resId);
+  
+  
 
   // ❌ Removed resInfo.json() — not needed, causes crash
   // ✅ Directly log the JSON object
-  console.log(resInfo);
+  console.log(resInfo.name);
 
   if (!resInfo) return <Shimmer />;
 
@@ -34,6 +36,7 @@ const RestaurantMenu = () => {
             showItems={index === showIndex}
             setShowIndex={() => setShowIndex(index === showIndex ? null : index)}
             index={index}
+           
           />
         ))}
       </div>

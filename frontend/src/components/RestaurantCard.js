@@ -19,7 +19,7 @@ const LazyImage = lazy(() =>
 
 const RestaurantCard = (props) => {
   const { resData } = props;
-  const { loggedInUser } = useContext(UserContext);
+  
 
   const {
     cloudinaryImageId,
@@ -32,7 +32,7 @@ const RestaurantCard = (props) => {
 
   return (
     <motion.div
-      whileHover={{ scale: 1.05, rotate: 1 }}
+      whileHover={{ scale: 1.02, rotate: 0.5 }}
       whileTap={{ scale: 0.97 }}
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
@@ -41,10 +41,10 @@ const RestaurantCard = (props) => {
     >
       <Suspense
         fallback={
-          <div className="h-48 bg-gradient-to-r from-yellow-100 to-orange-100 animate-pulse rounded-xl" />
+          <div className="h-48 bg-gradient-to-r from-yellow-100 to-orange-100 rounded-xl" />
         }
       >
-        <LazyImage src={CDN_URL + cloudinaryImageId} alt="res-logo" />
+        <LazyImage className='object-cover' src={CDN_URL + cloudinaryImageId} alt="res-logo" />
       </Suspense>
 
       <div className="mt-4 px-2 text-gray-800">

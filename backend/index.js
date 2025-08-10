@@ -1,26 +1,29 @@
 require("dotenv").config();
 const cors = require("cors");
 const express = require("express");
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const { v4: uuidv4 } = require("uuid");
-const firebaseAdmin = require("firebase-admin");
 const nodemailer = require("nodemailer");
-const fs = require("fs");
+const admin = require("firebase-admin");
 const path = require("path");
+const fs = require("fs");
 
-// Initialize Firebase Admin
-firebaseAdmin.initializeApp({
-  credential: firebaseAdmin.credential.cert(require("./serviceAccountKey.json")),
-});
+if (!admin.apps.length) {
+  admin.initializeApp({
+    credential: admin.credential.applicationDefault(), 
+    // or use a service account if needed:
+    // credential: admin.credential.cert(require("./serviceAccountKey.json"))
+  });
+}
 
-// Initialize Express App
+
+// Express App
 const app = express();
 app.use(express.json());
 
-// ✅ Allow CORS from frontend (Parcel default port 1234)
+// ✅ Allow CORS (update port if frontend differs)
 app.use(
   cors({
-    origin: "http://localhost:1234",
+    origin: "http://localhost:1234", // change if React runs on 3000/5173
     credentials: true,
   })
 );
@@ -29,17 +32,10 @@ app.use(
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
+    user: process.env.EMAIL_USER || "vankur017@gmail.com",
+    pass: process.env.EMAIL_PASS || "pfnf wrry vwal htvi",
   },
 });
-
-// Test Route
-app.get("/", (req, res) => {
-  res.send("It works at learncodeonline");
-});
-
-// ✅ Serve Menu JSON Files
 app.get("/api/menu", (req, res) => {
   const restaurantId = req.query.restaurantId;
   if (!restaurantId) {
@@ -55,61 +51,93 @@ app.get("/api/menu", (req, res) => {
   res.json(menuData);
 });
 
-// Payment Route (unchanged from your original)
 app.post("/payment", async (req, res) => {
-  const { productList, token, auth } = req.body;
+  console.log("Received payment request:", req.body);
+
+  const { method, productList, email } = req.body;
 
   try {
-    const decodedToken = await firebaseAdmin.auth().verifyIdToken(auth);
-    console.log("User ID from Firebase:", decodedToken.uid);
-    console.log("Email ID from Firebase:", decodedToken.email);
-
-    if (!token || !Array.isArray(productList) || productList.length === 0) {
-      return res.status(400).json({ error: "Token and a non-empty product list are required." });
+    if (!Array.isArray(productList) || productList.length === 0) {
+      return res.status(400).json({ error: "Product list cannot be empty." });
     }
+  
+    // if (!accessToken) {
+    //   return res.status(401).json({ error: "Missing access token" });
+    // }
 
-    const customer = await stripe.customers.create({
-      email: token.email,
-      source: token.id,
-    });
+    // ✅ Verify Firebase ID token & get user
 
-    const charges = await Promise.all(
-      productList.map(async (product) => {
-        const idempotencyKey = uuidv4();
-        return await stripe.charges.create(
-          {
-            amount: product.price * 100,
-            currency: "INR",
-            customer: customer.id,
-            receipt_email: token.email,
-            description: `Purchase of ${product.name}`,
-          },
-          { idempotencyKey }
-        );
-      })
+
+    const dummyUser = {
+      email: email,
+      
+    };
+
+    // ✅ Calculate total in ₹
+    const totalAmount = Math.round(
+      productList.reduce(
+        (sum, product) => sum + product.unitPrice * product.quantity,
+        0
+      )
     );
 
-    const totalAmount = charges.reduce((sum, charge) => sum + charge.amount, 0);
+    const orderId = uuidv4();
 
+    // ✅ Build HTML table for order items
+    const orderItemsHtml = productList
+      .map(
+        (item, idx) => `
+        <tr>
+          <td style="padding:8px;border:1px solid #ddd;">${idx + 1}</td>
+          <td style="padding:8px;border:1px solid #ddd;">${item.name}</td>
+          <td style="padding:8px;border:1px solid #ddd;">${item.quantity}</td>
+          <td style="padding:8px;border:1px solid #ddd;">₹${item.unitPrice.toFixed(2)}</td>
+          <td style="padding:8px;border:1px solid #ddd;">₹${item.price.toFixed(2)}</td>
+        </tr>`
+      )
+      .join("");
+
+    // ✅ Email body
     const emailBody = `
-      Thank you for your purchase!
-      Here are your payment details:
-
-      ${charges.map((charge) => `- ${charge.description}: ₹${(charge.amount / 100).toFixed(2)}`).join("\n")}
-
-      Total Amount: ₹${(totalAmount / 100).toFixed(2)}
+      <div style="font-family:Arial,sans-serif;line-height:1.5;">
+        <h2 style="color:#f59e0b;">Order Confirmation 🎉</h2>
+        <p>Hi</p>
+        <p>Your order <strong>#${orderId}</strong> has been placed successfully via <strong>${method}</strong>.</p>
+        <h3>Order Details</h3>
+        <table style="width:100%;border-collapse:collapse;margin:20px 0;">
+          <thead>
+            <tr style="background-color:#fef3c7;">
+              <th style="padding:8px;border:1px solid #ddd;">#</th>
+              <th style="padding:8px;border:1px solid #ddd;">Item</th>
+              <th style="padding:8px;border:1px solid #ddd;">Qty</th>
+              <th style="padding:8px;border:1px solid #ddd;">Unit Price</th>
+              <th style="padding:8px;border:1px solid #ddd;">Total</th>
+            </tr>
+          </thead>
+          <tbody>${orderItemsHtml}</tbody>
+        </table>
+        <h3>Total Amount: ₹${totalAmount}</h3>
+        <p>We’ll notify you when your order is out for delivery 🚚.</p>
+        <p style="margin-top:20px;">Cheers,<br><strong>Bite Buddy Team</strong></p>
+      </div>
     `;
 
+    // ✅ Send Email
     await transporter.sendMail({
-      to: decodedToken.email,
-      subject: "Your Payment Receipt",
-      text: emailBody,
+      to: dummyUser.email,
+      subject: `Order Confirmation #${orderId} - ₹${totalAmount}`,
+      html: emailBody,
     });
 
-    res.status(200).json({ charges, totalAmount });
+    res.status(200).json({
+      success: true,
+      method,
+      totalAmount,
+      orderId,
+    });
   } catch (err) {
-    console.error("Error processing payment:", err.message);
-    res.status(500).json({ error: "Payment processing failed!" });
+    console.error("Payment error:", err.message);
+    res.status(500).json({ error: err.message || "Payment processing failed!" });
   }
 });
 
