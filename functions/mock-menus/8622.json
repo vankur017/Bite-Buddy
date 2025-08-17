@@ -1,0 +1,74 @@
+{
+  "restaurantId": "8622",
+  "name": "Anand Stall",
+  "cuisines": [
+    "Street Food",
+    "North Indian"
+  ],
+  "menu": [
+    {
+      "category": "Starters",
+      "items": [
+        {
+          "id": "i9j0k1l2-m3n4-4o5p-6q7r-8s9t0u1v2w3x",
+          "name": "Pani Puri",
+          "price": 80,
+          "description": "Crispy puris filled with spiced water and chickpeas.",
+          "isVeg": true
+        },
+        {
+          "id": "j0k1l2m3-n4o5-4p6q-7r8s-9t0u1v2w3x4y",
+          "name": "Bhel Puri",
+          "price": 90,
+          "description": "Puffed rice mixed with chutneys and veggies.",
+          "isVeg": true
+        },
+        {
+          "id": "k1l2m3n4-o5p6-4q7r-8s9t-0u1v2w3x4y5z",
+          "name": "Sev Puri",
+          "price": 85,
+          "description": "Flat puris topped with potatoes and chutneys.",
+          "isVeg": true
+        }
+      ]
+    },
+    {
+      "category": "Main Course",
+      "items": [
+        {
+          "id": "l2m3n4o5-p6q7-4r8s-9t0u-1v2w3x4y5z6a",
+          "name": "Pav Bhaji",
+          "price": 140,
+          "description": "Spiced vegetable mash with buttered bread rolls.",
+          "isVeg": true
+        },
+        {
+          "id": "m3n4o5p6-q7r8-4s9t-0u1v-2w3x4y5z6a7b",
+          "name": "Vada Pav",
+          "price": 60,
+          "description": "Spicy potato fritter in a bun with chutneys.",
+          "isVeg": true
+        }
+      ]
+    },
+    {
+      "category": "Beverages",
+      "items": [
+        {
+          "id": "n4o5p6q7-r8s9-4t0u-1v2w-3x4y5z6a7b8c",
+          "name": "Masala Soda",
+          "price": 50,
+          "description": "Fizzy drink with spices and lemon.",
+          "isVeg": true
+        },
+        {
+          "id": "o5p6q7r8-s9t0-4u1v-2w3x-4y5z6a7b8c9d",
+          "name": "Sugarcane Juice",
+          "price": 70,
+          "description": "Freshly pressed sugarcane juice with lime.",
+          "isVeg": true
+        }
+      ]
+    }
+  ]
+}

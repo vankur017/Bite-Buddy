@@ -1,14 +1,14 @@
 import { CDN_URL } from "/utils/constants";
-import { lazy, useContext, Suspense } from "react";
+import { lazy, Suspense } from "react";
 import { motion } from "framer-motion";
 import UserContext from "../../utils/UserContext";
 
-// Lazily load an Image component
+// Lazily load an Image component with className support
 const LazyImage = lazy(() =>
   Promise.resolve({
-    default: ({ src, alt }) => (
+    default: ({ src, alt, className = "" }) => (
       <img
-        className="res-logo rounded-xl w-full h-48 object-cover sm:h-64"
+        className={`res-logo rounded-xl w-full h-48 object-cover sm:h-64 ${className}`}
         loading="lazy"
         src={src}
         alt={alt}
@@ -19,7 +19,6 @@ const LazyImage = lazy(() =>
 
 const RestaurantCard = (props) => {
   const { resData } = props;
-  
 
   const {
     cloudinaryImageId,
@@ -28,7 +27,7 @@ const RestaurantCard = (props) => {
     costForTwo,
     avgRating,
     sla,
-  } = resData?.info;
+  } = resData?.info || {};
 
   return (
     <motion.div
@@ -41,19 +40,19 @@ const RestaurantCard = (props) => {
     >
       <Suspense
         fallback={
-          <div className="h-48 bg-gradient-to-r from-yellow-100 to-orange-100 rounded-xl" />
+          <div className="h-48 bg-gradient-to-r from-yellow-100 to-orange-100 rounded-xl animate-pulse" />
         }
       >
-        <LazyImage className='object-cover' src={CDN_URL + cloudinaryImageId} alt="res-logo" />
+        <LazyImage src={CDN_URL + cloudinaryImageId} alt="res-logo" />
       </Suspense>
 
       <div className="mt-4 px-2 text-gray-800">
         <h2 className="font-extrabold text-xl text-orange-600">{name}</h2>
-        <p className="text-sm text-gray-700 mt-1">{cuisines.join(", ")}</p>
+        <p className="text-sm text-gray-700 mt-1">{cuisines?.join(", ")}</p>
         <div className="mt-2 text-sm space-y-1">
           <h4 className="text-yellow-600 font-medium">{costForTwo}</h4>
           <h4 className="text-orange-500">{avgRating} ★</h4>
-          <h4 className="text-gray-600">{sla.deliveryTime} min delivery</h4>
+          <h4 className="text-gray-600">{sla?.deliveryTime} min delivery</h4>
         </div>
       </div>
     </motion.div>
@@ -61,7 +60,7 @@ const RestaurantCard = (props) => {
 };
 
 // Higher Order Component for Veg/NonVeg badge
-export const vegNonVeg = (RestaurantCard) => {
+export const vegNonVeg = (WrappedCard) => {
   return (props) => {
     const { resData } = props;
     const isVeg = resData?.info?.veg === true;
@@ -78,10 +77,11 @@ export const vegNonVeg = (RestaurantCard) => {
         >
           {isVeg ? "Veg" : "Non Veg"}
         </motion.div>
-        <RestaurantCard {...props} />
+        <WrappedCard {...props} />
       </div>
     );
   };
 };
 
-export default RestaurantCard;
+// Export wrapped version by default (so every card shows badge automatically)
+export default vegNonVeg(RestaurantCard);

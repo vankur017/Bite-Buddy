@@ -71,7 +71,7 @@ const handleDummyPayment = async (method) => {
     
 
     // ✅ Actually store fetch result in a variable
-    const response = await fetch("http://localhost:4200/payment", {
+    const response = await fetch("https://us-central1-bitebuddy-39ffc.cloudfunctions.net/api/payment", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

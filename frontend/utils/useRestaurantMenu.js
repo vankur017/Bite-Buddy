@@ -1,5 +1,5 @@
 // import {useEffect,useState} from "react";
-// import { MENU_API_URL } from "./constants";
+// import { MENU_API_URL } from "./srcconstants";
 // const useRestaurantMenu = (resId)=>{
 //     console.log(resId);
     
@@ -43,7 +43,7 @@ const useRestaurantMenu = (resId) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:4200/api/menu?restaurantId=${resId}`);
+        const response = await fetch(`https://us-central1-bitebuddy-39ffc.cloudfunctions.net/api/api/menu?restaurantId=${resId}`);
         if (!response.ok) {
           throw new Error("Menu not found");
         }

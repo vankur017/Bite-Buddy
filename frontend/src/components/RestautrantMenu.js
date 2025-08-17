@@ -13,7 +13,7 @@ const RestaurantMenu = () => {
 
   // ❌ Removed resInfo.json() — not needed, causes crash
   // ✅ Directly log the JSON object
-  console.log(resInfo.name);
+  console.log(resInfo?.name);
 
   if (!resInfo) return <Shimmer />;
 

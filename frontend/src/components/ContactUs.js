@@ -1,28 +1,58 @@
-const Contact = ()=>{
-    
-    
-    return (
-        <div className="m-10 p-10">
-            <h1 className="font-bold text-3xl p-4 m-4">Contact Us</h1>
-            <p>Please Submit Your Query in the below Message Box</p>
+const Contact = () => {
+  return (
+    <div className="min-h-screen mt-10 flex items-center justify-center bg-gray-100 p-4 sm:p-6 md:p-8">
+      <div className="w-full max-w-lg sm:max-w-xl md:max-w-3xl bg-white rounded-2xl shadow-lg p-6 sm:p-8 md:p-10">
+        <h1 className="text-3xl sm:text-4xl font-bold mb-3 sm:mb-4 text-gray-800">
+          Contact Us
+        </h1>
+        <p className="text-gray-600 mb-6 sm:text-lg">
+          Please submit your query in the message box below.
+        </p>
 
-            <form onClick={(e)=>e.preventDefault()}>
-            <label htmlFor="inputId">Name</label>
-                <div>
-                    
-                    <input className="border border-black rounded-xl p-2 w-[200px]" placeholder="name" type="text"></input><br/>
-                </div>
-                <label htmlFor="inputId">Message</label>
-                <div>
-            
-                <input className="border border-black rounded-xl p-2 w-[600px] h-[400px]" placeholder="" type="text"></input><br/>
-                
-                </div>
-                
-           
-            <button className='p-4 m-5 rounded-3xl border border-red bg-slate-200 color'>Submit</button>
+        <form onSubmit={(e) => e.preventDefault()} className="space-y-5 sm:space-y-6">
+          {/* Name Field */}
+          <div>
+            <label
+              htmlFor="name"
+              className="block text-gray-700 font-medium mb-1 sm:mb-2"
+            >
+              Name
+            </label>
+            <input
+              id="name"
+              type="text"
+              placeholder="Enter your name"
+              className="w-full p-3 text-black sm:p-4 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+            />
+          </div>
+
+          {/* Message Field */}
+          <div>
+            <label
+              htmlFor="message"
+              className="block text-gray-700 font-medium mb-1 sm:mb-2"
+            >
+              Message
+            </label>
+            <textarea
+              id="message"
+              rows="6"
+              placeholder="Type your message here..."
+              className="w-full text-black p-3 sm:p-4 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 transition resize-none"
+            ></textarea>
+          </div>
+
+          {/* Submit Button */}
+          <button
+            type="submit"
+            className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 sm:py-4 rounded-2xl shadow-md transition transform hover:scale-105"
+          >
+            Submit
+          </button>
         </form>
-        </div>
-    )
-}
-export default Contact
+      </div>
+    </div>
+  );
+};
+
+export default Contact;

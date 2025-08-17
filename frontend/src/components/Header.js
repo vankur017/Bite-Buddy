@@ -38,9 +38,7 @@ const Header = () => {
         const { uid, email, displayName } = user;
         dispatch(addUser({ uid, email, displayName }));
 
-        if (window.location.pathname === "/") {
-          navigate("/browse");
-        }
+        if (window.location.pathname === "/") navigate("/browse");
         setSignIn(false);
       } else {
         dispatch(removeUser());
@@ -59,8 +57,9 @@ const Header = () => {
   return (
     signIn === false && (
       <>
+        {/* Desktop Header */}
         <motion.div
-          className="fixed top-0 left-0 w-full bg-opacity-90 backdrop-blur-lg shadow-lg z-50"
+          className="fixed top-0 left-0 w-full z-50 bg-white/90 backdrop-blur-md shadow-md border-b border-gray-200"
           initial={{ y: -100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
@@ -71,18 +70,23 @@ const Header = () => {
               <motion.img
                 src={LOGO_URL}
                 alt="Logo"
-                className="w-14 h-14 rounded-full object-cover shadow-md"
+                className="w-14 h-14 rounded-full object-cover shadow-md border-2 border-blue-400"
                 whileHover={{ scale: 1.1, rotate: 5 }}
                 transition={{ type: "spring", stiffness: 200 }}
               />
-              <span className="text-2xl font-extrabold text-gray-900">BiteBuddy</span>
+              <span className="text-2xl font-extrabold text-blue-600 drop-shadow-md">
+                BiteBuddy
+              </span>
             </Link>
 
             {/* Desktop Nav */}
-            <ul className="hidden md:flex space-x-6 font-semibold text-lg">
+            <ul className="hidden md:flex space-x-6 font-semibold text-lg text-gray-700">
               {["browse", "about", "contact", "store"].map((route) => (
-                <motion.li key={route} whileHover={{ scale: 1.1 }}>
-                  <Link to={`/${route}`} className="hover:text-green-600 transition">
+                <motion.li key={route} whileHover={{ scale: 1.05 }}>
+                  <Link
+                    to={`/${route}`}
+                    className="hover:text-blue-500 transition-colors duration-300"
+                  >
                     {route.charAt(0).toUpperCase() + route.slice(1)}
                   </Link>
                 </motion.li>
@@ -92,18 +96,30 @@ const Header = () => {
             {/* Right Side (Cart + Status + Logout) */}
             <div className="hidden md:flex items-center space-x-5">
               <Link to="/cart" className="relative">
-                <svg width="30" height="30" fill="none" viewBox="0 0 24 24">
-                  <path d="M6.3 5H21L19 12H7.38M20 16H8L6 3H3M9 20a1 1 0 11-2 0 1 1 0 012 0zm11 0a1 1 0 11-2 0 1 1 0 012 0z" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                <svg
+                  width="30"
+                  height="30"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="#000"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M6.3 5H21L19 12H7.38M20 16H8L6 3H3M9 20a1 1 0 11-2 0 1 1 0 012 0zm11 0a1 1 0 11-2 0 1 1 0 012 0z" />
                 </svg>
                 <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">
                   {cartItems.length}
                 </span>
               </Link>
-             
-              <span className="text-lg font-medium">{user?.displayName}</span>
+
+              <span className="text-lg font-medium text-gray-800">
+                {user?.displayName || loggedInUser}
+              </span>
               <motion.button
-                className="px-4 py-2 rounded-full bg-red-500 text-white font-semibold hover:bg-red-600 transition"
+                className="px-4 py-2 rounded-full bg-red-500 hover:bg-red-600 text-white font-semibold shadow-md"
                 whileHover={{ scale: 1.1 }}
+                transition={{ type: "spring", stiffness: 200 }}
                 onClick={handleSignout}
               >
                 Logout
@@ -112,7 +128,7 @@ const Header = () => {
 
             {/* Mobile Burger Icon */}
             <button
-              className="md:hidden block text-black focus:outline-none"
+              className="md:hidden block text-gray-800 focus:outline-none"
               onClick={() => setMenuOpen(true)}
             >
               <svg
@@ -133,14 +149,14 @@ const Header = () => {
           {isMenuOpen && (
             <>
               <motion.div
-                className="fixed inset-0 bg-black bg-opacity-40 z-40"
+                className="fixed inset-0 bg-black bg-opacity-30 z-40"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 onClick={() => setMenuOpen(false)}
               />
               <motion.div
-                className="fixed top-0 right-0 w-64 h-full bg-white shadow-lg z-50 flex flex-col p-6 gap-6"
+                className="fixed top-0 right-0 w-64 h-full bg-white shadow-lg z-50 flex flex-col p-6 gap-6 text-gray-800"
                 initial="hidden"
                 animate="visible"
                 exit="exit"
@@ -148,7 +164,7 @@ const Header = () => {
                 transition={{ duration: 0.3 }}
               >
                 <button
-                  className="self-end text-black"
+                  className="self-end text-gray-800 text-2xl"
                   onClick={() => setMenuOpen(false)}
                 >
                   ✕
@@ -158,24 +174,32 @@ const Header = () => {
                     key={route}
                     to={`/${route}`}
                     onClick={() => setMenuOpen(false)}
-                    className="text-lg font-semibold hover:text-green-600 transition"
+                    className="text-lg font-semibold hover:text-blue-500 transition"
                   >
                     {route.charAt(0).toUpperCase() + route.slice(1)}
                   </Link>
                 ))}
-                <Link to="/cart" onClick={() => setMenuOpen(false)} className="flex items-center">
+                <Link
+                  to="/cart"
+                  onClick={() => setMenuOpen(false)}
+                  className="flex items-center gap-2 hover:text-blue-500 transition"
+                >
                   🛒 Cart ({cartItems.length})
                 </Link>
-                <span className="text-sm bg-gray-100 px-3 py-1 rounded-lg w-max">
+                <span
+                  className={`text-sm px-3 py-1 rounded-lg w-max ${
+                    onlineStatus ? "bg-green-200" : "bg-red-200"
+                  }`}
+                >
                   {onlineStatus ? "✅ Online" : "🔴 Offline"}
                 </span>
-                <span className="text-lg font-medium">{user?.displayName}</span>
+                <span className="text-lg font-medium">{user?.displayName || loggedInUser}</span>
                 <button
                   onClick={() => {
                     handleSignout();
                     setMenuOpen(false);
                   }}
-                  className="mt-auto px-4 py-2 bg-red-500 text-white rounded-full hover:bg-red-600 transition"
+                  className="mt-auto px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-full transition shadow-md"
                 >
                   Logout
                 </button>
