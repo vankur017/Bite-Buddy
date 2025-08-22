@@ -1,0 +1,89 @@
+[debug] [2025-08-19T17:58:39.381Z] ----------------------------------------------------------------------
+[debug] [2025-08-19T17:58:39.385Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\averma289\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only functions
+[debug] [2025-08-19T17:58:39.385Z] CLI Version:   14.10.1
+[debug] [2025-08-19T17:58:39.385Z] Platform:      win32
+[debug] [2025-08-19T17:58:39.385Z] Node Version:  v22.0.0
+[debug] [2025-08-19T17:58:39.385Z] Time:          Tue Aug 19 2025 23:28:39 GMT+0530 (India Standard Time)
+[debug] [2025-08-19T17:58:39.385Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-08-19T17:58:39.643Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-08-19T17:58:39.644Z] > authorizing via signed-in user (vankur017@gmail.com)
+[debug] [2025-08-19T17:58:39.644Z] [iam] checking project bitebuddy-39ffc for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2025-08-19T17:58:39.646Z] Checked if tokens are valid: true, expires at: 1755628062461
+[debug] [2025-08-19T17:58:39.646Z] Checked if tokens are valid: true, expires at: 1755628062461
+[debug] [2025-08-19T17:58:39.648Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/bitebuddy-39ffc:testIamPermissions [none]
+[debug] [2025-08-19T17:58:39.648Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/bitebuddy-39ffc:testIamPermissions x-goog-quota-user=projects/bitebuddy-39ffc
+[debug] [2025-08-19T17:58:39.648Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/bitebuddy-39ffc:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2025-08-19T17:58:41.323Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/bitebuddy-39ffc:testIamPermissions 200
+[debug] [2025-08-19T17:58:41.323Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/bitebuddy-39ffc:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2025-08-19T17:58:41.323Z] Checked if tokens are valid: true, expires at: 1755628062461
+[debug] [2025-08-19T17:58:41.324Z] Checked if tokens are valid: true, expires at: 1755628062461
+[debug] [2025-08-19T17:58:41.324Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/bitebuddy-39ffc/serviceAccounts/bitebuddy-39ffc@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2025-08-19T17:58:41.324Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/bitebuddy-39ffc/serviceAccounts/bitebuddy-39ffc@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2025-08-19T17:58:43.246Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/bitebuddy-39ffc/serviceAccounts/bitebuddy-39ffc@appspot.gserviceaccount.com:testIamPermissions 200
+[debug] [2025-08-19T17:58:43.246Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/bitebuddy-39ffc/serviceAccounts/bitebuddy-39ffc@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[info] 
+[info] === Deploying to 'bitebuddy-39ffc'...
+[info] 
+[info] i  deploying functions 
+[debug] [2025-08-19T17:58:43.252Z] Checked if tokens are valid: true, expires at: 1755628062461
+[debug] [2025-08-19T17:58:43.252Z] Checked if tokens are valid: true, expires at: 1755628062461
+[debug] [2025-08-19T17:58:43.252Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/bitebuddy-39ffc [none]
+[debug] [2025-08-19T17:58:43.597Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/bitebuddy-39ffc 200
+[debug] [2025-08-19T17:58:43.598Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/bitebuddy-39ffc {"projectNumber":"915358683426","projectId":"bitebuddy-39ffc","lifecycleState":"ACTIVE","name":"BiteBuddy","labels":{"firebase":"enabled"},"createTime":"2024-09-10T18:40:40.465638Z"}
+[info] i  functions: preparing codebase default for deployment 
+[info] i  functions: ensuring required API cloudfunctions.googleapis.com is enabled... 
+[info] i  functions: ensuring required API cloudbuild.googleapis.com is enabled... 
+[info] i  artifactregistry: ensuring required API artifactregistry.googleapis.com is enabled... 
+[debug] [2025-08-19T17:58:43.603Z] Checked if tokens are valid: true, expires at: 1755628062461
+[debug] [2025-08-19T17:58:43.603Z] Checked if tokens are valid: true, expires at: 1755628062461
+[debug] [2025-08-19T17:58:43.603Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/bitebuddy-39ffc/adminSdkConfig [none]
+[debug] [2025-08-19T17:58:44.343Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/bitebuddy-39ffc/adminSdkConfig 200
+[debug] [2025-08-19T17:58:44.343Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/bitebuddy-39ffc/adminSdkConfig {"projectId":"bitebuddy-39ffc","storageBucket":"bitebuddy-39ffc.firebasestorage.app"}
+[debug] [2025-08-19T17:58:44.344Z] Checked if tokens are valid: true, expires at: 1755628062461
+[debug] [2025-08-19T17:58:44.344Z] Checked if tokens are valid: true, expires at: 1755628062461
+[debug] [2025-08-19T17:58:44.344Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/bitebuddy-39ffc/configs [none]
+[debug] [2025-08-19T17:58:45.678Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/bitebuddy-39ffc/configs 200
+[debug] [2025-08-19T17:58:45.678Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/bitebuddy-39ffc/configs {"configs":[{"name":"projects/bitebuddy-39ffc/configs/email"}]}
+[debug] [2025-08-19T17:58:45.679Z] Checked if tokens are valid: true, expires at: 1755628062461
+[debug] [2025-08-19T17:58:45.679Z] Checked if tokens are valid: true, expires at: 1755628062461
+[debug] [2025-08-19T17:58:45.679Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/bitebuddy-39ffc/configs/email/variables [none]
+[debug] [2025-08-19T17:58:46.858Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/bitebuddy-39ffc/configs/email/variables 200
+[debug] [2025-08-19T17:58:46.859Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/bitebuddy-39ffc/configs/email/variables {"variables":[{"name":"projects/bitebuddy-39ffc/configs/email/variables/user","updateTime":"2025-08-17T04:00:02.430493150Z"},{"name":"projects/bitebuddy-39ffc/configs/email/variables/pass","updateTime":"2025-08-17T04:00:02.035206541Z"}]}
+[debug] [2025-08-19T17:58:46.859Z] Checked if tokens are valid: true, expires at: 1755628062461
+[debug] [2025-08-19T17:58:46.859Z] Checked if tokens are valid: true, expires at: 1755628062461
+[debug] [2025-08-19T17:58:46.859Z] Checked if tokens are valid: true, expires at: 1755628062461
+[debug] [2025-08-19T17:58:46.859Z] Checked if tokens are valid: true, expires at: 1755628062461
+[debug] [2025-08-19T17:58:46.859Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/bitebuddy-39ffc/configs/email/variables/user [none]
+[debug] [2025-08-19T17:58:46.860Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/bitebuddy-39ffc/configs/email/variables/pass [none]
+[debug] [2025-08-19T17:58:47.230Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/bitebuddy-39ffc/configs/email/variables/user 200
+[debug] [2025-08-19T17:58:47.231Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/bitebuddy-39ffc/configs/email/variables/user {"name":"projects/bitebuddy-39ffc/configs/email/variables/user","updateTime":"2025-08-17T04:00:02.430493150Z","text":"vankur017@gmail.com"}
+[debug] [2025-08-19T17:58:48.206Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/bitebuddy-39ffc/configs/email/variables/pass 200
+[debug] [2025-08-19T17:58:48.207Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/bitebuddy-39ffc/configs/email/variables/pass {"name":"projects/bitebuddy-39ffc/configs/email/variables/pass","updateTime":"2025-08-17T04:00:02.035206541Z","text":"pfnf wrry vwal htvi"}
+[debug] [2025-08-19T17:58:48.209Z] Validating nodejs source
+[debug] [2025-08-19T17:58:51.607Z] > [functions] package.json contents: {
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "author": "ankur",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.2",
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^6.4.0",
+    "nodemailer": "^6.10.1",
+    "nodemon": "^3.1.10",
+    "stripe": "^17.2.1",
+    "uuid": "^10.0.0"
+  }
+}
+[debug] [2025-08-19T17:58:51.608Z] Building nodejs source
+[info] i  functions: Loading and analyzing source code for codebase default to determine what to deploy 
+[debug] [2025-08-19T17:58:51.613Z] Could not find functions.yaml. Must use http discovery
+[debug] [2025-08-19T17:58:51.644Z] Found firebase-functions binary at 'C:\my_repos\Bite-Buddy\functions\node_modules\.bin\firebase-functions'

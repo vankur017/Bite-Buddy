@@ -167,7 +167,7 @@ app.use(express.json());
 // ✅ CORS
 app.use(
   cors({
-    origin: ["http://localhost:1234", "https://your-frontend.web.app"],
+    origin: ["http://localhost:1234", "https://bitebuddy-39ffc.web.app"],
     credentials: true,
   })
 );
@@ -179,6 +179,17 @@ const transporter = nodemailer.createTransport({
     user: process.env.EMAIL_USER || "your_email@gmail.com",
     pass: process.env.EMAIL_PASS || "your_app_password",
   },
+});
+
+app.get("/api/restaurants", (req, res) => {
+  try {
+    const filePath = path.join("C:/my_repos/Bite-Buddy/frontend/utils/mockData.json", "mockData.json"); // adjust path if needed
+    const data = JSON.parse(fs.readFileSync(filePath, "utf8"));
+    res.json(data);
+  } catch (err) {
+    console.error("Error reading mockData.json:", err.message);
+    res.status(500).json({ error: "Failed to load restaurants data" });
+  }
 });
 
 // ✅ API: Get Menu

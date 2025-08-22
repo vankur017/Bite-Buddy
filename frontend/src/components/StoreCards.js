@@ -1,29 +1,41 @@
-import React from "react";
+import React,{useState} from "react";
 import { Link } from "react-router-dom";
 import Notfound from "../../utils/photo.png";
 import { useParams } from "react-router-dom";
 
+
+const PAGE_SIZE = 10;
+
 const StoreCards = ({ data = [], setData }) => {
  
+  const [currentPage ,setCurrentpage] = useState(0);
   
   const {id} = useParams()
   console.log(id);
-  
-  const handleClick= ()=>{
 
-  }
+   const handleNextPageLoad= (n)=> setCurrentpage(n)
+
+  const noOfPages = Math.ceil(data.length / PAGE_SIZE);
+  const start = currentPage * PAGE_SIZE;
+  const end = (currentPage + 1) * PAGE_SIZE;
+
+  
+ 
+  
+  console.log(data);
   
 
   return (
     <div className="min-h-screen mt-20 px-6 py-10 bg-gray-50">
       {/* Responsive Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-        {data.map((product) => (
+        {data.slice(start,end).map((product) => (
           <div
             key={product.id}
             className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-2 cursor-pointer border border-gray-200"
           >
             <img
+              loading="lazy"
               className="h-48 w-full object-cover rounded-t-2xl transition-transform duration-500 hover:scale-105"
               src={
                 product.images && product.images.length > 0
@@ -46,7 +58,7 @@ const StoreCards = ({ data = [], setData }) => {
                 <Link
                   to={`/store/${product.id}`}
                   className="text-sm text-white bg-orange-500 hover:bg-orange-600 px-3 py-1.5 rounded-lg transition-colors"
-                  onClick={handleClick}
+                  
                 >
                   View
                 </Link>
@@ -54,6 +66,23 @@ const StoreCards = ({ data = [], setData }) => {
             </div>
           </div>
         ))}
+      </div>
+      <div>
+      {/* Pagination */}
+      <div className="flex justify-center flex-wrap gap-2 mt-6">
+        {[...Array(noOfPages).keys()].map((n)=>{
+          return (
+            <button 
+              key={n}
+            className="mx-2 bg-black text-white"
+            onClick={()=>handleNextPageLoad(n)}
+            >
+
+                {n+1}
+            </button>
+          )
+        })}
+      </div>
       </div>
 
 

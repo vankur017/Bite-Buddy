@@ -5,10 +5,10 @@ const Footer = () => {
   const { loggedInUser } = useContext(UserContext);
 
   return (
-    <footer className="fixed bottom-0 left-0 w-full z-50">
+    <footer className="fixed bottom-0 left-0 w-full">
       <div
         className="
-          flex justify-between items-center py-4 px-6
+          flex justify-between items-center py-1 px-6
           rounded-none shadow-lg
           bg-gradient-to-r from-gray-900/70 via-gray-800/60 to-gray-900/70
           backdrop-blur-md border-t border-gray-700

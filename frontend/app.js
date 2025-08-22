@@ -21,7 +21,7 @@ import LoginPage from "./src/components/LoginPage.js";
 import Payment from "./src/components/Payment.js";
 import PaymentSuccess from "./src/components/PaymentSuccess.js";
 import Store from "./src/components/Store.js";
-import Storeproduct from "./src/components/Storeproduct.js";
+import StoreProduct from "./src/components/Storeproduct.js";
 
 
 // ✅ Lazy-loaded components
@@ -29,7 +29,7 @@ const Body = lazy(() => import("./src/components/Body.js"));
 const About = lazy(() => import("./src/components/About.js"));
 const RestaurantMenu = lazy(() => import("./src/components/RestautrantMenu.js"));
 const Contact = lazy(() => import("./src/components/ContactUs.js"));
-
+const StoreProduct = lazy(() => import("./src/components/Storeproduct.js"));
 // ✅ App Layout
 const AppLayout = () => {
   const [userName, setUserName] = useState("");
@@ -52,7 +52,7 @@ const AppLayout = () => {
                 <Route path="/browse" element={<Body />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/store/" element={<Store />} />
-                <Route path="/store/:id" element={<Storeproduct />} />
+                <Route path="/store/:id" element={<StoreProduct />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/restaurant/:resId" element={<RestaurantMenu />} />
                 <Route path="/cart" element={<Cart />} />
@@ -65,7 +65,8 @@ const AppLayout = () => {
               </Routes>
             </Suspense>
           </main>
-          <Footer />
+
+           {/* {location.pathname !== "/" && <Footer />} */}
         </div>
       </UserContext.Provider>
     </Provider>
