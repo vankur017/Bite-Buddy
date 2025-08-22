@@ -1,6 +1,6 @@
 # 🧠 Getting Started – BiteBuddy Fullstack Setup
 
-## 📦 Backend Server (Express + Stripe + Firebase)
+## 📦 Backend Server (Express + Firebase)
 
 ### 1. Navigate to the backend directory:
 
@@ -33,20 +33,9 @@ http://localhost:4200
   - `serviceAccountKey.json` (Firebase admin SDK key)
   - `.env` with:
     ```env
-    STRIPE_SECRET_KEY=your_stripe_secret
     EMAIL_USER=your_email@gmail.com
     EMAIL_PASS=your_app_password
     ```
-
----
-
-## 💳 Dummy Payment Details (Stripe Testing)
-
-Use the following **test card** for Stripe payments:
-
-- **Card Number**: `4242 4242 4242 4242`
-- **Expiry Date**: Any **future** date (MM/YY)
-- **CVV**: Any 3 digits (e.g., `123`)
 
 ---
 
@@ -96,6 +85,3 @@ Example fetch from React:
 ```js
 fetch(`/menus/8614.json`)
 ```
-
----
-
