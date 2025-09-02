@@ -1,0 +1,33 @@
+name: Secret Scanning Report
+
+on:
+  schedule:
+    - cron: "0 8 * * *"   # Runs daily at 08:00 UTC
+  workflow_dispatch:       # Allow manual trigger from Actions tab
+
+jobs:
+  fetch-alerts:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Fetch open secret scanning alerts
+        id: alerts
+        uses: octokit/request-action@v3
+        with:
+          route: GET /repos/${{ github.repository }}/secret-scanning/alerts
+          token: ${{ secrets.GITHUB_TOKEN }}
+          mediaType: '{"format":"json"}'
+
+      - name: Save alerts to file
+        run: |
+          echo '${{ steps.alerts.outputs.data }}' > secret-alerts.json
+          echo "Saved alerts to secret-alerts.json"
+
+      - name: Upload alerts artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: secret-scanning-alerts
+          path: secret-alerts.json
