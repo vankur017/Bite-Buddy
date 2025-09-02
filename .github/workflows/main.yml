@@ -15,19 +15,34 @@ jobs:
 
       - name: Fetch open secret scanning alerts
         id: alerts
-        uses: octokit/request-action@v3
+        uses: octokit/request-action@v2
         with:
           route: GET /repos/${{ github.repository }}/secret-scanning/alerts
           token: ${{ secrets.GITHUB_TOKEN }}
           mediaType: '{"format":"json"}'
 
-      - name: Save alerts to file
+      - name: Save alerts to JSON
         run: |
           echo '${{ steps.alerts.outputs.data }}' > secret-alerts.json
           echo "Saved alerts to secret-alerts.json"
 
-      - name: Upload alerts artifact
+      - name: Convert JSON to CSV
+        run: |
+          echo "id,secret_type,state,resolution,created_at,url" > secret-alerts.csv
+          jq -r '.[] | [
+            .number,
+            .secret_type,
+            .state,
+            (.resolution // "unresolved"),
+            .created_at,
+            .html_url
+          ] | @csv' secret-alerts.json >> secret-alerts.csv
+          echo "Saved alerts to secret-alerts.csv"
+
+      - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
           name: secret-scanning-alerts
-          path: secret-alerts.json
+          path: |
+            secret-alerts.json
+            secret-alerts.csv
