@@ -22,7 +22,7 @@ jobs:
                -H "Authorization: Bearer ${{ secrets.GH_PAT }}" \
                "https://api.github.com/repos/${{ github.repository }}/secret-scanning/alerts?per_page=100" \
                > secret-alerts.json
-          echo "Saved alerts to secret-alerts.json"
+          echo "✅ Saved alerts to secret-alerts.json"
           cat secret-alerts.json
 
       - name: Convert JSON to CSV
@@ -36,7 +36,7 @@ jobs:
             .created_at,
             .html_url
           ] | @csv' secret-alerts.json >> secret-alerts.csv || true
-          echo "Saved alerts to secret-alerts.csv"
+          echo "✅ Saved alerts to secret-alerts.csv"
           cat secret-alerts.csv
 
       - name: Upload artifacts
