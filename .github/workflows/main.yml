@@ -13,17 +13,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Fetch open secret scanning alerts
-        id: alerts
-        uses: octokit/request-action@v2
-        with:
-          route: GET /repos/${{ github.repository }}/secret-scanning/alerts
-          token: ${{ secrets.GITHUB_TOKEN }}
-          mediaType: '{"format":"json"}'
-
-      - name: Save alerts to JSON
+      - name: Fetch open secret scanning alerts (JSON)
         run: |
-          echo '${{ steps.alerts.outputs.data }}' > secret-alerts.json
+          curl -s -H "Accept: application/vnd.github+json" \
+               -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+               https://api.github.com/repos/${{ github.repository }}/secret-scanning/alerts \
+               > secret-alerts.json
           echo "Saved alerts to secret-alerts.json"
 
       - name: Convert JSON to CSV
