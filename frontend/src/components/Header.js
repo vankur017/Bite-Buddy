@@ -18,7 +18,7 @@ const Header = () => {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
   const cartItems = useSelector((store) => store.mycart.items);
-  const { loggedInUser } = useContext(UserContext);
+  // const { loggedInUser } = useContext(UserContext);
   const navigate = useNavigate();
 
   const handleSignout = () => {

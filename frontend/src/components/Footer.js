@@ -2,7 +2,7 @@ import { useContext } from "react";
 import UserContext from "../../utils/UserContext";
 
 const Footer = () => {
-  const { loggedInUser } = useContext(UserContext);
+  // const { loggedInUser } = useContext(UserContext);
 
   return (
     <footer className="fixed bottom-0 left-0 w-full">

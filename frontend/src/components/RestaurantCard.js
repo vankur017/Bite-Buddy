@@ -1,14 +1,14 @@
 import { CDN_URL } from "/utils/constants";
 import { lazy, Suspense } from "react";
 import { motion } from "framer-motion";
-import UserContext from "../../utils/UserContext";
+
 
 // Lazily load an Image component with className support
 const LazyImage = lazy(() =>
   Promise.resolve({
     default: ({ src, alt, className = "" }) => (
       <img
-        className={`res-logo rounded-xl w-full h-48 object-cover sm:h-64 ${className}`}
+        className={`res-logo rounded-xl w-full  object-cover sm:h-64 ${className}`}
         loading="lazy"
         src={src}
         alt={alt}
@@ -18,6 +18,9 @@ const LazyImage = lazy(() =>
 );
 
 const RestaurantCard = (props) => {
+
+  console.log('rendered');
+  
   const { resData } = props;
 
   const {
@@ -31,12 +34,12 @@ const RestaurantCard = (props) => {
 
   return (
     <motion.div
-      whileHover={{ scale: 1.02, rotate: 0.5 }}
+      whileHover={{ scale: 1.01, rotate: 0.2 }}
       whileTap={{ scale: 0.97 }}
-      initial={{ opacity: 0, y: 40 }}
+      initial={false}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
-      className="m-4 p-4 w-[320px] h-[530px] rounded-2xl bg-white bg-opacity-60 backdrop-blur-md shadow-2xl border border-orange-200 hover:border-orange-400 hover:shadow-orange-300 transition-all duration-500"
+      // transition={{ duration: 0.1, ease: "easeOut" }}
+      className="m-4 w-[350px] h-[490px] rounded-2xl bg-white bg-opacity-60 backdrop-blur-md shadow-2xl border border-orange-200 hover:border-orange-400 hover:shadow-orange-300 transition-all duration-500"
     >
       <Suspense
         fallback={
@@ -73,7 +76,7 @@ export const vegNonVeg = (WrappedCard) => {
           }`}
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
-          transition={{ duration: 0.3 }}
+          // transition={{ duration: 0.3 }}
         >
           {isVeg ? "Veg" : "Non Veg"}
         </motion.div>

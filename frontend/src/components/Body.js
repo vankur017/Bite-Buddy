@@ -1,14 +1,14 @@
-import { useState, useEffect, useContext, lazy, Suspense } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { Link } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../utils/firebase";
 import useOnlineStatus from "/utils/useOnlineStatus";
-import UserContext from "../../utils/UserContext";
+import useFetchRes from "/utils/useFetchRes";
 import { useDispatch } from "react-redux";
 import { addUser, removeUser } from "../../utils/userSlice";
-import mockData from "../../utils/mockData.json";
 import Header from "./Header.js";
 import RestaurantCard, { vegNonVeg } from "./RestaurantCard.js";
+import API_URL from "../../utils/constants"
 
 // Constants
 const PAGE_SIZE = 8;
@@ -17,27 +17,27 @@ const Body = () => {
   const RestaurantCard = lazy(() =>
     import("./RestaurantCard").then((module) => ({ default: module.default }))
   );
+
   const Shimmer = lazy(() =>
     import("./Shimmer").then((module) => ({ default: module.default }))
   );
 
   const [currentPage, setCurrentpage] = useState(0);
-  const [restaurantList, setrestaurantList] = useState([]);
+  const [restaurantList, setRestaurantList] = useState([]);
   const [allRestaurants, setAllRestaurants] = useState([]); // keep original list
   const [searchTxt, setSearch] = useState("");
-
+   const [debouncedSearch, setDebouncedSearch] = useState(""); 
+  const { reslist, loading } = useFetchRes();
   const RestaurnatCardOpened = vegNonVeg(RestaurantCard);
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   const handlePopState = () => window.location.reload();
-  //   window.addEventListener("popstate", handlePopState);
-  //   return () => window.removeEventListener("popstate", handlePopState);
-  // }, []);
-
+  // ✅ Populate restaurant list once data is fetched
   useEffect(() => {
-    fetchData();
-  }, []);
+    if (reslist && reslist.length > 0) {
+      setRestaurantList(reslist);
+      setAllRestaurants(reslist);
+    }
+  }, [reslist]);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -50,25 +50,55 @@ const Body = () => {
     });
   }, []);
 
-  const handleSearch = () => {
+  // ✅ Search restaurants
+  const handleSearch = async () => {
     if (!searchTxt.trim()) {
-      setrestaurantList(allRestaurants);
+      console.log(allRestaurants);
+      
+      setRestaurantList(allRestaurants);
       return;
     }
-    const filterRes = allRestaurants.filter((res) =>
-      res.info.name.toLowerCase().includes(searchTxt.toLowerCase())
-    );
-    setrestaurantList(filterRes);
-    setCurrentpage(0);
+    try {
+      const res = await fetch(`https://api-vdwpsqghha-uc.a.run.app/api/restaurants?q=${encodeURIComponent(searchTxt)}`);
+      const data = await res.json();
+      setRestaurantList(data.restaurants);
+      setCurrentpage(0);
+    } catch (err) {
+      console.error("Search failed", err);
+    }
   };
 
-  const fetchData = async () => {
-    const data =
-      mockData.data.cards[1]?.card?.card?.gridElements?.infoWithStyle
-        ?.restaurants || [];
-    setrestaurantList(data);
-    setAllRestaurants(data); // save copy for resetting search
-  };
+   useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearch(searchTxt);
+    }, 800); // wait 400ms after last keystroke
+    return () => clearTimeout(handler);
+  }, [searchTxt]);
+
+
+  useEffect(() => {
+    if (!debouncedSearch.trim()) {
+      setRestaurantList(allRestaurants);
+      return;
+    }
+
+    const fetchSearchResults = async () => {
+      try {
+        const res = await fetch(`https://api-vdwpsqghha-uc.a.run.app/api/restaurants?q=${encodeURIComponent(debouncedSearch)}`);
+        const data = await res.json();
+        setRestaurantList(data.restaurants);
+        setCurrentpage(0);
+
+        if(!res){
+          return <>No res found</>
+        }
+      } catch (err) {
+        console.error("Search failed", err);
+      }
+    };
+
+    fetchSearchResults();
+  }, [debouncedSearch]);
 
   const handleNextPageLoad = (n) => setCurrentpage(n);
 
@@ -76,8 +106,9 @@ const Body = () => {
   const start = currentPage * PAGE_SIZE;
   const end = (currentPage + 1) * PAGE_SIZE;
 
+  const handleInput = (e)=> setSearch(e.target.value)
+
   const onlineStatus = useOnlineStatus();
-  const { loggedInUser, setUserName } = useContext(UserContext);
 
   if (!onlineStatus)
     return (
@@ -88,7 +119,7 @@ const Body = () => {
 
   return (
     <Suspense fallback={<div className="text-center mt-20">Loading...</div>}>
-      {restaurantList.length === 0 ? (
+      {loading ? (
         <Shimmer />
       ) : (
         <>
@@ -102,9 +133,11 @@ const Body = () => {
                 <input
                   type="text"
                   className="p-2 border text-black border-black focus:outline-none rounded-lg w-full sm:w-64 bg-white/50 backdrop-blur-sm"
-                  placeholder="Search restaurant"
+                  placeholder="Search Restaurant"
                   value={searchTxt}
-                  onChange={(evt) => setSearch(evt.target.value)}
+                  onChange={handleInput}
+
+      
                 />
                 <button
                   type="button"
@@ -123,7 +156,7 @@ const Body = () => {
                     const filterList = allRestaurants.filter(
                       (res) => res.info.avgRating > 4.2
                     );
-                    setrestaurantList(filterList);
+                    setRestaurantList(filterList);
                     setCurrentpage(0);
                   }}
                 >
@@ -134,19 +167,20 @@ const Body = () => {
 
             {/* Restaurant List */}
             <div className="restaurant-container flex flex-wrap justify-center gap-4">
-              {restaurantList.slice(start, end).map((restaurant) => (
-                <Link
-                  key={restaurant.info.id}
-                  to={`/restaurant/${restaurant.info.id}`}
-                  className="text-inherit no-underline"
-                >
-                  {restaurant.info.availability.opened ? (
-                    <RestaurnatCardOpened resData={restaurant} />
-                  ) : (
-                    <RestaurantCard resData={restaurant} />
-                  )}
-                </Link>
-              ))}
+              {restaurantList.slice(start, end).map((restaurant) => {
+                const info = restaurant.info || {};
+                return (
+                  <Link
+                    key={info.id}
+                    to={`/restaurant/${info.id}`}
+                    className="text-inherit no-underline"
+                  >
+                  
+                      <RestaurnatCardOpened resData={restaurant} />
+                   
+                  </Link>
+                );
+              })}
             </div>
 
             {/* Pagination */}

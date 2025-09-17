@@ -5,3 +5,4 @@ export const MENU_IMAGE_URL ="https://media-assets.swiggy.com/swiggy/image/uploa
 export const CLEAR_CART_SVG = "https://www.fudcoshop.com/pub/static/frontend/MageBig/martfury_layout04/en_GB/images/empty-cart.svg"
 export const REMOVE_ITEM_SVG = "https://www.svgrepo.com/show/418191/delete.svg"
 export const APP_BACKGROUND = "https://awol.syd1.cdn.digitaloceanspaces.com/wp-content/uploads/2020/06/discount-food-app-lead.jpg"
+export const API_URL= "https://api-vdwpsqghha-uc.a.run.app"
