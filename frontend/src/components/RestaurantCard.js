@@ -37,9 +37,9 @@ const RestaurantCard = (props) => {
       whileHover={{ scale: 1.01, rotate: 0.2 }}
       whileTap={{ scale: 0.97 }}
       initial={false}
-      animate={{ opacity: 1, y: 0 }}
+      animate={{ opacity: 1 }}
       // transition={{ duration: 0.1, ease: "easeOut" }}
-      className="m-4 w-[350px] h-[490px] rounded-2xl bg-white bg-opacity-60 backdrop-blur-md shadow-2xl border border-orange-200 hover:border-orange-400 hover:shadow-orange-300 transition-all duration-500"
+      className="m-4 w-[350px] h-[80%] rounded-2xl bg-white bg-opacity-60 backdrop-blur-md shadow-2xl border border-orange-200 hover:border-orange-400 hover:shadow-orange-300"
     >
       <Suspense
         fallback={
@@ -49,15 +49,16 @@ const RestaurantCard = (props) => {
         <LazyImage src={CDN_URL + cloudinaryImageId} alt="res-logo" />
       </Suspense>
 
-      <div className="mt-4 px-2 text-gray-800">
+      <div className="mt-4 text-gray-800 text-center flex flex-col items-center">
         <h2 className="font-extrabold text-xl text-orange-600">{name}</h2>
         <p className="text-sm text-gray-700 mt-1">{cuisines?.join(", ")}</p>
-        <div className="mt-2 text-sm space-y-1">
+        <div className="mt-2 py-6 text-sm space-y-1">
           <h4 className="text-yellow-600 font-medium">{costForTwo}</h4>
-          <h4 className="text-orange-500">{avgRating} ★</h4>
+          <h4 className="text-orange-500">User Ratings {avgRating} ★</h4>
           <h4 className="text-gray-600">{sla?.deliveryTime} min delivery</h4>
         </div>
       </div>
+
     </motion.div>
   );
 };
@@ -74,7 +75,7 @@ export const vegNonVeg = (WrappedCard) => {
           className={`absolute top-2 left-2 z-10 px-3 py-1 rounded-xl text-white text-sm shadow-md ${
             isVeg ? "bg-green-600" : "bg-red-600"
           }`}
-          initial={{ scale: 0 }}
+          initial={false}
           animate={{ scale: 1 }}
           // transition={{ duration: 0.3 }}
         >

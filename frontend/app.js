@@ -29,7 +29,7 @@ const Body = lazy(() => import("./src/components/Body.js"));
 const About = lazy(() => import("./src/components/About.js"));
 const RestaurantMenu = lazy(() => import("./src/components/RestautrantMenu.js"));
 const Contact = lazy(() => import("./src/components/ContactUs.js"));
-const StoreProduct = lazy(() => import("./src/components/Storeproduct.js"));
+// const StoreProduct = lazy(() => import("./src/components/Storeproduct.js"));
 // ✅ App Layout
 const AppLayout = () => {
   const [userName, setUserName] = useState("");
