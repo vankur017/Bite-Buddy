@@ -39,7 +39,9 @@ const Contact = () => {
               rows="6"
               placeholder="Type your message here..."
               className="w-full text-black p-3 sm:p-4 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 transition resize-none"
-            ></textarea>
+            >
+              
+            </textarea>
           </div>
 
           {/* Submit Button */}
