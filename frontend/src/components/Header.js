@@ -1,8 +1,7 @@
 import { LOGO_URL } from "../../utils/constants";
 import { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import useOnlineStatus from "../../utils/useOnlineStatus";
-import UserContext from "../../utils/UserContext";
+// import {useOnlineStatus} from "../../utils/useOnlineStatus.js";
 import { useDispatch, useSelector } from "react-redux";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { addUser, removeUser } from "../../utils/userSlice";
@@ -11,7 +10,7 @@ import { clearAllItem } from "../../utils/cartSlice";
 import { motion, AnimatePresence } from "framer-motion";
 
 const Header = () => {
-  const onlineStatus = useOnlineStatus();
+  // const onlineStatus = useOnlineStatus();
   const [signIn, setSignIn] = useState(true);
   const [isMenuOpen, setMenuOpen] = useState(false);
 
@@ -71,7 +70,7 @@ const Header = () => {
                 src={LOGO_URL}
                 alt="Logo"
                 className="w-14 h-14 rounded-full object-cover shadow-md border-2 border-blue-400"
-                whileHover={{ scale: 1.1, rotate: 5 }}
+               
                 transition={{ type: "spring", stiffness: 200 }}
               />
               <span className="text-2xl font-extrabold text-blue-600 drop-shadow-md">
@@ -82,7 +81,7 @@ const Header = () => {
             {/* Desktop Nav */}
             <ul className="hidden md:flex space-x-6 font-semibold text-lg text-gray-700">
               {["browse", "about", "contact", "store"].map((route) => (
-                <motion.li key={route} whileHover={{ scale: 1.05 }}>
+                <motion.li key={route} >
                   <Link
                     to={`/${route}`}
                     className="hover:text-blue-500 transition-colors duration-300"
@@ -118,7 +117,7 @@ const Header = () => {
               </span>
               <button
                 className="px-4 py-2 rounded-full bg-red-500 hover:bg-red-600 text-white font-semibold shadow-md"
-                whileHover={{ scale: 1.1 }}
+      
                
                 onClick={handleSignout}
               >
@@ -191,7 +190,7 @@ const Header = () => {
                     onlineStatus ? "bg-green-200" : "bg-red-200"
                   }`}
                 >
-                  {onlineStatus ? "✅ Online" : "🔴 Offline"}
+                  {/* {onlineStatus ? "✅ Online" : "🔴 Offline"} */}
                 </span>
                 <span className="text-lg font-medium">{user?.displayName || loggedInUser}</span>
                 <button

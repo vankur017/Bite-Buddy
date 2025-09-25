@@ -19,7 +19,7 @@ const LazyImage = lazy(() =>
 
 const RestaurantCard = (props) => {
 
-  console.log('rendered');
+  
   
   const { resData } = props;
 
@@ -34,8 +34,7 @@ const RestaurantCard = (props) => {
 
   return (
     <motion.div
-      whileHover={{ scale: 1.01, rotate: 0.2 }}
-      whileTap={{ scale: 0.97 }}
+     
       initial={false}
       animate={{ opacity: 1 }}
       // transition={{ duration: 0.1, ease: "easeOut" }}

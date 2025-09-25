@@ -15,7 +15,7 @@ it("Should render header component with Login Button", ()=>{
     </BrowserRouter>   
 )
 
-const loginbutton = screen.getByRole("button");
+const loginbutton = screen.getByRole("button", {name: "Login"});
 expect(loginbutton).toBeInTheDocument()
 
 })
