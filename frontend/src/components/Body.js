@@ -7,8 +7,7 @@ import useFetchRes from "/utils/useFetchRes";
 import { useDispatch } from "react-redux";
 import { addUser, removeUser } from "../../utils/userSlice";
 import Header from "./Header.js";
-import  { vegNonVeg } from "./RestaurantCard.js";
-import API_URL from "../../utils/constants";
+import { vegNonVeg } from "./RestaurantCard.js";
 
 const PAGE_SIZE = 8;
 
@@ -21,15 +20,15 @@ const Body = () => {
     import("./Shimmer").then((module) => ({ default: module.default }))
   );
 
-  const [currentPage, setCurrentpage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0);
   const [restaurantList, setRestaurantList] = useState([]);
   const [allRestaurants, setAllRestaurants] = useState([]);
-  const [searchTxt, setSearch] = useState("");
+  const [searchTxt, setSearchTxt] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const [loader, setLoader] = useState(false);
 
   const { reslist, loading } = useFetchRes();
-  const RestaurnatCardOpened = vegNonVeg(RestaurantCard);
+  const RestaurantCardOpened = vegNonVeg(RestaurantCard);
   const dispatch = useDispatch();
 
   // ✅ Populate list when API data arrives
@@ -50,11 +49,11 @@ const Body = () => {
         dispatch(removeUser());
       }
     });
-  }, []);
+  }, [dispatch]);
 
-  // ✅ Debounce search text
+  // ✅ Debounce search text (400ms)
   useEffect(() => {
-    const handler = setTimeout(() => setDebouncedSearch(searchTxt), 800);
+    const handler = setTimeout(() => setDebouncedSearch(searchTxt), 400);
     return () => clearTimeout(handler);
   }, [searchTxt]);
 
@@ -65,14 +64,17 @@ const Body = () => {
         setRestaurantList(allRestaurants);
         return;
       }
+
       try {
         setLoader(true);
         const res = await fetch(
-          `https://api-vdwpsqghha-uc.a.run.app/api/restaurants?q=${encodeURIComponent(debouncedSearch)}`
+          `https://api-vdwpsqghha-uc.a.run.app/api/restaurants?q=${encodeURIComponent(
+            debouncedSearch
+          )}`
         );
         const data = await res.json();
         setRestaurantList(data.restaurants);
-        setCurrentpage(0);
+        setCurrentPage(0);
       } catch (err) {
         console.error("Search failed", err);
       } finally {
@@ -81,10 +83,10 @@ const Body = () => {
     };
 
     fetchSearchResults();
-  }, [debouncedSearch, allRestaurants]);
+  }, [debouncedSearch]); // ✅ removed allRestaurants from dependencies
 
-  const handleNextPageLoad = (n) => setCurrentpage(n);
-  const handleInput = (e) => setSearch(e.target.value);
+  const handleInput = (e) => setSearchTxt(e.target.value);
+  const handleNextPageLoad = (n) => setCurrentPage(n);
 
   const noOfPages = Math.ceil(restaurantList.length / PAGE_SIZE);
   const start = currentPage * PAGE_SIZE;
@@ -92,7 +94,7 @@ const Body = () => {
 
   const onlineStatus = useOnlineStatus();
   if (!onlineStatus)
-    return <h1 className="text-center text-xl mt-20">Looks Like you're offline</h1>;
+    return <h1 className="text-center text-xl mt-20">Looks like you're offline</h1>;
 
   return (
     <Suspense fallback={<div className="text-center mt-20">Loading...</div>}>
@@ -101,7 +103,7 @@ const Body = () => {
       ) : (
         <>
           <Header />
-          <div className="body mt-[88px] px-4 sm:px-6 md:px-10 min-h-screen bg-gradient-to-r from-yellow-200 via-red-200 to-red-300 bg-opacity-70 backdrop-blur-md rounded-none shadow-lg">
+          <div className="body mt-[88px] px-4 sm:px-6 md:px-10 min-h-screen bg-gradient-to-r from-yellow-200 via-red-200 to-red-300 bg-opacity-70 backdrop-blur-md shadow-lg">
             {/* Filter Section */}
             <div className="filter flex flex-col gap-4 md:flex-row md:items-center md:justify-between mb-6">
               {/* Search Box */}
@@ -113,7 +115,6 @@ const Body = () => {
                   value={searchTxt}
                   onChange={handleInput}
                 />
-                {/* Button just forces debounce trigger now */}
                 <button
                   type="button"
                   className="px-4 py-2 bg-black text-white rounded-lg w-full sm:w-auto hover:bg-gray-800"
@@ -132,7 +133,7 @@ const Body = () => {
                       (res) => res.info.avgRating > 4.2
                     );
                     setRestaurantList(filterList);
-                    setCurrentpage(0);
+                    setCurrentPage(0);
                   }}
                 >
                   Top Rated
@@ -150,7 +151,7 @@ const Body = () => {
                     to={`/restaurant/${info.id}`}
                     className="text-inherit no-underline"
                   >
-                    <RestaurnatCardOpened resData={restaurant} />
+                    <RestaurantCardOpened resData={restaurant} />
                   </Link>
                 );
               })}

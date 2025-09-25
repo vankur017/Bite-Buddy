@@ -1,7 +1,7 @@
-import { LOGO_URL } from "/utils/constants";
+import { LOGO_URL } from "../../utils/constants";
 import { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import useOnlineStatus from "/utils/useOnlineStatus";
+import useOnlineStatus from "../../utils/useOnlineStatus";
 import UserContext from "../../utils/UserContext";
 import { useDispatch, useSelector } from "react-redux";
 import { onAuthStateChanged, signOut } from "firebase/auth";
@@ -116,14 +116,14 @@ const Header = () => {
               <span className="text-lg font-medium text-gray-800">
                 {user?.displayName || loggedInUser}
               </span>
-              <motion.button
+              <button
                 className="px-4 py-2 rounded-full bg-red-500 hover:bg-red-600 text-white font-semibold shadow-md"
                 whileHover={{ scale: 1.1 }}
-                transition={{ type: "spring", stiffness: 200 }}
+               
                 onClick={handleSignout}
               >
                 Logout
-              </motion.button>
+              </button>
             </div>
 
             {/* Mobile Burger Icon */}
