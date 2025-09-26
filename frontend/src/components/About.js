@@ -4,105 +4,90 @@ import { Mail, Linkedin, Github } from 'lucide-react';
 
 const About = () => {
   return (
-    <motion.div
+    <motion.section
       id="about"
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1 }}
+      className="min-h-screen flex items-center justify-center bg-[#0f0f0f] text-gray-200 px-6 py-16"
     >
-      <div className="min-h-screen mt-[100px] flex items-center justify-center bg-gradient-to-br from-indigo-600 via-purple-500 to-pink-500 text-white p-8">
-        <div className="max-w-4xl w-full bg-white bg-opacity-10 backdrop-blur-md text-white p-10 rounded-2xl shadow-2xl transition-opacity duration-1000 ease-out animate-fade-in border border-white/20">
-          <h1 className="text-4xl font-extrabold mb-6 text-center bg-gradient-to-r from-yellow-400 via-pink-500 to-red-500 bg-clip-text text-transparent animate-gradient-x">
-            Hi, I’m Ankur Verma
-          </h1>
+      <motion.div
+        className="max-w-3xl w-full bg-gradient-to-b from-zinc-900/90 to-black/90 rounded-2xl shadow-xl p-10 border border-zinc-800/50"
+        initial={{ scale: 0.95, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
+      >
+        {/* Heading */}
+        <h1 className="text-4xl md:text-5xl font-extrabold text-center mb-8 bg-gradient-to-r from-purple-400 via-pink-400 to-red-400 bg-clip-text text-transparent animate-pulse">
+          Hi, I’m Ankur Verma
+        </h1>
 
+        {/* Bio */}
+        {[{
+          text: 'I’m an Associate Software Developer with a passion for crafting seamless user experiences.',
+          delay: 0.2
+        },{
+          text: 'I graduated from LPU with a degree in Mechanical Engineering and have worked with React, Node.js, and more.',
+          delay: 0.4
+        },{
+          text: 'My expertise lies in JavaScript frameworks and UI/UX design, focusing on performance and accessibility.',
+          delay: 0.6
+        },{
+          text: 'Outside of work, I enjoy hiking, playing guitar, and exploring emerging technologies.',
+          delay: 0.8
+        }].map((item, i) => (
           <motion.p
-            className="mb-4 text-lg leading-relaxed"
-            initial={{ opacity: 0, y: 20 }}
+            key={i}
+            className="mb-4 text-lg leading-relaxed text-gray-300"
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
+            transition={{ delay: item.delay }}
           >
-            I’m a <span className="text-yellow-300 font-semibold">Associate Software Developer</span> with a passion for
-            crafting seamless user experiences.
+            {item.text}
           </motion.p>
+        ))}
 
-          <motion.p
-            className="mb-4 text-lg"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-          >
-            I graduated from LPU with a degree in Mechanical Engineering. I’ve worked on projects using React,
-            Node.js, and more. My tech journey began with a campus event app.
-          </motion.p>
+        {/* Contact Section */}
+        <motion.div
+          className="mt-8"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1 }}
+        >
+          <p className="text-xl font-semibold mb-3 text-purple-400">📬 Get in touch</p>
+          <ul className="space-y-3">
+            <li className="flex items-center gap-3 hover:text-purple-300 transition-colors">
+              <Mail size={20} />
+              <a href="mailto:vankur017@gmail.com" className="hover:underline">vankur017@gmail.com</a>
+            </li>
+            <li className="flex items-center gap-3 hover:text-purple-300 transition-colors">
+              <Linkedin size={20} />
+              <a href="https://www.linkedin.com/in/ankur-verma-6b80b416a/" target="_blank" rel="noreferrer" className="hover:underline">LinkedIn Profile</a>
+            </li>
+          </ul>
+        </motion.div>
 
-          <motion.p
-            className="mb-4 text-lg"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
-          >
-            My expertise lies in JavaScript frameworks and <span className="text-teal-300 font-semibold">UI/UX design</span>.
-            I build intuitive interfaces with a focus on performance and accessibility.
-          </motion.p>
-
-          <motion.p
-            className="mb-6 text-lg"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8 }}
-          >
-            When I’m not coding, I enjoy hiking, playing guitar, and exploring emerging tech.
-          </motion.p>
-
-          <motion.div
-            className="text-lg mb-6"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1 }}
-          >
-            <p className="text-xl font-semibold mb-2">📬 Get in touch:</p>
-            <ul className="space-y-4">
-              <li className="flex items-center space-x-3 hover:scale-105 transition-transform duration-300">
-                <Mail className="text-yellow-400" />
-                <a href="mailto:vankur017@gmail.com" className="text-blue-300 hover:underline">
-                  vankur017@gmail.com
-                </a>
-              </li>
-              <li className="flex items-center space-x-3 hover:scale-105 transition-transform duration-300">
-                <Linkedin className="text-sky-400" />
-                <a href="https://www.linkedin.com/in/ankur-verma-6b80b416a/" target="_blank" rel="noreferrer" className="text-sky-300 hover:underline">
-                  LinkedIn Profile
-                </a>
-              </li>
-            </ul>
-          </motion.div>
-
-          <motion.div
-            className="text-lg"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.2 }}
-          >
-            <p className="text-xl font-semibold mb-2">🚀 Projects:</p>
-            <ul className="space-y-4">
-              <li className="flex items-center space-x-3 hover:scale-105 transition-transform duration-300">
-                <Github className="text-gray-300" />
-                <a href="https://github.com/vankur017" target="_blank" rel="noreferrer" className="text-white hover:underline">
-                  GitHub Portfolio
-                </a>
-              </li>
-              <li className="flex items-center space-x-3 hover:scale-105 transition-transform duration-300">
-                <img src="https://api.iconify.design/ph/fork-knife.svg" alt="bite" className="w-5 h-5 text-pink-300" />
-                <a href="https://bite-buddy-food.netlify.app/" target="_blank" rel="noreferrer" className="text-pink-300 hover:underline">
-                  Bite Buddy Food App 🍽️
-                </a>
-              </li>
-            </ul>
-          </motion.div>
-        </div>
-      </div>
-    </motion.div>
+        {/* Projects Section */}
+        <motion.div
+          className="mt-10"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.2 }}
+        >
+          <p className="text-xl font-semibold mb-3 text-pink-400">🚀 Projects</p>
+          <ul className="space-y-3">
+            <li className="flex items-center gap-3 hover:text-pink-300 transition-colors">
+              <Github size={20} />
+              <a href="https://github.com/vankur017" target="_blank" rel="noreferrer" className="hover:underline">GitHub Portfolio</a>
+            </li>
+            <li className="flex items-center gap-3 hover:text-pink-300 transition-colors">
+              <img src="https://api.iconify.design/ph/fork-knife.svg" alt="bite" className="w-5 h-5" />
+              <a href="https://bite-buddy-food.netlify.app/" target="_blank" rel="noreferrer" className="hover:underline">Bite Buddy Food App 🍽️</a>
+            </li>
+          </ul>
+        </motion.div>
+      </motion.div>
+    </motion.section>
   );
 };
 
