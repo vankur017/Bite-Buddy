@@ -41,6 +41,7 @@ const Header = () => {
         setSignIn(false);
       } else {
         dispatch(removeUser());
+
         navigate("/");
       }
     });
@@ -52,6 +53,10 @@ const Header = () => {
     visible: { x: 0 },
     exit: { x: "100%" },
   };
+
+  if(!user){
+    return <></>
+  }
 
   return (
     signIn === false && (
@@ -128,6 +133,7 @@ const Header = () => {
             {/* Mobile Burger Icon */}
             <button
               className="md:hidden block text-gray-800 focus:outline-none"
+               aria-label="Open menu"
               onClick={() => setMenuOpen(true)}
             >
               <svg
@@ -164,6 +170,8 @@ const Header = () => {
               >
                 <button
                   className="self-end text-gray-800 text-2xl"
+                  aria-label="Close menu"
+
                   onClick={() => setMenuOpen(false)}
                 >
                   ✕
@@ -185,13 +193,9 @@ const Header = () => {
                 >
                   🛒 Cart ({cartItems.length})
                 </Link>
-                <span
-                  className={`text-sm px-3 py-1 rounded-lg w-max ${
-                    onlineStatus ? "bg-green-200" : "bg-red-200"
-                  }`}
-                >
+               
                   {/* {onlineStatus ? "✅ Online" : "🔴 Offline"} */}
-                </span>
+               
                 <span className="text-lg font-medium">{user?.displayName || loggedInUser}</span>
                 <button
                   onClick={() => {

@@ -137,7 +137,7 @@ const Body = () => {
             {/* Filter Section */}
             <div className="filter flex flex-col gap-4 md:flex-row md:items-center md:justify-between mb-6">
               {/* Search Box */}
-              <div className="flex flex-col sm:flex-row items-center mt-2 gap-2 w-full md:w-auto">
+              <div className="flex flex-col sm:flex-row items-center mt-2 gap-2 md:w-1/2">
                 <input
                   type="text"
                   className="p-2 border text-black border-black focus:outline-none rounded-lg w-full sm:w-64 bg-white/50 backdrop-blur-sm"

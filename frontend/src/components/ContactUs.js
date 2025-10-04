@@ -1,6 +1,6 @@
 const Contact = () => {
   return (
-    <div className="min-h-screen mt-10 flex items-center justify-center bg-gray-100 p-4 sm:p-6 md:p-8">
+    <div className="min-h-screen mt-20 flex items-center justify-center bg-gray-100 p-4 sm:p-6 md:p-8">
       <div className="w-full max-w-lg sm:max-w-xl md:max-w-3xl bg-white rounded-2xl shadow-lg p-6 sm:p-8 md:p-10">
         <h1 className="text-3xl sm:text-4xl font-bold mb-3 sm:mb-4 text-gray-800">
           Contact Us
@@ -24,6 +24,22 @@ const Contact = () => {
               placeholder="Enter your name"
               className="w-full p-3 text-black sm:p-4 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
             />
+            
+          </div>
+             <div>
+            <label
+              htmlFor="name"
+              className="block text-gray-700 font-medium mb-1 sm:mb-2"
+            >
+              Email
+            </label>
+            <input
+              id="name"
+              type="text"
+              placeholder="Enter your mail"
+              className="w-full p-3 text-black sm:p-4 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+            />
+            
           </div>
 
           {/* Message Field */}
@@ -34,7 +50,7 @@ const Contact = () => {
             >
               Message
             </label>
-            <input
+            <textarea
               id="message"
               rows="6"
               placeholder="Type your message here..."

@@ -20,7 +20,7 @@ describe("Should load ContactUs Component", ()=>{
   it("Should check 2 input boxes in ContactUs page", ()=>{
   render(<ContactUs />);
   const inputBoxes = screen.getAllByRole("textbox"); // ✅ textbox is correct role for <input type="text">
-  expect(inputBoxes.length).toBe(2);
+  expect(inputBoxes.length).toBe(3);
 
   
   
