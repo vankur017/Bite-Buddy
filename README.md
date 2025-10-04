@@ -1,43 +1,5 @@
-# 🧠 Getting Started – BiteBuddy Fullstack Setup
+# 🧠 Getting Started – BiteBuddy 
 
-## 📦 Backend Server (Express + Firebase)
-
-### 1. Navigate to the backend directory:
-
-```bash
-cd backend
-```
-
-### 2. Install dependencies:
-
-```bash
-npm install
-```
-
-### 3. Start the backend server:
-
-```bash
-npm start
-```
-
-> This will start your backend server at:
-
-```
-http://localhost:4200
-```
-
-### 📂 Folder Structure Notes:
-
-- The backend should contain:
-  - `server.js` or `index.js`
-  - `serviceAccountKey.json` (Firebase admin SDK key)
-  - `.env` with:
-    ```env
-    EMAIL_USER=your_email@gmail.com
-    EMAIL_PASS=your_app_password
-    ```
-
----
 
 ## 🌐 Frontend Server (React + Parcel)
 
