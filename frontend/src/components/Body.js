@@ -63,7 +63,7 @@ const Body = () => {
   useEffect(() => {
     const handler = setTimeout(() => {
       setDebouncedSearch(searchTxt);
-    }, 400);
+    }, 600);
     return () => clearTimeout(handler);
   }, [searchTxt]);
 
@@ -132,7 +132,7 @@ const Body = () => {
         <Shimmer />
       ) : (
         <>
-          <Header />
+          {/* <Header /> */}
           <div className="body mt-[88px] px-4 sm:px-6 md:px-10 min-h-screen bg-gradient-to-r from-yellow-200 via-red-200 to-red-300 bg-opacity-70 backdrop-blur-md shadow-lg">
             {/* Filter Section */}
             <div className="filter flex flex-col gap-4 md:flex-row md:items-center md:justify-between mb-6">

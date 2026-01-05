@@ -9,15 +9,11 @@ const StoreProduct = () => {
   console.log(storedata);
   console.log(loading);
   console.log(error);
-  
-  
-  
-  
-  
- 
+
 
   return (
     <>
+    
       Hey {id}
     </>
   );

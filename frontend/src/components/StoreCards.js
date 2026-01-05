@@ -74,7 +74,7 @@ const StoreCards = ({ data = [], setData }) => {
           return (
             <button 
               key={n}
-            className="mx-2 bg-black text-white"
+            className="mx-2 bg-black p-2 rounded-lg text-white"
             onClick={()=>handleNextPageLoad(n)}
             >
 

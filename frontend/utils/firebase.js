@@ -3,25 +3,16 @@ import { getAuth } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 
-
 const firebaseConfig = {
-
-  apiKey: "AIzaSyDdm9s03JymIwgY3-XdYhjGT966oAvUeY8",
-
-  authDomain: "bitebuddy-743a4.firebaseapp.com",
-
+  // Use process.env instead of import.meta.env
+  apiKey: process.env.VITE_FIREBASE_API_KEY || process.env.REACT_APP_FIREBASE_API_KEY, 
+  authDomain: process.env.VITE_FIREBASE_AUTH_DOMAIN || process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
   projectId: "bitebuddy-743a4",
-
   storageBucket: "bitebuddy-743a4.appspot.com",
-
   messagingSenderId: "434707778041",
-
   appId: "1:434707778041:web:393cf1b45df54018269528",
-
   measurementId: "G-J7B46EK06V"
-
 };
-
 
 // Initialize Firebase
 

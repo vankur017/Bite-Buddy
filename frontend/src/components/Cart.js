@@ -44,7 +44,7 @@ const Cart = () => {
   const handleClearCart = () => dispatch(clearAllItem());
   const handleClick = () => navigate("/browse");
 
-  // Calculate total (₹ not paise)
+
   const total = () => productList.reduce((sum, item) => sum + item.price, 0);
   const totalAmount = total();
   const MIN_ORDER_AMOUNT = 50;

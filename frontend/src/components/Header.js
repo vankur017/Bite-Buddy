@@ -64,9 +64,9 @@ const Header = () => {
         {/* Desktop Header */}
         <motion.div
           className="fixed top-0 left-0 w-full z-50 bg-white/90 backdrop-blur-md shadow-md border-b border-gray-200"
-          initial={{ y: -100, opacity: 0 }}
+          initial={{ y: 0, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
+          transition={{ duration: 0, ease: "easeOut" }}
         >
           <div className="max-w-screen-xl mx-auto flex items-center justify-between py-4 px-6">
             {/* Logo */}
