@@ -21,7 +21,7 @@ const StoreCart = () => {
 
     if (items.length === 0) {
         return (
-            <div className="min-h-screen mt-20 flex flex-col items-center justify-center gap-6 bg-gray-50">
+            <div className="min-h-screen mt-[72px] flex flex-col items-center justify-center gap-6 bg-gray-50">
                 <div className="text-6xl">🛒</div>
                 <h2 className="text-2xl font-bold text-gray-700">Your store cart is empty!</h2>
                 <p className="text-gray-500">Browse our products and add something you like.</p>
@@ -36,7 +36,7 @@ const StoreCart = () => {
     }
 
     return (
-        <div className="min-h-screen mt-20 bg-gray-50 px-4 py-10">
+        <div className="min-h-screen mt-[72px] bg-gray-50 px-4 py-10">
             <div className="max-w-3xl mx-auto">
                 <h1 className="text-3xl font-extrabold text-gray-800 mb-8 text-center">
                     🛒 Store Cart

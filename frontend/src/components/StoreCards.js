@@ -80,8 +80,8 @@ const StoreCard = ({ product, isOutOfStock }) => {
         {/* Availability */}
         <span
           className={`text-xs font-semibold mt-0.5 ${product.availabilityStatus === "In Stock"
-              ? "text-green-600"
-              : "text-red-500"
+            ? "text-green-600"
+            : "text-red-500"
             }`}
         >
           {product.availabilityStatus}
@@ -99,8 +99,8 @@ const StoreCard = ({ product, isOutOfStock }) => {
             disabled={isOutOfStock}
             onClick={handleAdd}
             className={`flex-1 text-sm text-white px-3 py-1.5 rounded-lg transition-colors font-semibold ${isOutOfStock
-                ? "bg-gray-400 cursor-not-allowed"
-                : "bg-orange-500 hover:bg-orange-600 cursor-pointer"
+              ? "bg-gray-400 cursor-not-allowed"
+              : "bg-orange-500 hover:bg-orange-600 cursor-pointer"
               }`}
           >
             {qtyInCart > 0 ? `In Cart (${qtyInCart})` : "Add to Cart"}
@@ -143,7 +143,7 @@ const StoreCards = ({ data = [], loading, error }) => {
 
   if (loading) {
     return (
-      <div className="min-h-screen mt-20 px-6 py-10 bg-gray-50">
+      <div className="min-h-screen mt-[72px] px-6 py-10 bg-gray-50">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {[...Array(12)].map((_, i) => (
             <div
@@ -166,7 +166,7 @@ const StoreCards = ({ data = [], loading, error }) => {
 
   if (error) {
     return (
-      <div className="min-h-screen mt-20 flex items-center justify-center">
+      <div className="min-h-screen mt-[72px] flex items-center justify-center">
         <div className="text-center text-red-500 text-xl font-semibold">
           ⚠️ {error}
         </div>
@@ -175,7 +175,7 @@ const StoreCards = ({ data = [], loading, error }) => {
   }
 
   return (
-    <div className="min-h-screen mt-20 px-4 sm:px-6 py-10 bg-gray-50">
+    <div className="min-h-screen mt-[72px] px-4 sm:px-6 py-10 bg-gray-50">
       {/* Category Tabs */}
       <div className="flex flex-wrap gap-2 mb-6 justify-center">
         {categories.map((cat) => (
@@ -183,8 +183,8 @@ const StoreCards = ({ data = [], loading, error }) => {
             key={cat}
             onClick={() => handleCategoryChange(cat)}
             className={`px-4 py-1.5 rounded-full text-sm font-semibold border transition-all ${activeCategory === cat
-                ? "bg-orange-500 text-white border-orange-500 shadow"
-                : "bg-white text-gray-700 border-gray-300 hover:border-orange-400 hover:text-orange-500"
+              ? "bg-orange-500 text-white border-orange-500 shadow"
+              : "bg-white text-gray-700 border-gray-300 hover:border-orange-400 hover:text-orange-500"
               }`}
           >
             {cat.charAt(0).toUpperCase() + cat.slice(1)}
@@ -223,8 +223,8 @@ const StoreCards = ({ data = [], loading, error }) => {
             <button
               key={n}
               className={`px-3 py-1.5 rounded-lg text-sm font-semibold border transition-colors ${currentPage === n
-                  ? "bg-orange-500 text-white border-orange-500 shadow"
-                  : "bg-white text-gray-700 border-gray-300 hover:bg-orange-50"
+                ? "bg-orange-500 text-white border-orange-500 shadow"
+                : "bg-white text-gray-700 border-gray-300 hover:bg-orange-50"
                 }`}
               onClick={() => setCurrentPage(n)}
             >

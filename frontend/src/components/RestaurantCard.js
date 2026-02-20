@@ -37,9 +37,9 @@ const RestaurantCard = (props) => {
 
   return (
     <motion.div
-      whileHover={{ y: -6, boxShadow: "0 20px 40px rgba(249,115,22,0.18)" }}
+      whileHover={{ y: -6 }}
       transition={{ type: "spring", stiffness: 300, damping: 22 }}
-      className="m-3 w-[300px] sm:w-[320px] rounded-2xl bg-white/80 backdrop-blur-md shadow-lg border border-orange-100 overflow-hidden cursor-pointer"
+      className="m-3 w-[300px] sm:w-[320px] rounded-2xl bg-white/80 backdrop-blur-md shadow-lg hover:shadow-orange-200 hover:shadow-xl border border-orange-100 overflow-hidden cursor-pointer transition-shadow duration-300"
     >
       {/* Image */}
       <div className="relative overflow-hidden">

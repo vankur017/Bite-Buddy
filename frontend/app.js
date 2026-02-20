@@ -9,7 +9,7 @@ import appStore from "./utils/appStore.js";
 import UserContext from "./utils/UserContext.js";
 
 // ✅ Router
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 // ✅ Common components
 import Header from "./src/components/Header.js";
@@ -17,7 +17,6 @@ import Footer from "./src/components/Footer.js";
 import Error from "./src/components/Error.js";
 import Shimmer from "./src/components/Shimmer.js";
 import Cart from "./src/components/Cart.js";
-import LoginPage from "./src/components/LoginPage.js";
 import Payment from "./src/components/Payment.js";
 import PaymentSuccess from "./src/components/PaymentSuccess.js";
 import Store from "./src/components/Store.js";
@@ -51,7 +50,7 @@ const AppLayout = () => {
           <main className="flex-1">
             <Suspense fallback={<Shimmer />}>
               <Routes>
-                <Route path="/" element={<LoginPage />} />
+                <Route path="/" element={<Navigate to="/browse" replace />} />
                 <Route path="/browse" element={<Body />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/store/" element={<Store />} />

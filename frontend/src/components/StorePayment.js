@@ -85,7 +85,7 @@ const StorePayment = () => {
                 </div>
             )}
 
-            <div className="max-w-md mx-auto mt-24 px-4 pb-16">
+            <div className="max-w-md mx-auto mt-[72px] px-4 pb-16">
                 <div className="bg-white rounded-3xl shadow-xl p-8">
                     <h1 className="text-3xl font-extrabold text-center text-orange-600 mb-2">
                         Checkout

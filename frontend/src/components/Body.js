@@ -8,12 +8,8 @@ import {
   useMemo,
 } from "react";
 import { Link } from "react-router-dom";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../../utils/firebase";
 import useOnlineStatus from "/utils/useOnlineStatus";
 import useFetchRes from "/utils/useFetchRes";
-import { useDispatch } from "react-redux";
-import { addUser, removeUser } from "../../utils/userSlice";
 import { motion, AnimatePresence } from "framer-motion";
 import { vegNonVeg } from "./RestaurantCard.js";
 
@@ -60,7 +56,6 @@ const Body = () => {
   const debounceTimer = useRef(null);
 
   const { reslist, loading } = useFetchRes();
-  const dispatch = useDispatch();
   const onlineStatus = useOnlineStatus();
 
   // ── Sync initial data ───────────────────────────────────────────
@@ -71,18 +66,7 @@ const Body = () => {
     }
   }, [reslist]);
 
-  // ── Auth listener ───────────────────────────────────────────────
-  useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        const { uid, email, displayName } = user;
-        dispatch(addUser({ uid, email, displayName }));
-      } else {
-        dispatch(removeUser());
-      }
-    });
-    return () => unsub();
-  }, [dispatch]);
+  // ── Auth listener removed — app is now publicly accessible ────
 
   // ── Debounced search ────────────────────────────────────────────
   // Key fix: allRestaurants is accessed via a stable ref inside the
@@ -197,7 +181,7 @@ const Body = () => {
       {showShimmer ? (
         <Shimmer />
       ) : (
-        <div className="min-h-screen mt-[88px] px-4 sm:px-6 md:px-10 pb-16"
+        <div className="min-h-screen mt-[72px] px-4 sm:px-6 md:px-10 pb-16"
           style={{
             background:
               "linear-gradient(135deg, #fff7ed 0%, #fed7aa 30%, #fecaca 65%, #f9a8d4 100%)",
@@ -273,8 +257,8 @@ const Body = () => {
                 whileTap={{ scale: 0.96 }}
                 onClick={handleTopRatedFilter}
                 className={`px-5 py-2.5 font-bold rounded-2xl shadow transition-all ${activeFilter === "topRated"
-                    ? "bg-yellow-400 text-gray-900 ring-2 ring-yellow-500"
-                    : "bg-white/80 text-gray-700 border border-gray-300 hover:border-orange-400 hover:text-orange-500"
+                  ? "bg-yellow-400 text-gray-900 ring-2 ring-yellow-500"
+                  : "bg-white/80 text-gray-700 border border-gray-300 hover:border-orange-400 hover:text-orange-500"
                   }`}
               >
                 ⭐ Top Rated {activeFilter === "topRated" && "✓"}
@@ -374,8 +358,8 @@ const Body = () => {
                   whileHover={{ scale: 1.08 }}
                   whileTap={{ scale: 0.92 }}
                   className={`px-3.5 py-1.5 rounded-xl text-sm font-bold border shadow-sm transition-all ${currentPage === n
-                      ? "bg-orange-500 text-white border-orange-500 shadow-orange-200"
-                      : "bg-white/80 text-gray-700 border-gray-300 hover:bg-orange-50 hover:border-orange-400"
+                    ? "bg-orange-500 text-white border-orange-500 shadow-orange-200"
+                    : "bg-white/80 text-gray-700 border-gray-300 hover:bg-orange-50 hover:border-orange-400"
                     }`}
                   onClick={() => handlePageLoad(n)}
                 >

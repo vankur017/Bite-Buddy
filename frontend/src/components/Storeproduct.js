@@ -45,7 +45,7 @@ const ProductDetailInner = ({ product, isOutOfStock }) => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto mt-24 px-4 pb-16">
+    <div className="max-w-6xl mx-auto mt-[72px] px-4 pb-16">
       <button
         onClick={() => navigate("/store")}
         className="mb-6 flex items-center gap-2 text-orange-500 hover:text-orange-600 font-semibold transition-colors"
@@ -80,8 +80,8 @@ const ProductDetailInner = ({ product, isOutOfStock }) => {
                     key={idx}
                     onClick={() => setActiveImg(idx)}
                     className={`w-14 h-14 rounded-lg overflow-hidden border-2 transition-all ${activeImg === idx
-                        ? "border-orange-500 shadow-md scale-105"
-                        : "border-gray-200 hover:border-orange-300"
+                      ? "border-orange-500 shadow-md scale-105"
+                      : "border-gray-200 hover:border-orange-300"
                       }`}
                   >
                     <img
@@ -142,8 +142,8 @@ const ProductDetailInner = ({ product, isOutOfStock }) => {
             {/* Availability */}
             <span
               className={`inline-flex items-center gap-1.5 text-sm font-semibold w-fit px-3 py-1 rounded-full ${isOutOfStock
-                  ? "bg-red-50 text-red-600"
-                  : "bg-green-50 text-green-700"
+                ? "bg-red-50 text-red-600"
+                : "bg-green-50 text-green-700"
                 }`}
             >
               <span
@@ -197,8 +197,8 @@ const ProductDetailInner = ({ product, isOutOfStock }) => {
                 onClick={handleAddToCart}
                 disabled={isOutOfStock}
                 className={`flex-1 py-3 rounded-xl text-white font-bold text-base transition-all shadow-md ${isOutOfStock
-                    ? "bg-gray-400 cursor-not-allowed"
-                    : "bg-orange-500 hover:bg-orange-600 active:scale-95 cursor-pointer"
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-orange-500 hover:bg-orange-600 active:scale-95 cursor-pointer"
                   }`}
               >
                 {isOutOfStock
@@ -285,7 +285,7 @@ const StoreProduct = () => {
 
   if (loading) {
     return (
-      <div className="max-w-6xl mx-auto mt-24 px-4 pb-16 animate-pulse">
+      <div className="max-w-6xl mx-auto mt-[72px] px-4 pb-16 animate-pulse">
         <div className="bg-white rounded-3xl shadow-xl overflow-hidden flex flex-col lg:flex-row">
           <div className="lg:w-1/2 p-6">
             <div className="h-80 bg-gray-200 rounded-2xl" />
@@ -305,7 +305,7 @@ const StoreProduct = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen mt-24 flex items-center justify-center">
+      <div className="min-h-screen mt-[72px] flex items-center justify-center">
         <div className="text-center text-red-500 text-xl font-semibold">
           ⚠️ {error}
         </div>
