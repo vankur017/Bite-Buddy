@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "../../..//utils/userSlice";
 import cartReducer from "../../../utils/cartSlice";
+import storeCartReducer from "../../../utils/storeCartSlice";
 import { BrowserRouter } from "react-router-dom";
 
 // Mock Firebase signOut to avoid actual network calls
@@ -22,6 +23,7 @@ function renderWithProviders(ui, { preloadedState } = {}) {
     reducer: {
       user: userReducer,
       mycart: cartReducer,
+      storeCart: storeCartReducer,
     },
     preloadedState,
   });
@@ -38,6 +40,7 @@ describe("Header component", () => {
       preloadedState: {
         user: { uid: "1", email: "test@test.com", displayName: "Test User" },
         mycart: { items: [] },
+        storeCart: { items: [] },
       },
     });
 
@@ -55,6 +58,7 @@ describe("Header component", () => {
       preloadedState: {
         user: { uid: "1", email: "test@test.com", displayName: "Test User" },
         mycart: { items: [] },
+        storeCart: { items: [] },
       },
     });
 

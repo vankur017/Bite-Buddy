@@ -2,13 +2,12 @@ import { CDN_URL } from "/utils/constants";
 import { lazy, Suspense } from "react";
 import { motion } from "framer-motion";
 
-
 // Lazily load an Image component with className support
 const LazyImage = lazy(() =>
   Promise.resolve({
     default: ({ src, alt, className = "" }) => (
       <img
-        className={`res-logo rounded-xl w-full  object-cover sm:h-64 ${className}`}
+        className={`res-logo rounded-t-2xl w-full object-cover h-48 sm:h-56 ${className}`}
         loading="lazy"
         src={src}
         alt={alt}
@@ -18,9 +17,6 @@ const LazyImage = lazy(() =>
 );
 
 const RestaurantCard = (props) => {
-
-  
-  
   const { resData } = props;
 
   const {
@@ -32,59 +28,84 @@ const RestaurantCard = (props) => {
     sla,
   } = resData?.info || {};
 
+  const ratingColor =
+    avgRating >= 4.5
+      ? "text-green-600"
+      : avgRating >= 3.5
+        ? "text-yellow-600"
+        : "text-red-500";
+
   return (
     <motion.div
-     
-      initial={false}
-      animate={{ opacity: 1 }}
-      // transition={{ duration: 0.1, ease: "easeOut" }}
-      className="m-4 w-[350px] h-[80%] rounded-2xl bg-white bg-opacity-60 backdrop-blur-md shadow-2xl border border-orange-200 hover:border-orange-400 hover:shadow-orange-300"
+      whileHover={{ y: -6, boxShadow: "0 20px 40px rgba(249,115,22,0.18)" }}
+      transition={{ type: "spring", stiffness: 300, damping: 22 }}
+      className="m-3 w-[300px] sm:w-[320px] rounded-2xl bg-white/80 backdrop-blur-md shadow-lg border border-orange-100 overflow-hidden cursor-pointer"
     >
-      <Suspense
-        fallback={
-          <div className="h-48 bg-gradient-to-r from-yellow-100 to-orange-100 rounded-xl animate-pulse" />
-        }
-      >
-        <LazyImage src={CDN_URL + cloudinaryImageId} alt="res-logo" />
-      </Suspense>
-
-      <div className="mt-4 text-gray-800 text-center flex flex-col items-center">
-        <h2 className="font-extrabold text-xl text-orange-600">{name}</h2>
-        <p className="text-sm text-gray-700 mt-1">{cuisines?.join(", ")}</p>
-        <div className="mt-2 py-6 text-sm space-y-1">
-          <h4 className="text-yellow-600 font-medium">{costForTwo}</h4>
-          <h4 className="text-orange-500">User Ratings {avgRating} ★</h4>
-          <h4 className="text-gray-600">{sla?.deliveryTime} min delivery</h4>
-        </div>
+      {/* Image */}
+      <div className="relative overflow-hidden">
+        <Suspense
+          fallback={
+            <div className="h-48 sm:h-56 bg-gradient-to-r from-orange-100 to-red-100 animate-pulse" />
+          }
+        >
+          <LazyImage
+            src={CDN_URL + cloudinaryImageId}
+            alt={name || "Restaurant"}
+          />
+        </Suspense>
+        {/* Delivery time pill */}
+        {sla?.deliveryTime && (
+          <span className="absolute bottom-2 right-2 bg-white/90 text-gray-700 text-xs font-bold px-2 py-1 rounded-full shadow flex items-center gap-1">
+            🕐 {sla.deliveryTime} min
+          </span>
+        )}
       </div>
 
+      {/* Info */}
+      <div className="p-4 flex flex-col gap-1">
+        <h2 className="font-extrabold text-base text-gray-800 truncate">
+          {name}
+        </h2>
+        <p className="text-xs text-gray-500 truncate">
+          {cuisines?.slice(0, 3).join(" · ")}
+        </p>
+
+        <div className="flex items-center justify-between mt-2 pt-2 border-t border-gray-100">
+          {/* Rating */}
+          <span className={`font-bold text-sm flex items-center gap-1 ${ratingColor}`}>
+            ★ {avgRating ?? "—"}
+          </span>
+
+          {/* Cost */}
+          <span className="text-xs text-gray-500 font-medium">{costForTwo}</span>
+        </div>
+      </div>
     </motion.div>
   );
 };
 
-// Higher Order Component for Veg/NonVeg badge
+// ── Higher Order Component: Veg / Non-Veg badge ──────────────────
 export const vegNonVeg = (WrappedCard) => {
-  return (props) => {
+  const WithBadge = (props) => {
     const { resData } = props;
     const isVeg = resData?.info?.veg === true;
 
     return (
       <div className="relative">
-        <motion.div
-          className={`absolute top-2 left-2 z-10 px-3 py-1 rounded-xl text-white text-sm shadow-md ${
-            isVeg ? "bg-green-600" : "bg-red-600"
-          }`}
-          initial={false}
-          animate={{ scale: 1 }}
-          // transition={{ duration: 0.3 }}
+        {/* Badge */}
+        <div
+          className={`absolute top-2 left-2 z-10 px-2.5 py-0.5 rounded-full text-white text-xs font-bold shadow-md ${isVeg ? "bg-green-500" : "bg-red-500"
+            }`}
         >
-          {isVeg ? "Veg" : "Non Veg"}
-        </motion.div>
+          {isVeg ? "🌿 Veg" : "🍖 Non-Veg"}
+        </div>
         <WrappedCard {...props} />
       </div>
     );
   };
+  WithBadge.displayName = `vegNonVeg(${WrappedCard.displayName || WrappedCard.name || "Component"})`;
+  return WithBadge;
 };
 
-// Export wrapped version by default (so every card shows badge automatically)
+// Default export: already wrapped with badge HOC
 export default vegNonVeg(RestaurantCard);

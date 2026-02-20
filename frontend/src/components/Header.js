@@ -17,6 +17,7 @@ const Header = () => {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
   const cartItems = useSelector((store) => store.mycart.items);
+  const storeCartItems = useSelector((store) => store.storeCart.items);
   // const { loggedInUser } = useContext(UserContext);
   const navigate = useNavigate();
 
@@ -54,7 +55,7 @@ const Header = () => {
     exit: { x: "100%" },
   };
 
-  if(!user){
+  if (!user) {
     return <></>
   }
 
@@ -75,7 +76,7 @@ const Header = () => {
                 src={LOGO_URL}
                 alt="Logo"
                 className="w-14 h-14 rounded-full object-cover shadow-md border-2 border-blue-400"
-               
+
                 transition={{ type: "spring", stiffness: 200 }}
               />
               <span className="text-2xl font-extrabold text-blue-600 drop-shadow-md">
@@ -117,13 +118,23 @@ const Header = () => {
                 </span>
               </Link>
 
+              {/* Store Cart icon */}
+              <Link to="/store/cart" className="relative">
+                <span className="text-2xl">🛍️</span>
+                {storeCartItems.length > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">
+                    {storeCartItems.length}
+                  </span>
+                )}
+              </Link>
+
               <span className="text-lg font-medium text-gray-800">
                 {user?.displayName || loggedInUser}
               </span>
               <button
                 className="px-4 py-2 rounded-full bg-red-500 hover:bg-red-600 text-white font-semibold shadow-md"
-      
-               
+
+
                 onClick={handleSignout}
               >
                 Logout
@@ -133,7 +144,7 @@ const Header = () => {
             {/* Mobile Burger Icon */}
             <button
               className="md:hidden block text-gray-800 focus:outline-none"
-               aria-label="Open menu"
+              aria-label="Open menu"
               onClick={() => setMenuOpen(true)}
             >
               <svg
@@ -191,11 +202,18 @@ const Header = () => {
                   onClick={() => setMenuOpen(false)}
                   className="flex items-center gap-2 hover:text-blue-500 transition"
                 >
-                  🛒 Cart ({cartItems.length})
+                  🛒 Food Cart ({cartItems.length})
                 </Link>
-               
-                  {/* {onlineStatus ? "✅ Online" : "🔴 Offline"} */}
-               
+                <Link
+                  to="/store/cart"
+                  onClick={() => setMenuOpen(false)}
+                  className="flex items-center gap-2 hover:text-orange-500 transition"
+                >
+                  🛍️ Store Cart ({storeCartItems.length})
+                </Link>
+
+                {/* {onlineStatus ? "✅ Online" : "🔴 Offline"} */}
+
                 <span className="text-lg font-medium">{user?.displayName || loggedInUser}</span>
                 <button
                   onClick={() => {
