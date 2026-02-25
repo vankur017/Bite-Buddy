@@ -1,43 +1,31 @@
-// ✅ Core imports
 import React, { lazy, Suspense, useState, useEffect } from "react";
 import ReactDOM from "react-dom/client";
-
-
-// ✅ Redux & Context
 import { Provider } from "react-redux";
-import appStore from "./utils/appStore.js";
-import UserContext from "./utils/UserContext.js";
-
-// ✅ Router
+import appStore from "app/store/index.js";
+import UserContext from "app/context/UserContext.js";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Header from "app/components/common/Header.js";
+import Footer from "app/components/common/Footer.js";
+import Error from "app/components/common/Error.js";
+import Shimmer from "app/components/common/Shimmer.js";
+import Cart from "app/features/cart/Cart.js";
+import Payment from "app/features/cart/Payment.js";
+import PaymentSuccess from "app/features/cart/PaymentSuccess.js";
+import Store from "app/features/store/Store.js";
+import StoreCart from "app/features/store/StoreCart.js";
+import StorePayment from "app/features/store/StorePayment.js";
+import StorePaymentSuccess from "app/features/store/StorePaymentSuccess.js";
 
-// ✅ Common components
-import Header from "./src/components/Header.js";
-import Footer from "./src/components/Footer.js";
-import Error from "./src/components/Error.js";
-import Shimmer from "./src/components/Shimmer.js";
-import Cart from "./src/components/Cart.js";
-import Payment from "./src/components/Payment.js";
-import PaymentSuccess from "./src/components/PaymentSuccess.js";
-import Store from "./src/components/Store.js";
-import StoreCart from "./src/components/StoreCart.js";
-import StorePayment from "./src/components/StorePayment.js";
-import StorePaymentSuccess from "./src/components/StorePaymentSuccess.js";
+const Body = lazy(() => import("app/features/restaurants/Body.js"));
+const About = lazy(() => import("app/features/pages/About.js"));
+const RestaurantMenu = lazy(() => import("app/features/restaurants/RestaurantMenu.js"));
+const Contact = lazy(() => import("app/features/pages/ContactUs.js"));
+const StoreProduct = lazy(() => import("app/features/store/Storeproduct.js"));
 
-
-// ✅ Lazy-loaded components
-const Body = lazy(() => import("./src/components/Body.js"));
-const About = lazy(() => import("./src/components/About.js"));
-const RestaurantMenu = lazy(() => import("./src/components/RestautrantMenu.js"));
-const Contact = lazy(() => import("./src/components/ContactUs.js"));
-const StoreProduct = lazy(() => import("./src/components/Storeproduct.js"));
-
-// ✅ App Layout
 const AppLayout = () => {
   const [userName, setUserName] = useState("");
 
   useEffect(() => {
-    // Mock API call
     const data = { name: "Ankur Verma" };
     setUserName(data.name);
   }, []);
@@ -70,15 +58,12 @@ const AppLayout = () => {
               </Routes>
             </Suspense>
           </main>
-
-          {/* {location.pathname !== "/" && <Footer />} */}
         </div>
       </UserContext.Provider>
     </Provider>
   );
 };
 
-// ✅ Render
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
