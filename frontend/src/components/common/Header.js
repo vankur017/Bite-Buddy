@@ -44,22 +44,22 @@ const Header = () => {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-dark-950/80 backdrop-blur-xl border-b border-gray-100 dark:border-dark-800 transition-all duration-300">
-      <div className="max-w-screen-xl mx-auto px-6 h-20 flex items-center justify-between">
+      <div className="max-w-screen-xl mx-2 px-6 h-20 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2 group">
           <div className="w-10 h-10 bg-gradient-to-tr from-orange-500 to-red-600 rounded-xl flex items-center justify-center shadow-lg shadow-orange-500/20 group-hover:scale-110 transition-transform">
-            <ShoppingBag className="text-white" size={24} />
+            <ShoppingBag className="text-white" size={20} />
           </div>
           <span className="text-2xl font-black tracking-tight text-gray-900 dark:text-white uppercase">
             Bite<span className="text-orange-500">Buddy</span>
           </span>
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-8">
+        <nav className="hidden lg:flex items-center gap-5">
           {navLinks.map((link) => (
             <Link
               key={link.name}
               to={link.path}
-              className="flex items-center gap-2 text-sm font-black text-gray-500 dark:text-gray-400 hover:text-orange-500 dark:hover:text-orange-500 transition-colors uppercase tracking-widest"
+              className="flex mx-1.5 items-center gap-1 text-sm font-black text-gray-500 dark:text-gray-400 hover:text-orange-500 dark:hover:text-orange-500 transition-colors uppercase tracking-widest"
             >
               {link.icon}
               {link.name}
@@ -96,7 +96,7 @@ const Header = () => {
           </button>
 
           <Link to="/store/cart" className="relative p-3 rounded-2xl bg-gray-50 dark:bg-dark-900 text-gray-500 dark:text-gray-400 hover:bg-orange-50 dark:hover:bg-orange-950/20 hover:text-orange-500 transition-all">
-            <ShoppingBag size={20} />
+            <ShoppingBag size={16} />
             {storeCartItems.length > 0 && (
               <span className="absolute -top-1 -right-1 w-5 h-5 bg-orange-600 text-white text-[10px] font-black rounded-full flex items-center justify-center border-2 border-white dark:border-dark-950">
                 {storeCartItems.length}
@@ -105,7 +105,7 @@ const Header = () => {
           </Link>
 
           <Link to="/cart" className="relative p-3 rounded-2xl bg-orange-500 text-white hover:bg-orange-600 transition-all shadow-lg shadow-orange-500/20">
-            <ShoppingCart size={20} />
+            <ShoppingCart size={16} />
             {cartItems.length > 0 && (
               <span className="absolute -top-1 -right-1 w-5 h-5 bg-white text-orange-600 text-[10px] font-black rounded-full flex items-center justify-center border-2 border-orange-500">
                 {cartItems.length}

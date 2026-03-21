@@ -116,7 +116,7 @@ const Payment = () => {
                             <Mail size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
                             <input
                                 type="email"
-                                className="w-full pl-12 pr-4 py-4 bg-white dark:bg-dark-900 rounded-2xl border border-gray-100 dark:border-dark-800 focus:ring-2 focus:ring-orange-500 transition-all font-bold"
+                                className="w-full pl-12 pr-4 py-4 bg-gray-300 dark:bg-dark-900 rounded-2xl border border-gray-100 dark:border-dark-800 focus:ring-2 focus:ring-orange-500 transition-all font-bold"
                                 placeholder="you@example.com"
                                 value={email}
                                 onChange={(event) => setEmail(event.target.value)}
@@ -127,7 +127,7 @@ const Payment = () => {
                     <div>
                         <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2 block px-1">Payment Method</label>
                         <select
-                            className="w-full px-4 py-4 bg-white dark:bg-dark-900 rounded-2xl border border-gray-100 dark:border-dark-800 focus:ring-2 focus:ring-orange-500 transition-all font-bold"
+                            className="w-full px-4 py-4 bg-gray-400 dark:bg-dark-900 rounded-2xl border border-gray-100 dark:border-dark-800 focus:ring-2 focus:ring-orange-500 transition-all font-bold"
                             value={method}
                             onChange={(event) => setMethod(event.target.value)}
                         >

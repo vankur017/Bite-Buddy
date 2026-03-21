@@ -59,7 +59,7 @@ const LoginPage = () => {
                                 type="text"
                                 value={name}
                                 onChange={(event) => setName(event.target.value)}
-                                className="w-full pl-12 pr-4 py-4 bg-white dark:bg-dark-900 rounded-2xl border border-gray-100 dark:border-dark-800 focus:ring-2 focus:ring-orange-500 transition-all font-bold"
+                                className="w-full pl-12 pr-4 py-4 text-black bg-white dark:bg-dark-900 rounded-2xl border border-gray-100 dark:border-dark-800 focus:ring-2 focus:ring-orange-500 transition-all font-bold"
                                 placeholder="Ankur Verma"
                             />
                         </div>
@@ -73,7 +73,7 @@ const LoginPage = () => {
                                 type="email"
                                 value={email}
                                 onChange={(event) => setEmail(event.target.value)}
-                                className="w-full pl-12 pr-4 py-4 bg-white dark:bg-dark-900 rounded-2xl border border-gray-100 dark:border-dark-800 focus:ring-2 focus:ring-orange-500 transition-all font-bold"
+                                className="w-full pl-12 pr-4 py-4 text-black bg-white dark:bg-dark-900 rounded-2xl border border-gray-100 dark:border-dark-800 focus:ring-2 focus:ring-orange-500 transition-all font-bold"
                                 placeholder="you@example.com"
                             />
                         </div>
