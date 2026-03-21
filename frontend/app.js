@@ -8,6 +8,7 @@ import Header from "app/components/common/Header.js";
 import Footer from "app/components/common/Footer.js";
 import Error from "app/components/common/Error.js";
 import Shimmer from "app/components/common/Shimmer.js";
+import LoginPage from "app/features/auth/LoginPage.js";
 import Cart from "app/features/cart/Cart.js";
 import Payment from "app/features/cart/Payment.js";
 import PaymentSuccess from "app/features/cart/PaymentSuccess.js";
@@ -15,32 +16,63 @@ import Store from "app/features/store/Store.js";
 import StoreCart from "app/features/store/StoreCart.js";
 import StorePayment from "app/features/store/StorePayment.js";
 import StorePaymentSuccess from "app/features/store/StorePaymentSuccess.js";
+import { clearPersistedUser, loadPersistedUser, savePersistedUser } from "app/services/session.js";
 
 const Body = lazy(() => import("app/features/restaurants/Body.js"));
 const About = lazy(() => import("app/features/pages/About.js"));
 const RestaurantMenu = lazy(() => import("app/features/restaurants/RestaurantMenu.js"));
 const Contact = lazy(() => import("app/features/pages/ContactUs.js"));
+const Favorites = lazy(() => import("app/features/pages/Favorites.js"));
+const OrderHistory = lazy(() => import("app/features/pages/OrderHistory.js"));
 const StoreProduct = lazy(() => import("app/features/store/Storeproduct.js"));
 
 const AppLayout = () => {
-  const [userName, setUserName] = useState("");
+  const [currentUser, setCurrentUser] = useState(() => loadPersistedUser());
 
   useEffect(() => {
-    const data = { name: "Ankur Verma" };
-    setUserName(data.name);
+    const storedUser = loadPersistedUser();
+    if (storedUser) {
+      setCurrentUser(storedUser);
+    }
   }, []);
+
+  const login = (user) => {
+    const nextUser = {
+      name: user.name.trim(),
+      email: user.email.trim().toLowerCase(),
+    };
+
+    setCurrentUser(nextUser);
+    savePersistedUser(nextUser);
+  };
+
+  const logout = () => {
+    setCurrentUser(null);
+    clearPersistedUser();
+  };
+
+  const userContextValue = {
+    currentUser,
+    loggedInUser: currentUser?.name || "Guest",
+    isAuthenticated: Boolean(currentUser?.email),
+    login,
+    logout,
+  };
 
   return (
     <Provider store={appStore}>
-      <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
+      <UserContext.Provider value={userContextValue}>
         <div className="min-h-screen flex flex-col bg-gradient-to-b from-gray-900 via-gray-950 to-black text-white backdrop-blur-lg">
           <Header />
           <main className="flex-1">
             <Suspense fallback={<Shimmer />}>
               <Routes>
                 <Route path="/" element={<Navigate to="/browse" replace />} />
+                <Route path="/login" element={<LoginPage />} />
                 <Route path="/browse" element={<Body />} />
                 <Route path="/about" element={<About />} />
+                <Route path="/favorites" element={<Favorites />} />
+                <Route path="/orders" element={<OrderHistory />} />
                 <Route path="/store/" element={<Store />} />
                 <Route path="/store/cart" element={<StoreCart />} />
                 <Route path="/store/cart/payment" element={<StorePayment />} />
@@ -58,6 +90,7 @@ const AppLayout = () => {
               </Routes>
             </Suspense>
           </main>
+          <Footer />
         </div>
       </UserContext.Provider>
     </Provider>

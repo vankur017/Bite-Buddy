@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import UserContext from "app/context/UserContext.js";
 import {
@@ -12,15 +12,18 @@ import {
   Search,
   User,
   Info,
-  PhoneCall
+  PhoneCall,
+  Heart,
+  ReceiptText,
+  LogOut
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import Button from "app/components/common/Button";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDark, setIsDark] = useState(true);
-  const { loggedInUser } = useContext(UserContext);
-  const navigate = useNavigate();
+  const { loggedInUser, isAuthenticated, logout } = useContext(UserContext);
 
   const cartItems = useSelector((store) => store.mycart.items);
   const storeCartItems = useSelector((store) => store.storeCart.items);
@@ -33,6 +36,8 @@ const Header = () => {
   const navLinks = [
     { name: "Browse", path: "/browse", icon: <Search size={18} /> },
     { name: "Store", path: "/store", icon: <ShoppingBag size={18} /> },
+    { name: "Favorites", path: "/favorites", icon: <Heart size={18} /> },
+    { name: "Orders", path: "/orders", icon: <ReceiptText size={18} /> },
     { name: "About", path: "/about", icon: <Info size={18} /> },
     { name: "Contact", path: "/contact", icon: <PhoneCall size={18} /> },
   ];
@@ -63,6 +68,26 @@ const Header = () => {
         </nav>
 
         <div className="flex items-center gap-4">
+          {isAuthenticated ? (
+            <div className="hidden md:flex items-center gap-3">
+              <div className="px-4 py-2 rounded-2xl bg-gray-50 dark:bg-dark-900 text-gray-700 dark:text-gray-200 font-black text-xs uppercase tracking-widest flex items-center gap-2">
+                <User size={16} className="text-orange-500" />
+                {loggedInUser}
+              </div>
+              <Button variant="ghost" size="sm" onClick={logout}>
+                <LogOut size={16} className="mr-2" />
+                Logout
+              </Button>
+            </div>
+          ) : (
+            <Link to="/login" className="hidden md:inline-flex">
+              <Button variant="secondary" size="sm">
+                <User size={16} className="mr-2" />
+                Login
+              </Button>
+            </Link>
+          )}
+
           <button
             onClick={toggleTheme}
             className="p-3 rounded-2xl bg-gray-50 dark:bg-dark-900 text-gray-500 dark:text-gray-400 hover:bg-orange-50 dark:hover:bg-orange-950/20 hover:text-orange-500 transition-all"
@@ -116,6 +141,27 @@ const Header = () => {
                 {link.name}
               </Link>
             ))}
+            {isAuthenticated ? (
+              <button
+                onClick={() => {
+                  logout();
+                  setIsMenuOpen(false);
+                }}
+                className="flex items-center gap-4 p-4 rounded-2xl bg-gray-50 dark:bg-dark-900 text-gray-900 dark:text-white font-black uppercase tracking-widest text-sm"
+              >
+                <LogOut size={18} />
+                Logout {loggedInUser}
+              </button>
+            ) : (
+              <Link
+                to="/login"
+                onClick={() => setIsMenuOpen(false)}
+                className="flex items-center gap-4 p-4 rounded-2xl bg-gray-50 dark:bg-dark-900 text-gray-900 dark:text-white font-black uppercase tracking-widest text-sm"
+              >
+                <User size={18} />
+                Login
+              </Link>
+            )}
           </motion.div>
         )}
       </AnimatePresence>

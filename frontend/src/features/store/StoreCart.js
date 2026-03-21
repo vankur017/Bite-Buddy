@@ -1,17 +1,28 @@
+import { useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { clearStoreCart, updateStoreItemQty } from "app/features/store/storeCartSlice";
-import { Trash2, ShoppingBag, ArrowRight, Plus, Minus, Package, ShoppingCart } from "lucide-react";
+import { Trash2, ArrowRight, Plus, Minus, Package } from "lucide-react";
 import Button from "app/components/common/Button";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
+import UserContext from "app/context/UserContext.js";
 
 const StoreCart = () => {
     const storeCartItems = useSelector((store) => store.storeCart.items);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { isAuthenticated } = useContext(UserContext);
 
     const handleClearCart = () => dispatch(clearStoreCart());
     const handleUpdateQty = (id, delta) => dispatch(updateStoreItemQty({ id, delta }));
+    const handleCheckout = () => {
+        if (!isAuthenticated) {
+            navigate("/login", { state: { redirectTo: "/store/cart/payment" } });
+            return;
+        }
+
+        navigate("/store/cart/payment");
+    };
 
     const totalAmount = storeCartItems.reduce((sum, item) => {
         const discountedPrice = item.price * (1 - item.discountPercentage / 100);
@@ -105,7 +116,7 @@ const StoreCart = () => {
                                         <span className="text-3xl font-black text-orange-500">${totalAmount.toFixed(2)}</span>
                                     </div>
                                 </div>
-                                <Button className="w-full py-5 rounded-2xl shadow-xl shadow-orange-500/20" onClick={() => navigate("/store/cart/payment")}>
+                                <Button className="w-full py-5 rounded-2xl shadow-xl shadow-orange-500/20" onClick={handleCheckout}>
                                     Checkout Now
                                 </Button>
                             </div>

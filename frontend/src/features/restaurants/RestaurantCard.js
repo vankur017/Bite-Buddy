@@ -1,6 +1,7 @@
 import { CDN_URL } from "app/services/constants";
-import { Star, Clock, MapPin } from "lucide-react";
+import { Star, Clock, MapPin, Heart } from "lucide-react";
 import { motion } from "framer-motion";
+import useFavorites from "app/hooks/useFavorites.js";
 
 const RestaurantCard = (props) => {
   const { resData } = props;
@@ -12,6 +13,13 @@ const RestaurantCard = (props) => {
     sla,
     areaName,
   } = resData?.info || resData;
+  const { isFavorite, toggleFavorite } = useFavorites({
+    id: String((resData?.info || resData)?.id),
+    type: "restaurant",
+    name,
+    subtitle: cuisines?.join(", "),
+    path: `/restaurant/${(resData?.info || resData)?.id}`,
+  });
 
   return (
     <motion.div
@@ -24,6 +32,14 @@ const RestaurantCard = (props) => {
           alt="res-logo"
           src={CDN_URL + cloudinaryImageId}
         />
+        <button
+          type="button"
+          onClick={toggleFavorite}
+          className="absolute top-4 left-4 bg-white/90 dark:bg-dark-950/90 backdrop-blur-md p-2.5 rounded-2xl shadow-xl border border-white/20 text-gray-500 hover:text-red-500 transition-colors"
+          aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
+        >
+          <Heart size={16} className={isFavorite ? "fill-red-500 text-red-500" : ""} />
+        </button>
         <div className="absolute top-4 right-4 bg-white/90 dark:bg-dark-950/90 backdrop-blur-md px-3 py-1.5 rounded-2xl shadow-xl flex items-center gap-1.5 border border-white/20">
           <Star size={14} className="text-orange-500 fill-orange-500" />
           <span className="text-xs font-black text-gray-900 dark:text-white">{avgRating}</span>

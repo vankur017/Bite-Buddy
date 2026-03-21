@@ -39,11 +39,11 @@ http://localhost:1234
 ## 📌 Additional Notes:
 
 - Ensure backend and frontend are running in **parallel**.
-- Keep your `menus/*.json` files inside `frontend/public/menus/`.
-- Do **not** prefix fetch calls with `/public`.
+- Keep menu fixture files in `functions/mock-menus/` so the Firebase function can serve them consistently.
+- The frontend should call the hosted API routes instead of reading `public/menus` directly.
 
 Example fetch from React:
 
 ```js
-fetch(`/menus/8614.json`)
+fetch(`${API_URL}/api/menu?restaurantId=8614`)
 ```

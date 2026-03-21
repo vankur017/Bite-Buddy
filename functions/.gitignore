@@ -2,3 +2,5 @@
 /.parcel-cache
 /.cache
 /dist
+.env
+serviceAccountKey.json

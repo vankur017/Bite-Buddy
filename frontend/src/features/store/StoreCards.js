@@ -2,11 +2,12 @@ import React, { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { motion, AnimatePresence } from "framer-motion";
-import { Star, ShoppingCart, Plus, Minus, Info, Search, SlidersHorizontal } from "lucide-react";
+import { Star, ShoppingCart, Info, Heart } from "lucide-react";
 import Button from "app/components/common/Button";
 import Skeleton from "app/components/common/Skeleton";
 import { addStoreItem } from "app/features/store/storeCartSlice";
 import withInStock from "app/hooks/withInStock";
+import useFavorites from "app/hooks/useFavorites.js";
 import Notfound from "app/services/photo.png";
 
 const PAGE_SIZE = 12;
@@ -14,6 +15,13 @@ const PAGE_SIZE = 12;
 const StoreCard = ({ product, isOutOfStock }) => {
   const dispatch = useDispatch();
   const storeCartItems = useSelector((store) => store.storeCart.items);
+  const { isFavorite, toggleFavorite } = useFavorites({
+    id: String(product.id),
+    type: "store",
+    name: product.title,
+    subtitle: product.brand || product.category,
+    path: `/store/${product.id}`,
+  });
 
   const cartItem = storeCartItems.find((i) => i.id === product.id);
   const qtyInCart = cartItem?.quantity || 0;
@@ -47,6 +55,14 @@ const StoreCard = ({ product, isOutOfStock }) => {
             e.target.src = Notfound;
           }}
         />
+        <button
+          type="button"
+          onClick={toggleFavorite}
+          className="absolute top-4 right-4 bg-white/90 dark:bg-dark-950/90 backdrop-blur-md p-2.5 rounded-2xl shadow-xl border border-white/20 text-gray-500 hover:text-red-500 transition-colors"
+          aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
+        >
+          <Heart size={16} className={isFavorite ? "fill-red-500 text-red-500" : ""} />
+        </button>
         {product.discountPercentage > 0 && (
           <div className="absolute top-4 left-4 bg-orange-500 text-white text-[10px] font-black px-3 py-1 rounded-full shadow-lg shadow-orange-500/20 uppercase tracking-widest">
             {Math.round(product.discountPercentage)}% OFF

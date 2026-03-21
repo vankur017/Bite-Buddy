@@ -2,6 +2,7 @@
 const functions = require("firebase-functions");
 const cors = require("cors");
 const express = require("express");
+require("dotenv").config();
 const { v4: uuidv4 } = require("uuid");
 const nodemailer = require("nodemailer");
 const admin = require("firebase-admin");
@@ -31,8 +32,8 @@ app.use(
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: process.env.EMAIL_USER || "your_email@gmail.com",
-    pass: process.env.EMAIL_PASS || "your_app_password",
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
   },
 });
 
@@ -92,10 +93,18 @@ app.get("/api/menu", (req, res) => {
 });
 
 // ✅ API: Payment
-app.post("/payment", async (req, res) => {
+app.post("/api/payment", async (req, res) => {
   const { method, productList, email } = req.body;
 
   try {
+    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+      return res.status(500).json({ error: "Order email service is not configured." });
+    }
+
+    if (!email || !email.includes("@")) {
+      return res.status(400).json({ error: "A valid email address is required." });
+    }
+
     if (!Array.isArray(productList) || productList.length === 0) {
       return res.status(400).json({ error: "Product list cannot be empty." });
     }
@@ -149,5 +158,11 @@ app.post("/payment", async (req, res) => {
 
 // ✅ Export Express app as Firebase Function
 exports.api = functions.https.onRequest(app);
+
+// Local dev mode: run standalone when invoked directly with node
+if (process.env.LOCAL_DEV === "true") {
+  const PORT = process.env.PORT || 5001;
+  app.listen(PORT, () => console.log(`🚀 Local API running on http://localhost:${PORT}`));
+}
 
 

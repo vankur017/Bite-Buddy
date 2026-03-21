@@ -2,18 +2,18 @@ import ItemList from "app/components/common/ItemList";
 import { useDispatch, useSelector } from "react-redux";
 import { clearAllItem } from "app/features/cart/cartSlice";
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { auth } from "app/services/firebase.js";
-import { Trash2, ShoppingBag, ArrowRight, Loader2 } from "lucide-react";
+import { useState, useEffect, useContext } from "react";
+import { Trash2, ShoppingBag, ArrowRight } from "lucide-react";
 import Button from "app/components/common/Button";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
+import UserContext from "app/context/UserContext.js";
 
 const Cart = () => {
     const cartItems = useSelector((store) => store.mycart.items);
     const [productList, setProductList] = useState([]);
-    const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { isAuthenticated } = useContext(UserContext);
 
     useEffect(() => {
         if (cartItems && cartItems.length > 0) {
@@ -37,6 +37,14 @@ const Cart = () => {
 
     const handleClearCart = () => dispatch(clearAllItem());
     const handleClick = () => navigate("/browse");
+    const handleCheckout = () => {
+        if (!isAuthenticated) {
+            navigate("/login", { state: { redirectTo: "/cart/payment" } });
+            return;
+        }
+
+        navigate("/cart/payment");
+    };
 
     const totalAmount = productList.reduce((sum, item) => sum + item.price, 0);
 
@@ -103,7 +111,7 @@ const Cart = () => {
                                     </div>
                                 </div>
 
-                                <Button className="w-full py-5 rounded-2xl shadow-xl">
+                                <Button className="w-full py-5 rounded-2xl shadow-xl" onClick={handleCheckout}>
                                     Proceed to Checkout
                                 </Button>
                             </div>
